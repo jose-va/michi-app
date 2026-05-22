@@ -7,5 +7,6 @@ export interface Reservation {
   phone: string;
   email: string | null;
   observations: string | null;
+  googleId: string | null;
 }
 

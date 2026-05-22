@@ -13,11 +13,12 @@ export const formSchema = z.object({
     .nullable()
     .or(z.literal("")),
   observations: z.string().nullable().or(z.literal("")),
+  googleId: z.string().nullable().or(z.literal("")),
 });
 
 export type ReservationFormValues = z.infer<typeof formSchema>;
 
-export interface ReservationFormProps {
+export type ReservationFormProps= {
   form: UseFormReturn<ReservationFormValues>;
 }
 

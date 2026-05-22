@@ -15,11 +15,12 @@ import { Textarea } from "@/shadcn/components/textarea";
 import { Separator } from "@/shadcn/components/separator";
 import { UseFormReturn } from "react-hook-form";
 import AvailabilityTab from "../../ui/reservation/AvailabilityTab";
+import { Hours } from "@/common/types/hour.types";
 
-export default function AvailabilityForm({ form }: { form: UseFormReturn<ReservationFormValues> }) {
+export default function AvailabilityForm({ form, hours }: { form: UseFormReturn<ReservationFormValues>, hours: Hours }) {
   return (
     <div className="flex flex-col gap-3">
-      <AvailabilityTab form={form} />
+      <AvailabilityTab form={form} hours= {hours}/>
       <Separator />
       <FormField
         control={form.control}
@@ -67,7 +68,7 @@ export default function AvailabilityForm({ form }: { form: UseFormReturn<Reserva
               <Input {...field} value={field.value ?? ""} autoComplete="email" />
             </FormControl>
             <FormDescription>
-              Le enviaremos un recordatorio por correo electrónico
+              Enviaremos un recordatorio a este correo electrónico
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -86,11 +87,13 @@ export default function AvailabilityForm({ form }: { form: UseFormReturn<Reserva
               <Textarea
                 {...field}
                 value={field.value ?? ""}
-                placeholder="Puede incluir información adicional."
                 className="min-h-30"
               />
             </FormControl>
             <FormMessage />
+            <FormDescription>
+              Puede incluir información adicional a su reserva
+            </FormDescription>
           </FormItem>
         )}
       />

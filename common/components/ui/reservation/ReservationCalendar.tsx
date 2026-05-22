@@ -7,7 +7,7 @@ export default function ReservationCalendar({
   onChange,
 }: {
   selectedValue: Date;
-  onChange: (d: Date) => void;
+  onChange: (date: Date) => void;
 }) {
   const today = new Date();
 
@@ -27,8 +27,8 @@ export default function ReservationCalendar({
       <Badge
         className={
           isToday
-            ? "bg-green-500 text-black capitalize"
-            : "bg-blue-500 text-black capitalize"
+            ? "bg-green-500 text-black capitalize animate-fade-in-up duration-500"
+            : "bg-blue-500 text-black capitalize animate-fade-in-up duration-500"
         }
       >
         {selectedValue.toLocaleDateString("es-ES", {
