@@ -11,14 +11,15 @@ export default async function ProductPage({
 }: {
   category?: string;
   name?: string;
-  allergens?: string[],
+  allergens?: string | string[],
   page?: number,
   size?: number
 }) {
-  const hasFilters = category || name || allergens?.length;
+  const allergensList = allergens ? (Array.isArray(allergens) ? allergens : [allergens]) : undefined;
+  const hasFilters = category || name || allergensList?.length;
 
   if (hasFilters) {
-    const products = await ProductService.searchProducts({ name, category, allergens });
+    const products = await ProductService.searchProducts({ name, category, allergens: allergensList });
     if (!products.length) return <ProductEmpty />;
 
     return (

@@ -26,6 +26,10 @@ import { getCategoryTitle } from "@/common/mappers/category.mapper";
 import { Pencil } from "lucide-react";
 import { ProductDelete } from "./ProductDelete";
 import { useRouter } from "next/navigation";
+import { useUser } from "../../provider/UserProvider";
+import ProductDeactivate from "./ProductDeactivate";
+import ProductActivate from "./ProductActivate";
+import { cn } from "@/lib/utils";
 
 export default function ProductCard({
   product,
@@ -35,9 +39,21 @@ export default function ProductCard({
   index: number;
 }) {
   const router = useRouter();
+  const user = useUser();
   return (
-    <div className="opacity-0 animate-fade-in-up" style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'forwards' }}>
-      <Card className="black-glassmorphism mt-6 rounded-lg border duration-500 hover:-translate-y-2 hover:shadow-4xl h-full">
+    <div
+      className="animate-fade-in-up opacity-0"
+      style={{
+        animationDelay: `${index * 100}ms`,
+        animationFillMode: "forwards",
+      }}
+    >
+      <Card
+        className={cn(
+          "black-glassmorphism hover:shadow-4xl mt-6 h-full rounded-lg border duration-500 hover:-translate-y-2",
+          !product.status && "opacity-60 grayscale"
+        )}
+      >
         <CardHeader>
           <div className="flex flex-wrap items-center gap-2">
             <CardTitle>{product.name}</CardTitle>
@@ -51,12 +67,25 @@ export default function ProductCard({
               {getCategoryTitle(product.category)}
             </Badge>
           </CardDescription>
-          <CardAction className="flex gap-2">
-            <Pencil
-              className="size-4 opacity-50 hover:cursor-pointer hover:opacity-100"
-              onClick={() => router.push(`/product/update?id=${product.id}`)}
-            />
-            <ProductDelete id={product.id ?? ""} />
+          <CardAction className="flex items-center justify-center gap-4 md:gap-2">
+            {user
+              ? user.role === "ROLE_ADMIN" && (
+                  <>
+                    <Pencil
+                      className="size-6 opacity-50 hover:cursor-pointer hover:opacity-100 md:size-5"
+                      onClick={() =>
+                        router.push(`/product/update?id=${product.id}`)
+                      }
+                    />
+                    <ProductDelete id={product.id ?? ""} />
+                    {product.status ? (
+                      <ProductDeactivate id={product.id ?? ""} />
+                    ) : (
+                      <ProductActivate id={product.id ?? ""} />
+                    )}
+                  </>
+                )
+              : ""}
           </CardAction>
         </CardHeader>
         <CardContent className="flex-1 font-extralight">

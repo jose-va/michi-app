@@ -27,11 +27,11 @@ export function ProductDelete({ id }: { id: string }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Trash2 className="size-4 opacity-50 hover:cursor-pointer hover:text-red-500" />
+        <Trash2 className="size-6 md:size-5 opacity-50 hover:cursor-pointer hover:text-red-500" />
       </AlertDialogTrigger>
       <AlertDialogContent size="sm">
         <AlertDialogHeader>
-          <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
+          <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 ">
             <Trash2 />
           </AlertDialogMedia>
           <AlertDialogTitle>¿Eliminar producto?</AlertDialogTitle>
