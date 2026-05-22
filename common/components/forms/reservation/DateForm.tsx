@@ -45,8 +45,8 @@ export default function DateForm({
         render={({ field }) => (
           <FormItem>
             <FormLabel>¿Cuántos comensales?</FormLabel>
-            <FormDescription>
-              Seleccione el número de comensales que van a asistir
+            <FormDescription className="max-w-80 font-light">
+              Seleccione el número de personas que van a asistir a la reserva
             </FormDescription>
             <FormControl>
               <GuestCount field={field} />

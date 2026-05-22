@@ -14,14 +14,25 @@ import {
 import { Form } from "@/shadcn/components/form";
 import { ArrowLeftIcon } from "lucide-react";
 import { Button } from "@/shadcn/components/button";
-import { formSchema, ReservationFormValues } from "@/common/types/reservation-form.types";
+import {
+  formSchema,
+  ReservationFormValues,
+} from "@/common/types/reservation-form.types";
 import DateForm from "@/common/components/forms/reservation/DateForm";
 import AvailabilityForm from "@/common/components/forms/reservation/AvailabilityForm";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import {
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import { createReservation } from "@/lib/server-actions";
 import { format } from "date-fns";
+import { useUser } from "../provider/UserProvider";
+import { Hours } from "@/common/types/hour.types";
+import { toast } from "sonner";
 
-export function ReservationPage() {
+export function ReservationPage({ hours }: { hours: Hours }) {
+  const user = useUser();
   const pathname = usePathname();
   const router = useRouter();
 
@@ -35,18 +46,31 @@ export function ReservationPage() {
       guests: "",
       location: "INSIDE",
       startTime: "",
-      name: "",
       phone: "",
-      email: null,
-      observations: null,
+      observations: "",
+      name: user?.name ?? "",
+      email: user?.email ?? "",
+      googleId: user?.googleId ?? "",
     },
   });
 
   const onSubmit = async (data: ReservationFormValues) => {
+    let success = false;
     try {
-      await createReservation(data);
+      const result = await createReservation(data);
+
+      if (result) {
+        toast.success("¡Se ha creado su reserva!");
+        success = true;
+      } else {
+        toast.error(
+          "No se ha podido crear su reserva, contáctenos por WhatsApp"
+        );
+      }
     } catch (error) {
-      console.error("Error al crear reserva: ", error);
+      console.error("Error al crear la reserva: ", error);
+    } finally {
+      router.push("/");
     }
   };
 
@@ -55,16 +79,16 @@ export function ReservationPage() {
     if (!valid) return;
 
     const params = new URLSearchParams(searchParams);
-    params.set("step", "2");
     params.set("date", format(form.getValues("date"), "yyyy-MM-dd"));
     params.set("guests", form.getValues("guests"));
+    params.set("step", "2");
 
     router.replace(`${pathname}?${params.toString()}`);
   };
 
   return (
     <div className="mr-8 flex items-center justify-center p-4">
-      <Card className="w-md black-glassmorphism">
+      <Card className="black-glassmorphism w-md">
         <CardHeader>
           <CardTitle className="flex w-full justify-between">
             {step == "1" ? "Reservar una mesa" : "Ver disponibilidad"}
@@ -88,7 +112,7 @@ export function ReservationPage() {
               {step == "1" ? (
                 <DateForm form={form} />
               ) : (
-                <AvailabilityForm form={form} />
+                <AvailabilityForm form={form} hours={hours} />
               )}
             </form>
           </Form>
@@ -110,7 +134,7 @@ export function ReservationPage() {
                 form="form-reservation"
                 className="transition-all duration-300 hover:scale-105 hover:brightness-125"
               >
-                Confirmar reserva
+                Confirmar
               </Button>
             </div>
           )}
