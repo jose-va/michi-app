@@ -1,7 +1,6 @@
 "use server";
 
 import { ReservationService } from "@/service/ReservationService";
-import { Hours } from "@/common/types/hour.types";
 import { Reservation } from "@/common/types/reservation.types";
 import { ReservationFormValues } from "@/common/types/reservation-form.types";
 import { format } from "date-fns";
@@ -9,23 +8,7 @@ import { ProductFormValues } from "@/common/types/product-form.types";
 import { Product } from "@/common/types/product.types";
 import { ProductService } from "@/service/ProductService";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-
-export async function getAvailableHours(
-  date: string,
-  guests: string
-): Promise<Hours | null> {
-  try {
-    const hours: Hours = await ReservationService.getAvailableHours(
-      date,
-      guests
-    );
-    return hours;
-  } catch (error) {
-    console.error("No se han podido obtener las horas disponibles: " + error);
-    return null;
-  }
-}
+import { cookies } from "next/headers";
 
 export async function createReservation(
   data: ReservationFormValues
@@ -36,11 +19,11 @@ export async function createReservation(
       date: format(data.date, "yyyy-MM-dd"),
       guests: parseInt(data.guests),
     };
+ 
     const reservation = await ReservationService.createReservation(payload);
     revalidatePath("/reservation");
     return reservation;
   } catch (error) {
-    console.error("No se ha podido crear la reserva: " + error);
     return null;
   }
 }
@@ -88,6 +71,39 @@ export async function deleteProduct(id: string): Promise<boolean> {
   }
 }
 
+export async function deactivateProduct(id: string): Promise<boolean> {
+  try {
+    await ProductService.deactivate(id);
+    revalidatePath("/product");
+    return true;
+  } catch (error) {
+    console.error("No se ha podido desactivarr el producto: " + error);
+    return false;
+  }
+}
+
+export async function activateProducts(): Promise<boolean> {
+  try {
+    await ProductService.activateAll();
+    revalidatePath("/product");
+    return true;
+  } catch (error) {
+    console.error("No se han podido activar los productos: " + error);
+    return false;
+  }
+}
+
+export async function activateProduct(id: string): Promise<boolean> {
+  try {
+    await ProductService.activate(id);
+    revalidatePath("/product");
+    return true;
+  } catch (error) {
+    console.error("No se han podido activar el producto: " + error);
+    return false;
+  }
+}
+
 export async function uberSync(): Promise<boolean> {
   try {
     await ProductService.sync();
@@ -96,5 +112,16 @@ export async function uberSync(): Promise<boolean> {
   } catch (error) {
     console.error("No se ha podido sincronizar con Uber Eats: " + error);
     return false;
+  }
+}
+
+export async function logout(): Promise<void> {
+  try {
+    const cookieStore = await cookies();
+
+    cookieStore.delete("token");
+    revalidatePath("/");
+  } catch (error) {
+    console.error("No se ha podido cerrar la sesión correctamente " + error);
   }
 }
