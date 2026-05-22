@@ -1,15 +1,22 @@
 import { ProductFormValues } from "@/common/types/product-form.types";
 import { Product, Page } from "@/common/types/product.types";
+import { cookies } from "next/headers";
 
 export class ProductService {
-  private static baseUrl = process.env.API_URL;
-  private static header = { "Content-Type": "application/json" };
+  private static baseUrl = process.env.BACKEND_URL;
+  private static async authHeader(): Promise<HeadersInit> {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("token")?.value;
+    return {
+      "Content-Type": "application/json",
+      ...(token && { Cookie: `token=${token}` }),
+    };
+  }
 
   static async getProduct(id: string): Promise<Product | undefined> {
     try {
       const response = await fetch(`${this.baseUrl}/products/${id}`, {
         method: "GET",
-        headers: this.header,
       });
 
       if (!response.ok) throw new Error(`${response.status}`);
@@ -24,7 +31,6 @@ export class ProductService {
     try {
       const response = await fetch(`${this.baseUrl}/products?page=${page}`, {
         method: "GET",
-        headers: this.header,
       });
 
       if (!response.ok) throw new Error(`${response.status}`);
@@ -50,11 +56,9 @@ export class ProductService {
       }
 
       const url = `${this.baseUrl}/products/search?${searchParams.toString()}`;
-      console.log("URL:", url);
 
       const response = await fetch(url, {
         method: "GET",
-        headers: this.header,
       });
 
       if (!response.ok) return [];
@@ -66,13 +70,10 @@ export class ProductService {
   }
 
   static async create(data: ProductFormValues): Promise<Product> {
-    console.log("Datos enviados al servidor:", data);
-
     const response = await fetch(`${this.baseUrl}/products`, {
       method: "POST",
-      headers: this.header,
+      headers: await this.authHeader(),
       body: JSON.stringify(data),
-      credentials: "include",
     });
 
     if (!response.ok) throw new Error("No se ha podido crear el producto");
@@ -82,9 +83,8 @@ export class ProductService {
   static async update(id: string, product: Product): Promise<Product> {
     const response = await fetch(`${this.baseUrl}/products/${id}`, {
       method: "PUT",
-      headers: this.header,
+      headers: await this.authHeader(),
       body: JSON.stringify(product),
-      credentials: "include",
     });
 
     if (!response.ok) throw new Error("No se ha podido actualizar el producto");
@@ -94,8 +94,7 @@ export class ProductService {
   static async delete(id: string): Promise<void> {
     const response = await fetch(`${this.baseUrl}/products/${id}`, {
       method: "DELETE",
-      headers: this.header,
-      credentials: "include",
+      headers: await this.authHeader(),
     });
 
     if (!response.ok) throw new Error("No se ha podido eliminar el producto");
@@ -104,8 +103,7 @@ export class ProductService {
   static async deactivate(id: string): Promise<Product> {
     const response = await fetch(`${this.baseUrl}/products/${id}/deactivate`, {
       method: "PATCH",
-      headers: this.header,
-      credentials: "include",
+      headers: await this.authHeader(),
     });
 
     if (!response.ok) throw new Error("No se ha podido desactivar el producto");
@@ -115,8 +113,7 @@ export class ProductService {
   static async activate(id: string): Promise<Product> {
     const response = await fetch(`${this.baseUrl}/products/${id}/activate`, {
       method: "PATCH",
-      headers: this.header,
-      credentials: "include",
+      headers: await this.authHeader(),
     });
 
     if (!response.ok) throw new Error("No se ha podido activar el producto");
@@ -126,8 +123,7 @@ export class ProductService {
   static async activateAll(): Promise<Product[]> {
     const response = await fetch(`${this.baseUrl}/products`, {
       method: "PATCH",
-      headers: this.header,
-      credentials: "include",
+      headers: await this.authHeader(),
     });
 
     if (!response.ok) throw new Error("No se han podido activar los productos");
@@ -137,11 +133,8 @@ export class ProductService {
   static async sync(): Promise<boolean> {
     const response = await fetch(`${this.baseUrl}/products/uber`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
+      headers: await this.authHeader(),
     });
-    console.log("URL:", `${process.env.API_URL}/products/uber`);
-    console.log("Response:", response);
 
     if (!response.ok)
       throw new Error("No se ha podido sincronizar con Uber Eats");
