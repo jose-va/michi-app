@@ -29,11 +29,11 @@ export const CategorySelect = () => {
   }
   return (
     <Select value={currentCategory} onValueChange={handleCategory}>
-      <SelectTrigger className="filter-input w-full max-w-40">
+      <SelectTrigger className="filter-input w-full max-w-50">
         <SelectValue placeholder="Categorías" />
       </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
+      <SelectContent position="popper" sideOffset={4} className="max-h-80">
+        <SelectGroup >
           <SelectLabel>Categorías</SelectLabel>
           <SelectItem value="all">Todas</SelectItem>
           {categories.map((category) => (
