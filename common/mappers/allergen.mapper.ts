@@ -9,10 +9,8 @@ const allergenInfo = new Map<string, { title: string; icon: string }>([
   ["LUPINS", { title: "Altramuz", icon: "/icons/lupins.svg" }],
   ["PEANUTS", { title: "Cacahuetes", icon: "/icons/peanuts.svg" }],
   ["MILK", { title: "Lácteos", icon: "/icons/milk.svg" }],
-  ["MUSHROOM", { title: "Champiñones", icon: "/icons/mushroom.svg" }],
   ["CELERY", { title: "Apio", icon: "/icons/celery.svg" }],
   ["SULPHUR_DIOXIDE", { title: "Sulfitos", icon: "/icons/sulphur_dioxide.svg" }],
-  ["CORN", { title: "Maíz", icon: "/icons/corn.svg" }],
   ["SOYBEANS", { title: "Soja", icon: "/icons/soybeans.svg" }],
   ["NUTS", { title: "Frutos con cáscara", icon: "/icons/nuts.svg" }],
 ]);
