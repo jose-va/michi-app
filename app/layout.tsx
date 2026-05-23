@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/shadcn/components/sonner";
 import PageMenu from "@/common/components/layout/PageMenu";
 import { UserProvider } from "@/common/components/provider/UserProvider";
 import { UserService } from "@/service/UserService";
-
-const montserrat = Montserrat({ subsets: ["latin"] });
+import { montserrat } from "./fonts/font";
 
 export const metadata: Metadata = {
   title: "Michi Sushi Granada",
