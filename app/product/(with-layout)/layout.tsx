@@ -1,5 +1,5 @@
-import CategoryTab from "@/common/components/ui/category/CategoryTab";
-import { CategorySelect } from "@/common/components/ui/category/CategorySelect";
+import CategoryTab from "@/common/components/layout/product/CategoryTab";
+import { CategorySelect } from "@/common/components/layout/product/CategorySelect";
 import ProductSearch from "@/common/components/layout/product/ProductSearch";
 import UberSync from "@/common/components/layout/product/UberSync";
 import AllergenSelect from "@/common/components/layout/product/AllergenSelect";
@@ -18,7 +18,7 @@ export default async function ProductLayout({
     <>
       {/* <CategoryTab /> */}
 
-      <div className="mt-6 flex w-full flex-wrap items-center gap-4">
+      <div className="flex w-full flex-wrap items-center gap-4">
         <ProductSearch />
         <div className="flex gap-4">
           <AllergenSelect />

@@ -15,7 +15,7 @@ export default async function ProductDashboard({
   const { category, name, allergens, page } = await searchParams;
 
   return (
-    <div>
+    <section>
       <Suspense
         fallback={<ProductSkeleton />}
         key={`${name}-${category}-${allergens}-${page}`}
@@ -27,6 +27,6 @@ export default async function ProductDashboard({
           page={page ? parseInt(page) : 0}
         />
       </Suspense>
-    </div>
+    </section>
   );
 }

@@ -27,7 +27,7 @@ export default function AllergenSelect() {
         <span>Alérgenos</span>
         <ChevronDown className="size-4" />
       </CollapsibleTrigger>
-      <CollapsibleContent className="absolute z-10 rounded-lg border border-white/10 bg-[#161b1d] p-2">
+      <CollapsibleContent className="absolute z-50 rounded-lg border border-white/10 bg-[#161b1d] p-2">
         <ToggleGroup
           type="multiple"
           value={selected}
@@ -40,7 +40,7 @@ export default function AllergenSelect() {
               <ToggleGroupItem
                 key={allergen}
                 value={allergen}
-                className="flex h-16 w-21 flex-col items-center gap-1 data-[state=on]:bg-[#006a63]/20"
+                className="flex h-16 w-21 flex-col items-center gap-1"
               >
                 <Image
                   src={getAllergenIcon(allergen)}
