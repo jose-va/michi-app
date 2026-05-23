@@ -1,4 +1,4 @@
-import ProductFormPage from "@/common/components/forms/product/ProductFormPage";
+import ProductFormPage from "@/common/components/pages/ProductFormPage";
 import { ProductService } from "@/service/ProductService";
 
 export default async function UpdateProductDashboard({
