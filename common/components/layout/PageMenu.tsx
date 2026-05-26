@@ -8,12 +8,6 @@ import { TooltipProvider } from "@/shadcn/components/tooltip";
 import ProfileAuth from "./user/ProfileAuth";
 import NavLinks from "./NavLinks";
 
-const navItems = [
-  { label: "Carta", href: "/product" },
-  { label: "Ubicacion", href: "/location" },
-  { label: "Reservar", href: "/reservation" },
-];
-
 export default function PageMenu({ children }: { children: ReactNode }) {
   return (
     <>
