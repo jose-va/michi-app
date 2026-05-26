@@ -27,7 +27,7 @@ export function ProductDelete({ id }: { id: string }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Trash2 className="size-6 md:size-5 opacity-50 hover:cursor-pointer hover:text-red-500" />
+        <Trash2 className="size-5 opacity-50 hover:cursor-pointer hover:text-red-500" />
       </AlertDialogTrigger>
       <AlertDialogContent size="sm">
         <AlertDialogHeader>

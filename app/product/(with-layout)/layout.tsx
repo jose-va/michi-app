@@ -20,7 +20,7 @@ export default async function ProductLayout({
 
       <div className="flex w-full flex-wrap items-center gap-4">
         <ProductSearch />
-        <div className="flex gap-4">
+        <div className="flex gap-3">
           <AllergenSelect />
           <CategorySelect />
         </div>

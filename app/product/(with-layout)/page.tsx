@@ -1,5 +1,5 @@
-import ProductPage from "@/common/components/pages/ProductPage";
-import ProductSkeleton from "@/common/components/skeletons/ProductSkeleton";
+import ProductPage from "@/common/components/pages/product/ProductPage";
+import SkeletonCards from "@/common/components/skeletons/SkeletonCards";
 import { Suspense } from "react";
 
 export default async function ProductDashboard({
@@ -17,7 +17,7 @@ export default async function ProductDashboard({
   return (
     <section>
       <Suspense
-        fallback={<ProductSkeleton />}
+        fallback={<SkeletonCards />}
         key={`${name}-${category}-${allergens}-${page}`}
       >
         <ProductPage

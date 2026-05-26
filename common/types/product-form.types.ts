@@ -8,7 +8,7 @@ export const productFormSchema = z.object({
   price: z.number().positive("El precio debe ser mayor que 0"),
   category: z.string().min(1, "Por favor, seleccione una categoría"),
   allergens: z.array(z.string()),
-  pieces: z.number().int().positive("Las piezas deben ser mayor que 0"),
+  pieces: z.number().int().min(0),
 });
 
 export type ProductFormValues = z.infer<typeof productFormSchema>;
