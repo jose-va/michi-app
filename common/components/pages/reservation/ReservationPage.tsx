@@ -27,7 +27,7 @@ import {
 } from "next/navigation";
 import { createReservation } from "@/lib/server-actions";
 import { format } from "date-fns";
-import { useUser } from "../provider/UserProvider";
+import { useUser } from "../../provider/UserProvider";
 import { Hours } from "@/common/types/hour.types";
 import { toast } from "sonner";
 
@@ -50,18 +50,16 @@ export function ReservationPage({ hours }: { hours: Hours }) {
       observations: "",
       name: user?.name ?? "",
       email: user?.email ?? "",
-      googleId: user?.googleId ?? "",
+      user: user?.id ?? "",
     },
   });
 
   const onSubmit = async (data: ReservationFormValues) => {
-    let success = false;
     try {
       const result = await createReservation(data);
 
       if (result) {
         toast.success("¡Se ha creado su reserva!");
-        success = true;
       } else {
         toast.error(
           "No se ha podido crear su reserva, contáctenos por WhatsApp"
@@ -87,7 +85,7 @@ export function ReservationPage({ hours }: { hours: Hours }) {
   };
 
   return (
-    <div className="mr-8 flex items-center justify-center p-4">
+    <div className="flex items-center justify-center px-3">
       <Card className="black-glassmorphism w-md">
         <CardHeader>
           <CardTitle className="flex w-full justify-between">
