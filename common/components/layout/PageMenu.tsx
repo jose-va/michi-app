@@ -3,13 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
 } from "@/shadcn/components/navigation-menu";
 import { TooltipProvider } from "@/shadcn/components/tooltip";
 import ProfileAuth from "./user/ProfileAuth";
+import NavLinks from "./NavLinks";
 
 const navItems = [
   { label: "Carta", href: "/product" },
@@ -35,23 +32,7 @@ export default function PageMenu({ children }: { children: ReactNode }) {
         </div>
 
         <NavigationMenu>
-          <NavigationMenuList className="ml-1 flex justify-center md:gap-4">
-            {navItems.map((item) => (
-              <NavigationMenuItem key={item.href}>
-                <NavigationMenuLink
-                  asChild
-                  className={navigationMenuTriggerStyle()}
-                >
-                  <Link
-                    href={item.href}
-                    className="text-[14.5px] font-bold text-white/90 hover:text-white md:text-[15px]"
-                  >
-                    {item.label}
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            ))}
-          </NavigationMenuList>
+          <NavLinks />
         </NavigationMenu>
 
         <div className="flex flex-1 justify-end">
