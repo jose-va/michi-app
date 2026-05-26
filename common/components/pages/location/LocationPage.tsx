@@ -1,11 +1,16 @@
 "use client";
 
 import { Button } from "@/shadcn/components/button";
-import GoogleMaps from "../../ui/location/GoogleMaps";
 import Link from "next/link";
-import { bodoni, montserrat } from "@/app/fonts/font";
+import { montserrat } from "@/app/fonts/font";
+import dynamic from "next/dynamic";
+
+const GoogleMaps = dynamic(() => import("../../ui/location/GoogleMaps"), {
+  ssr: false,
+});
 
 export default function LocationPage() {
+  
   return (
     <section className="flex flex-col gap-4">
       <span
