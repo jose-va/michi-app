@@ -7,7 +7,6 @@ export const bodoni = Bodoni_Moda({
     subsets: ["latin"],
 });
 
-
 export const playfair = Playfair_Display({
   subsets: ["latin"],
 });
