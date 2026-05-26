@@ -4,7 +4,6 @@ import { Button } from "@/shadcn/components/button";
 import { logout } from "@/lib/server-actions";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetDescription,
   SheetFooter,
@@ -12,7 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/shadcn/components/sheet";
-import UserAvatar from "./UserAvatar";
+import ProfileAvatar from "./ProfileAvatar";
 import { User } from "@/common/types/user.types";
 import AdminMenu from "./AdminMenu";
 import UserMenu from "./UserMenu";
@@ -26,16 +25,17 @@ export function SideSheet({ user }: { user: User }) {
     <Sheet>
       <SheetTrigger asChild>
         <button>
-          <UserAvatar user={user} />
+          <ProfileAvatar user={user} />
         </button>
       </SheetTrigger>
-      <SheetContent showCloseButton={false}>
+      <SheetContent className="max-h-screen">
         <SheetHeader>
-          <SheetTitle>{user.role === "ROLE_USER" ? `Bienvenido, ${user.name}` : "Panel de administrador"}</SheetTitle>
-          <SheetDescription>
-            {user.role === "ROLE_USER" ? <UserMenu /> : <AdminMenu />}
-            
-          </SheetDescription>
+          <SheetTitle>
+            {user.role === "ROLE_USER"
+              ? `Bienvenido, ${user.name}`
+              : "Panel de administrador"}
+          </SheetTitle>
+          <div>{user.role === "ROLE_USER" ? <UserMenu /> : <AdminMenu />}</div>
         </SheetHeader>
         <SheetFooter>
           <Button variant="outline" onClick={handleLogout}>

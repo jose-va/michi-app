@@ -17,7 +17,7 @@ export default async function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const user = await UserService.getProfile();
   return (
-    <html lang="es" className="dark" suppressHydrationWarning>
+    <html lang="es" className="dark" suppressHydrationWarning>  
       <body
         className={`${montserrat.className} min-h-screen bg-[url("/background_michi.webp")] antialiased backdrop-blur-xs`}
       >
