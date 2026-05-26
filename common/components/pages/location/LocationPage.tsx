@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/shadcn/components/button";
 import GoogleMaps from "../../ui/location/GoogleMaps";
 import Link from "next/link";
