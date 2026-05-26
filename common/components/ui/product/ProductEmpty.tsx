@@ -9,7 +9,7 @@ import Image from "next/image";
 
 export function ProductEmpty() {
   return (
-    <Empty className="black-glassmorphism h-50 w-100 my-20 mx-auto">
+    <Empty className="black-glassmorphism h-50 w-full md:w-100 my-5 mx-auto border-none">
       <EmptyHeader>
         <EmptyMedia variant="icon" className="bg-transparent">
           <Image

@@ -26,7 +26,7 @@ export default function ProductDeactivate({ id }: { id: string }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <ShieldMinus className="size-6 md:size-5 opacity-50 hover:cursor-pointer hover:opacity-100" />
+        <ShieldMinus className="size-5 opacity-50 hover:cursor-pointer hover:opacity-100" />
       </AlertDialogTrigger>
       <AlertDialogContent size="sm">
         <AlertDialogHeader>

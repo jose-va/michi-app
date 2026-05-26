@@ -23,13 +23,11 @@ import {
 } from "../../../mappers/allergen.mapper";
 import { getCategoryBadge } from "@/common/mappers/badge.mapper";
 import { getCategoryTitle } from "@/common/mappers/category.mapper";
-import { Pencil } from "lucide-react";
-import { ProductDelete } from "./ProductDelete";
-import { useRouter } from "next/navigation";
+
 import { useUser } from "../../provider/UserProvider";
-import ProductDeactivate from "./ProductDeactivate";
-import ProductActivate from "./ProductActivate";
 import { cn } from "@/lib/utils";
+import AdminOptions from "./AdminOptions";
+import UserOptions from "./UserOptions";
 
 export default function ProductCard({
   product,
@@ -38,8 +36,8 @@ export default function ProductCard({
   product: Product;
   index: number;
 }) {
-  const router = useRouter();
   const user = useUser();
+  const favoriteProducts = user?.role === "ROLE_USER" ? user.favoriteProducts : [];
   return (
     <div
       className="animate-fade-in-up opacity-0"
@@ -56,7 +54,7 @@ export default function ProductCard({
       >
         <CardHeader>
           <div className="flex flex-wrap items-center gap-2">
-            <CardTitle>{product.name}</CardTitle>
+            <CardTitle className="text-sm">{product.name}</CardTitle>
             <span className="text-xs font-extralight">
               {product.pieces == 1 && `${product.pieces.toString()} pieza`}
               {product.pieces > 1 && `${product.pieces.toString()} piezas`}
@@ -67,25 +65,15 @@ export default function ProductCard({
               {getCategoryTitle(product.category)}
             </Badge>
           </CardDescription>
-          <CardAction className="flex items-center justify-center gap-4 md:gap-2">
-            {user
-              ? user.role === "ROLE_ADMIN" && (
-                  <>
-                    <Pencil
-                      className="size-6 opacity-50 hover:cursor-pointer hover:opacity-100 md:size-5"
-                      onClick={() =>
-                        router.push(`/product/update?id=${product.id}`)
-                      }
-                    />
-                    <ProductDelete id={product.id ?? ""} />
-                    {product.status ? (
-                      <ProductDeactivate id={product.id ?? ""} />
-                    ) : (
-                      <ProductActivate id={product.id ?? ""} />
-                    )}
-                  </>
-                )
-              : ""}
+          <CardAction className="flex items-center justify-center gap-3 md:gap-2">
+            {user?.role === "ROLE_ADMIN" && <AdminOptions product={product} />}
+            {user?.role === "ROLE_USER" && (
+              <UserOptions
+                user={user.id}
+                product={product.id ?? ""}
+                favorite={favoriteProducts.includes(product.id ?? "")}
+              />
+            )}
           </CardAction>
         </CardHeader>
         <CardContent className="flex-1 font-extralight">
