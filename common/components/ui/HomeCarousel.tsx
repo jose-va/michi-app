@@ -1,30 +1,39 @@
-import { Card, CardContent } from "@/shadcn/components/card"
+import Image from "next/image";
+import { Card, CardContent } from "@/shadcn/components/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/shadcn/components/carousel"
+} from "@/shadcn/components/carousel";
+
+const images = [
+  "/images/michi-image1.webp",
+  "/images/michi-image2.webp",
+];
 
 export function HomeCarousel() {
   return (
-    <Carousel className="w-full max-w-48 sm:max-w-xs">
+    <Carousel className="w-full max-w-60 sm:max-w-xs">
       <CarouselContent>
-        {Array.from({ length: 5 }).map((_, index) => (
+        {images.map((value, index) => (
           <CarouselItem key={index}>
-            <div className="p-1">
-              <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
-                  <span className="text-4xl font-semibold">{index + 1}</span>
-                </CardContent>
-              </Card>
-            </div>
+            <Card>
+              <CardContent className="relative aspect-square">
+                <Image
+                  src={value}
+                  alt={`Imagen ${index + 1}`}
+                  fill
+                  className="object-cover "
+                />
+              </CardContent>
+            </Card>
           </CarouselItem>
         ))}
       </CarouselContent>
       <CarouselPrevious />
       <CarouselNext />
     </Carousel>
-  )
+  );
 }

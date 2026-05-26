@@ -12,7 +12,7 @@ export function UserProvider({
   initialUser: User | null;
 }) {
   const [user] = useState<User | null>(initialUser);
-  return <UserContext value={user}>{children}</UserContext>;
+  return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
 }
 
 export const useUser = () => useContext(UserContext);
