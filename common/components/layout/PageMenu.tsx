@@ -35,7 +35,7 @@ export default function PageMenu({ children }: { children: ReactNode }) {
         </div>
 
         <NavigationMenu>
-          <NavigationMenuList className="flex justify-center md:gap-4 ml-1">
+          <NavigationMenuList className="ml-1 flex justify-center md:gap-4">
             {navItems.map((item) => (
               <NavigationMenuItem key={item.href}>
                 <NavigationMenuLink
@@ -44,7 +44,7 @@ export default function PageMenu({ children }: { children: ReactNode }) {
                 >
                   <Link
                     href={item.href}
-                    className="text-[14.5px] md:text-[15px] font-bold text-white/90 hover:text-white"
+                    className="text-[14.5px] font-bold text-white/90 hover:text-white md:text-[15px]"
                   >
                     {item.label}
                   </Link>
@@ -59,7 +59,7 @@ export default function PageMenu({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-7xl pt-24 px-6">
+      <main className="mx-auto w-full max-w-7xl px-6 pt-24">
         <TooltipProvider>{children}</TooltipProvider>
       </main>
     </>
