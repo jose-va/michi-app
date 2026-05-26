@@ -12,7 +12,7 @@ const allergenInfo = new Map<string, { title: string; icon: string }>([
   ["CELERY", { title: "Apio", icon: "/icons/celery.svg" }],
   ["SULPHUR_DIOXIDE", { title: "Sulfitos", icon: "/icons/sulphur_dioxide.svg" }],
   ["SOYBEANS", { title: "Soja", icon: "/icons/soybeans.svg" }],
-  ["NUTS", { title: "Frutos con cáscara", icon: "/icons/nuts.svg" }],
+  ["NUTS", { title: "Frutos cáscara", icon: "/icons/nuts.svg" }],
 ]);
 
 export function getAllergenIcon(allergen: string): string {
