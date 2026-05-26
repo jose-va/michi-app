@@ -13,8 +13,8 @@ import ProfileAuth from "./user/ProfileAuth";
 
 const navItems = [
   { label: "Carta", href: "/product" },
-  { label: "Reservar", href: "/reservation" },
   { label: "Ubicacion", href: "/location" },
+  { label: "Reservar", href: "/reservation" },
 ];
 
 export default function PageMenu({ children }: { children: ReactNode }) {
