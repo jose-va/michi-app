@@ -1,4 +1,3 @@
-// ActivateAllButton.tsx
 "use client";
 
 import { Store } from "lucide-react";
