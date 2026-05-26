@@ -13,6 +13,20 @@ export class ProductService {
     };
   }
 
+  static async all(): Promise<Product[]> {
+    try {
+      const response = await fetch(`${this.baseUrl}/products/all`, {
+        method: "GET",
+      });
+
+      if (!response.ok) throw new Error(`${response.status}`);
+      return response.json();
+    } catch (error) {
+      console.error("No se encontraron productos: " + error);
+      return [];
+    }
+  }
+
   static async getProduct(id: string): Promise<Product | undefined> {
     try {
       const response = await fetch(`${this.baseUrl}/products/${id}`, {

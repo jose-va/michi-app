@@ -9,6 +9,7 @@ import { Product } from "@/common/types/product.types";
 import { ProductService } from "@/service/ProductService";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import { UserService } from "@/service/UserService";
 
 export async function createReservation(
   data: ReservationFormValues
@@ -19,7 +20,7 @@ export async function createReservation(
       date: format(data.date, "yyyy-MM-dd"),
       guests: parseInt(data.guests),
     };
- 
+
     const reservation = await ReservationService.createReservation(payload);
     revalidatePath("/reservation");
     return reservation;
@@ -46,12 +47,12 @@ export async function updateProduct(
   data: ProductFormValues
 ): Promise<Product | null> {
   try {
-    const payload= {
+    const payload = {
       id: id,
-      ...data
-    }
+      ...data,
+    };
     const product = await ProductService.update(id, payload);
-    
+
     revalidatePath("/product");
     return product;
   } catch (error) {
@@ -123,5 +124,29 @@ export async function logout(): Promise<void> {
     revalidatePath("/");
   } catch (error) {
     console.error("No se ha podido cerrar la sesión correctamente " + error);
+  }
+}
+
+export async function markFavorite(
+  user: string,
+  product: string
+): Promise<void> {
+  try {
+    await UserService.markFavorite(user, product);
+    revalidatePath("/product");
+  } catch (error) {
+    console.error("No se ha podido marcar como favorito" + error);
+  }
+}
+
+export async function unmarkFavorite(
+  user: string,
+  product: string
+): Promise<void> {
+  try {
+    await UserService.unmarkFavorite(user, product);
+    revalidatePath("/product");
+  } catch (error) {
+    console.error("No se ha podido desmarcar como favorito" + error);
   }
 }
