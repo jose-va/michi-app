@@ -9,7 +9,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/shadcn/components/navigation-menu";
 import { TooltipProvider } from "@/shadcn/components/tooltip";
-import UserOptions from "./user/UserOptions";
+import ProfileAuth from "./user/ProfileAuth";
 
 const navItems = [
   { label: "Carta", href: "/product" },
@@ -55,7 +55,7 @@ export default function PageMenu({ children }: { children: ReactNode }) {
         </NavigationMenu>
 
         <div className="flex flex-1 justify-end">
-          <UserOptions />
+          <ProfileAuth />
         </div>
       </header>
 
