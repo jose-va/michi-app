@@ -11,5 +11,5 @@ export default function ProductActivate({ id }: { id: string }) {
     else toast.success("¡Se ha activado el producto!")
   }
 
-  return <ShieldCheck className="size-6 md:size-5 opacity-50 hover:cursor-pointer hover:opacity-100 text-green-400" onClick={() => handleActivate(id)}/>
+  return <ShieldCheck className="size-5 opacity-50 hover:cursor-pointer hover:opacity-100 text-green-400" onClick={() => handleActivate(id)}/>
 }
