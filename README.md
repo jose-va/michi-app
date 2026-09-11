@@ -19,7 +19,7 @@ El sistema incluye herramientas específicas para administradores, así como sin
 * **Backend:** Java + Spring Boot con base de datos MongoDB
 
 ## Estado del proyecto
-Fase de revisión.
+Actualmente este proyecto sigue en desarrollo
 
 ## Vista previa
 ### Página principal
