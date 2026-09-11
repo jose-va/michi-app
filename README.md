@@ -3,7 +3,7 @@
 ## Descripción
 Michi Sushi Granada es una plataforma diseñada para digitalizar la experiencia del cliente y la gestión interna de un bar de sushi. Los usuarios pueden explorar la carta y realizar reservas de forma sencilla. 
 
-El sistema incluye herramientas específicas para administradores, así como sincronización con la API dr Uber Eats.
+El sistema incluye herramientas específicas para administradores, así como sincronización con la API de Uber Eats.
 
 ## Objetivos
 * **General:**
@@ -15,8 +15,8 @@ El sistema incluye herramientas específicas para administradores, así como sin
     * Mostrar la ubicación del bar.
 
 ## Tecnologías
-* **Frontend:** Typescript + Next.js + Tailwind CSS + Shadcn UI
-* **Backend:** Java + Spring Boot + MongoDB
+* **Frontend:** Typescript + Next.js con estilos Tailwind CSS y componentes Shadcn UI 
+* **Backend:** Java + Spring Boot con base de datos MongoDB
 
 ## Estado del proyecto
 Fase de revisión.
@@ -55,8 +55,6 @@ Fase de revisión.
 ### Página de reservas
 ![Página de reservas](preview/reservation.gif)
 
----
-
 ![Página de reservas](preview/reservation2.gif)
 
 ---
@@ -82,25 +80,9 @@ Fase de revisión.
 ---
 
 ### Sincronización con Uber Eats
+Se permite actualizar toda la carta del restaurante con un simple click mediante peticiones a la API de Uber Eats. 
 ![Uber Eats](preview/uber-sync.gif)
 
 ---
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
