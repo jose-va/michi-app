@@ -3,7 +3,7 @@
 ## Descripción
 Michi Sushi Granada es una plataforma para digitalizar la gestión interna de un restaurante de sushi en Granada. Este repositorio contiene su aplicación web front-end, que se comunica con el back-end REST. 
 Los usuarios pueden explorar la carta y hacer reservas; los administradores gestionan reservas y productos con autenticación mediante Google. También hay ubicación en Google Maps y sincronización con Uber
-para mantener la carta actualizada en tiempo real..
+para mantener la carta actualizada en tiempo real.
 
 ## Objetivos
 * **General:**
