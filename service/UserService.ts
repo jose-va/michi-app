@@ -28,26 +28,18 @@ export class UserService {
   }
 
   static async markFavorite(user: string, product: string): Promise<boolean> {
-  const url = `${this.backendUrl}/auth/user/${user}?productId=${product}`;
-  const headers = await this.authHeader();
+    const url = `${this.backendUrl}/auth/user/${user}?productId=${product}`;
+    const headers = await this.authHeader();
 
-  console.log("📡 URL:", url);
-  console.log("📡 Method: PATCH");
-  console.log("📡 Headers:", JSON.stringify(headers, null, 2));
+    const response = await fetch(url, {
+      method: "PATCH",
+      headers,
+      redirect: "manual",
+    });
 
-  const response = await fetch(url, {
-    method: "PATCH",
-    headers,
-    redirect: "manual",
-  });
-
-  console.log("📡 Status:", response.status);
-  console.log("📡 Location header:", response.headers.get("location"));
-  console.log("📡 Content-Type:", response.headers.get("content-type"));
-
-  if (!response.ok) throw new Error("No se ha podido marcar como favorito");
-  return true;
-}
+    if (!response.ok) throw new Error("No se ha podido marcar como favorito");
+    return true;
+  }
 
   static async unmarkFavorite(user: string, product: string): Promise<boolean> {
     const response = await fetch(
