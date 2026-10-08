@@ -22,6 +22,14 @@
       "notion": {
         "type": "remote",
         "url": "https://mcp.notion.com/mcp"
+      },
+      "google-maps": {
+        "type": "remote",
+        "url": "https://mapstools.googleapis.com/mcp",
+        "oauth": false,
+        "headers": {
+          "X-Goog-Api-Key": "{env:MAPS_GROUNDING_API_KEY}"
+        }
       }
     }
   }
