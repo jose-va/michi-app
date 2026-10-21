@@ -1,5 +1,10 @@
 import { cookies } from "next/headers";
 
+type GetProfileOverrides = {
+  token?: string;
+  fetcher?: typeof fetch;
+};
+
 export class UserService {
   private static backendUrl = process.env.BACKEND_URL;
   private static async authHeader(): Promise<HeadersInit> {
@@ -11,20 +16,41 @@ export class UserService {
     };
   }
 
-  static async getProfile() {
-    const cookieStore = await cookies();
-    const token = cookieStore.get("token")?.value;
+  static async getProfile(overrides?: GetProfileOverrides) {
+    const token = overrides
+      ? overrides.token
+      : (await cookies()).get("token")?.value;
 
     if (!token) return null;
 
-    const response = await fetch(`${this.backendUrl}/auth/user`, {
-      headers: await this.authHeader(),
-    });
+    const fetcher = overrides?.fetcher ?? fetch;
+    const headers: HeadersInit = overrides
+      ? { "Content-Type": "application/json", Cookie: `token=${token}` }
+      : await this.authHeader();
 
-    if (!response.ok) return null;
+    let response: Response;
+    try {
+      response = await fetcher(`${this.backendUrl}/auth/user`, { headers });
+    } catch {
+      return null;
+    }
 
-    const data = await response.json();
-    return data;
+    if (response.status === 401) return null;
+
+    if (!response.ok) {
+      console.warn(
+        `No se ha podido obtener el perfil del usuario (estado ${response.status})`
+      );
+      return null;
+    }
+
+    try {
+      const data = await response.json();
+      return data;
+    } catch {
+      console.warn("No se ha podido obtener el perfil del usuario");
+      return null;
+    }
   }
 
   static async markFavorite(user: string, product: string): Promise<boolean> {
