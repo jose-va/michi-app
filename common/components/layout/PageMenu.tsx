@@ -7,18 +7,19 @@ import {
 import { TooltipProvider } from "@/shadcn/components/tooltip";
 import ProfileAuth from "./user/ProfileAuth";
 import NavLinks from "./NavLinks";
+import SiteFooter from "./SiteFooter";
 
 export default function PageMenu({ children }: { children: ReactNode }) {
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <header className="fixed z-10 flex h-17 w-full items-center justify-between border-b border-white/10 bg-black/60 px-4 shadow-md backdrop-blur-md md:px-14">
         <div className="flex-1">
           <Link href="/">
             <Image
-              src="/logo_michi.webp"
+              src="/logos/logo_michi.webp"
               alt="Logo Michi"
-              width={70}
-              height={70}
+              width={80}
+              height={80}
               className="mt-2 cursor-pointer transition-all duration-500 hover:scale-115"
               loading="eager"
             />
@@ -34,9 +35,11 @@ export default function PageMenu({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-7xl px-6 pt-24">
+      <main className="mx-auto w-full max-w-7xl flex-1 px-6 pt-24">
         <TooltipProvider>{children}</TooltipProvider>
       </main>
-    </>
+
+      <SiteFooter />
+    </div>
   );
 }
