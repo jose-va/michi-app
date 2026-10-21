@@ -1,5 +1,5 @@
 /** Intervalo estándar completo del avance automático del carrusel de inicio. */
-export const AUTOPLAY_INTERVAL_MS = 5000;
+export const AUTOPLAY_INTERVAL_MS = 3000;
 
 /** Consulta de medios del sistema para la preferencia de movimiento reducido. */
 export const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";

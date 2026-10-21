@@ -1,22 +1,16 @@
 export const DEFAULT_CAROUSEL_IMAGES = [
-  "/images/IMG_8115.webp",
-  "/images/IMG_8118.webp",
-  "/images/IMG_8121.webp",
-  "/images/IMG_8127.webp",
-  "/images/IMG_8496.webp",
+  "/images/Combinado De Nigiri Especial Aburi [5_4-1024x1280-watermarked] 539_cleanup.webp",
+  "/images/Combinado dúo mixto.webp",
+   "/images/Katsumaki Combinado 8 Piezas [5_4-1024x1280-watermarked] 2be_cleanup.webp",
 ] as const;
 
 export const CAROUSEL_IMAGE_ALTS: Record<string, string> = {
-  "/images/IMG_8115.webp":
-    "Variedad de piezas de sushi artesanal y tapas japonesas de Michi Sushi",
-  "/images/IMG_8118.webp":
-    "Plato de sushi fresco y rollos especiales preparados al momento",
-  "/images/IMG_8121.webp":
-    "Presentación de sushi en mesa lista para degustar en Michi Sushi",
-  "/images/IMG_8127.webp":
-    "Ambiente acogedor y detalles del restaurante Michi Sushi en Granada",
-  "/images/IMG_8496.webp":
-    "Selección de nigiris y especialidades de la casa en Michi Sushi",
+  "/images/Combinado De Nigiri Especial Aburi [5_4-1024x1280-watermarked] 539_cleanup.webp":
+    "Combinado De Nigiri Especial Aburi",
+  "/images/Combinado dúo mixto.webp":
+    "Combinado dúo mixto",
+  "/images/Katsumaki Combinado 8 Piezas [5_4-1024x1280-watermarked] 2be_cleanup.webp":
+    "Katsumaki Combinado",
 };
 
 export interface HomeSection {
@@ -34,35 +28,35 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
     id: "motto",
     title: "Nuestra Filosofía",
     description:
-      "Donde el arte del sushi se une al encanto de las tapas, creando una experiencia que combina tradición japonesa con calidez granaína.",
+      "Donde el arte del sushi se une al encanto de las tapas, creando una experiencia única que combina tradición japonesa con calidez granaína.",
   },
   {
     id: "menu",
-    title: "CONOCE NUESTRA CARTA",
+    title: "NUESTRA CARTA",
     description:
-      "Explora una cuidada selección de sushi artesanal, nigiris frescos y rolls de fusión con el toque único de Granada, preparados al momento con producto fresco.",
-    image: "/images/IMG_8118.webp",
-    imageAlt: "Plato de sushi variado de la carta de Michi Sushi",
+      "Explora nuestra selección de sushi, nigiris y maki rolls, preparados al momento con el producto más fresco.",
+    image:
+      "/images/Ebi Pasión.webp",
+    imageAlt: "Ebi Pasión",
     actionLabel: "Ver todos los platos",
     actionHref: "/product",
   },
   {
     id: "reservations",
-    title: "Reservas",
+    title: "Reserva tu mesa",
     description:
-      "Asegura tu mesa y vive una velada especial disfrutando de nuestra cocina en el mejor ambiente.",
-    image: "/images/IMG_8121.webp",
-    imageAlt: "Mesa dispuesta para reservas en el restaurante Michi Sushi",
+      "Disfruta de una experiencia gastronómica japonesa cercana",
+    image:
+      "/images/Dish Composition [5_4-2304x2880-watermarked] d88.webp",
+    imageAlt: "Dish Composition [5_4-2304x2880-watermarked] d88",
     actionLabel: "Reservar mesa",
     actionHref: "/reservation",
   },
   {
     id: "location",
-    title: "Ubicación",
+    title: "¿Dónde estamos?",
     description:
-      "Visítanos en el centro de Granada. Descubre nuestro espacio y disfruta de una experiencia gastronómica cercana e inolvidable.",
-    image: "/images/IMG_8127.webp",
-    imageAlt: "Instalaciones y ubicación de Michi Sushi Granada",
+      "Visítanos en Calle Gutierre Tibón, Santiago Lozano 8, local 2",
     actionLabel: "Cómo llegar",
     actionHref: "/location",
   },
