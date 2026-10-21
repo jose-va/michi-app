@@ -13,7 +13,7 @@ export default function UberSync() {
   
     return (
     <Image
-      src="/logo_uber.webp"
+      src="/logos/logo_uber.webp"
       alt="logo_uber"
       width={34}
       height={10}
