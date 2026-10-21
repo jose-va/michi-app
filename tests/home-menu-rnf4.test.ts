@@ -13,15 +13,15 @@ const cartaBlock = pageSource.slice(cartaStart, reservasStart);
 test("RNF-4: carta data exposes exact title, action label and destination", () => {
   const menu = HOME_SECTIONS.find((section) => section.id === "menu");
   assert.ok(menu, "HOME_SECTIONS must include the menu section");
-  assert.equal(menu.title, "CONOCE NUESTRA CARTA");
+  assert.equal(menu.title, "NUESTRA CARTA");
   assert.equal(menu.actionLabel, "Ver todos los platos");
   assert.equal(menu.actionHref, "/product");
 });
 
 test("RNF-4: carta title uses exact text with measurable typography tokens", () => {
   assert.ok(
-    cartaBlock.includes("menuSection.title") || cartaBlock.includes("CONOCE NUESTRA CARTA"),
-    "Carta title must render the exact «CONOCE NUESTRA CARTA» text",
+    cartaBlock.includes("menuSection.title") || cartaBlock.includes("NUESTRA CARTA"),
+    "Carta title must render the exact «NUESTRA CARTA» text",
   );
   const heading = cartaBlock.match(/<h2[^>]*>/)?.[0];
   assert.ok(heading, "Carta section must include an h2 title");
@@ -65,12 +65,16 @@ test("RNF-4: carta body keeps emphasis within the 30% rule", () => {
   );
 });
 
-test("RNF-4: carta button is a pill Button default/lg to the carta destination", () => {
+test("Carta button matches Reserva mesa: rounded-lg base, no pill override", () => {
   const button = cartaBlock.match(/<Button[^>]*>/)?.[0];
   assert.ok(button, "Carta section must include a Button");
   assert.ok(button.includes('variant="default"'), "Carta Button must use variant default");
   assert.ok(button.includes('size="lg"'), "Carta Button must use size lg");
-  assert.ok(button.includes("rounded-full"), "Carta Button must be a pill (rounded-full)");
+  assert.ok(!button.includes("rounded-full"), "Carta Button must not override the pill (rounded-full)");
+  assert.ok(
+    button.includes("bg-black") && button.includes("font-semibold"),
+    "Carta Button must keep bg-black font-semibold like Reserva mesa",
+  );
   assert.ok(
     cartaBlock.includes("menuSection.actionLabel") || cartaBlock.includes("Ver todos los platos"),
     "Carta Button must show «Ver todos los platos»",
@@ -86,19 +90,20 @@ test("RNF-4: carta image keeps aspect-video with a contained circular badge", ()
   assert.ok(cartaBlock.includes("w-full"), "Carta image frame must be w-full");
   assert.ok(cartaBlock.includes("object-cover"), "Carta image must use object-cover");
   assert.ok(
-    cartaBlock.includes("Explora nuestros platos"),
-    "Carta badge must show «Explora nuestros platos»",
+    cartaBlock.includes("Fusión Tropical"),
+    "Carta badge must show «Fusión Tropical»",
   );
-  const badge = cartaBlock.match(/<span[^>]*>\s*Explora nuestros platos\s*<\/span>/)?.[0];
-  assert.ok(badge, "Carta badge must be a span with the exact text");
+  assert.ok(
+    cartaBlock.includes("Maracuyá"),
+    "Carta badge must show «Ebi & Maracuyá»",
+  );
+  const badge = cartaBlock.match(/<span className="[^"]*absolute[^"]*rounded-full[^"]*">/)?.[0];
+  assert.ok(badge, "Carta badge must be an absolute circular span");
   for (const token of [
     "absolute",
     "rounded-full",
-    "size-20",
-    "md:size-24",
-    "bg-primary",
-    "text-primary-foreground",
-    "text-xs",
+    "size-24",
+    "md:size-28",
   ]) {
     assert.ok(badge.includes(token), `Carta badge must include «${token}»`);
   }
@@ -112,7 +117,65 @@ test("RNF-4: carta stacks in one column on mobile without Card wrappers", () => 
   assert.ok(!pageSource.includes("from \"@/shadcn/components/card\""), "Home must not import Card");
 });
 
-test("RNF-4: four sections in order and RF-5 schedule stay intact", () => {
+test("Home: carta, reservas y ubicacion share the NUESTRA CARTA typography", () => {
+  for (const id of ["seccion-carta", "seccion-reservas", "seccion-ubicacion"]) {
+    const start = pageSource.indexOf(`id="${id}"`);
+    assert.ok(start >= 0, `Home must keep section ${id}`);
+    const block = pageSource.slice(start, start + 2000);
+    const heading = block.match(/<h2[^>]*>/)?.[0];
+    assert.ok(heading, `Section ${id} must include an h2 title`);
+    for (const token of [
+      "uppercase",
+      "font-extrabold",
+      "text-4xl",
+      "md:text-5xl",
+      "text-white",
+      "tracking-tight",
+      "montserrat",
+    ]) {
+      assert.ok(heading.includes(token), `Section ${id} h2 must include «${token}»`);
+    }
+  }
+});
+
+test("Home: lema keeps its original small overline format, not an h2", () => {
+  const start = pageSource.indexOf('id="seccion-lema"');
+  assert.ok(start >= 0, "Home must keep section seccion-lema");
+  const end = pageSource.indexOf("</section>", start);
+  assert.ok(end > start, "Lema section must close");
+  const block = pageSource.slice(start, end);
+  assert.ok(!block.match(/<h2[^>]*>/), "Lema section must not use an h2 title");
+  const overline = block.match(/<span[^>]*>\s*\{mottoSection\.title\}\s*<\/span>/)?.[0];
+  assert.ok(overline, "Lema title must be a span rendering mottoSection.title");
+  for (const token of [
+    "text-xs",
+    "font-bold",
+    "tracking-widest",
+    "text-primary",
+    "uppercase",
+    "brightness-120",
+  ]) {
+    assert.ok(overline.includes(token), `Lema span must include «${token}»`);
+  }
+  assert.ok(!overline.includes("font-semibold"), "Lema span must not use font-semibold");
+  assert.ok(
+    block.includes("mottoSection.description"),
+    "Lema Playfair italic quote must stay intact",
+  );
+});
+
+test("Home RF-19 (005-footer): sin bloque de horario fuera del pie", () => {
+  assert.ok(
+    !pageSource.includes('id="bloque-horarios"'),
+    "Home must not render bloque-horarios (el horario vive solo en el pie)",
+  );
+  assert.ok(
+    !pageSource.includes("Horario de Apertura"),
+    "«Horario de Apertura» debe aparecer 0 veces en app/page.tsx (solo en el pie)",
+  );
+});
+
+test("RNF-4: four sections in order and RF-19 (sin horario en el home)", () => {
   for (const id of ["seccion-lema", "seccion-carta", "seccion-reservas", "seccion-ubicacion"]) {
     assert.ok(pageSource.includes(`id="${id}"`), `Home must keep section ${id}`);
   }
@@ -122,5 +185,5 @@ test("RNF-4: four sections in order and RF-5 schedule stay intact", () => {
       pageSource.indexOf('id="seccion-reservas"') < pageSource.indexOf('id="seccion-ubicacion"'),
     "Sections must keep the approved order",
   );
-  assert.ok(pageSource.includes('id="bloque-horarios"'), "RF-5 schedule block must stay intact");
+  assert.ok(!pageSource.includes('id="bloque-horarios"'), "RF-19: home must not render a schedule block outside the footer");
 });
