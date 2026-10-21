@@ -1,4 +1,6 @@
 import { ProductService } from "@/service/ProductService";
+import { centuryGothic } from "@/app/fonts/font";
+import { getCategoryTitle } from "@/common/mappers/category.mapper";
 import ProductCard from "../../ui/product/ProductCard";
 import { ProductPagination } from "../../ui/product/ProductPagination";
 import { ProductEmpty } from "../../ui/product/ProductEmpty";
@@ -25,11 +27,16 @@ export default async function ProductPage({
     if (!products.length) return <ProductEmpty />;
 
     return (
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {products.map((product, index) => (
-          <ProductCard key={product.id} product= {{...product}} index={index}/>
-        ))}
-      </div>
+      <>
+        {category ? (
+          <h2 className={`${centuryGothic.className} mt-8 mb-2 text-3xl text-white md:text-4xl`}>{getCategoryTitle(category)}</h2>
+        ) : null}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {products.map((product, index) => (
+            <ProductCard key={product.id} product= {{...product}} index={index}/>
+          ))}
+        </div>
+      </>
     );
   }
 

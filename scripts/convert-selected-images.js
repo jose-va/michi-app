@@ -1,15 +1,28 @@
+/**
+ * Script histórico de conversión HEIC → WebP (heic-decode + sharp).
+ *
+ * Selección vigente (spec 001 RF-2, ya convertida por el usuario, NO convertir):
+ * carrusel (3) — `Combinando Duo Mixto 21 Piezas [5_4-1024x1280-watermarked] b67_cleanup.webp`,
+ * `Sake Goku 8 Piezas [5_4-1024x1280-watermarked] a66_cleanup.webp`,
+ * `Maguro Spicy 8 Piezas [5_4-1024x1280-watermarked] e4e_cleanup.webp`;
+ * secciones (3) — `Katsumaki Combinado 8 Piezas [5_4-1024x1280-watermarked] 2be_cleanup.webp`
+ * (carta), `Hitokiri 8 Piezas [5_4-1024x1280-watermarked] 18d_cleanup.webp` (reservas),
+ * `Katsudon [5_4-1024x1280-watermarked] 356_cleanup.webp` (ubicación);
+ * reservas lateral RF-11 (1) — `Futomaki De Salmón 10 Piezas [5_4-1024x1280-watermarked] 715_cleanup.webp`.
+ *
+ * La lista antigua de 5 (`IMG_8115…`) queda abajo solo como referencia histórica,
+ * NO vigente. No ejecutar conversión (el usuario ya convirtió) y no implementar
+ * subida futura (fuera de alcance, spec 001). La lógica heic-decode + sharp se
+ * conserva intacta; los originales JPG/HEIC de `public/images/` no se tocan.
+ */
 const fs = require('fs');
 const path = require('path');
 const decode = require('heic-decode');
 const sharp = require('sharp');
 
-const SELECTED_IMAGES = [
-  'IMG_8115',
-  'IMG_8118',
-  'IMG_8121',
-  'IMG_8127',
-  'IMG_8496',
-];
+// Referencia histórica NO vigente (T6): ['IMG_8115', 'IMG_8118', 'IMG_8121', 'IMG_8127', 'IMG_8496'].
+// Vacía a propósito: la selección vigente RF-2 ya existe como WebP en `public/images/`.
+const SELECTED_IMAGES = [];
 
 const IMAGES_DIR = path.join(__dirname, '..', 'public', 'images');
 
