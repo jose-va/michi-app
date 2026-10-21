@@ -31,9 +31,6 @@ export default function AvailabilityForm({ form, hours }: { form: UseFormReturn<
             <FormControl>
               <Input {...field} autoComplete="username" />
             </FormControl>
-            <FormDescription>
-              Este es el nombre al que irá asociada a su reserva
-            </FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -48,9 +45,6 @@ export default function AvailabilityForm({ form, hours }: { form: UseFormReturn<
             <FormControl>
               <Input {...field} autoComplete="tel" />
             </FormControl>
-            <FormDescription>
-              En caso de haber algún problema, le llamaremos
-            </FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -68,7 +62,7 @@ export default function AvailabilityForm({ form, hours }: { form: UseFormReturn<
               <Input {...field} value={field.value ?? ""} autoComplete="email" />
             </FormControl>
             <FormDescription>
-              Enviaremos un recordatorio a este correo electrónico
+              Le enviaremos un recordatorio a este correo electrónico
             </FormDescription>
             <FormMessage />
           </FormItem>

@@ -16,11 +16,6 @@ export default async function ReservationDashboard({
 
   return (
     <div  className="flex flex-col gap-4">
-      <span
-        className={`${montserrat.className} mx-auto flex font-bold text-3xl md:text-4xl text-white/80`}
-      >
-        RESERVAS
-      </span>
       <ReservationPage hours={hours} />
 
     </div>
