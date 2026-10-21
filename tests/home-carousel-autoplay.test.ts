@@ -107,8 +107,8 @@ function mountAutoplayEffect(
   };
 }
 
-test("avanza cada 5 segundos con tolerancia ±500 ms cuando está habilitado", () => {
-  assert.equal(AUTOPLAY_INTERVAL_MS, 5000);
+test("avanza cada 3 segundos con tolerancia ±500 ms cuando está habilitado", () => {
+  assert.equal(AUTOPLAY_INTERVAL_MS, 3000);
   assert.equal(shouldAutoplay(5, false, false, false), true);
 
   const clock = createFakeIntervalClock();
@@ -131,7 +131,7 @@ test("avanza cada 5 segundos con tolerancia ±500 ms cuando está habilitado", (
   assert.equal(clock.pending(), 0);
 });
 
-test("pausa con el puntero y reanuda solo con ambos cesados reiniciando 5 s completos", () => {
+test("pausa con el puntero y reanuda solo con ambos cesados reiniciando 3 s completos", () => {
   const clock = createFakeIntervalClock();
   const api = createMockApi();
   const flags: AutoplayFlags = {
@@ -156,7 +156,7 @@ test("pausa con el puntero y reanuda solo con ambos cesados reiniciando 5 s comp
   effect.update();
   assert.equal(shouldAutoplay(5, false, true, false), false);
   assert.equal(clock.pending(), 0);
-  clock.tick(5000);
+  clock.tick(3000);
   assert.equal(api.calls, 0);
 
   // Con ambos cesados reanuda con un intervalo completo, sin resto retenido.
@@ -170,7 +170,7 @@ test("pausa con el puntero y reanuda solo con ambos cesados reiniciando 5 s comp
   effect.unmount();
 });
 
-test("movimiento reducido desactiva el autoplay con prioridad y al cesar reanuda 5 s completos", () => {
+test("movimiento reducido desactiva el autoplay con prioridad y al cesar reanuda 3 s completos", () => {
   assert.equal(shouldAutoplay(5, false, false, true), false);
 
   const clock = createFakeIntervalClock();
@@ -219,7 +219,7 @@ test("con 1 o 0 fotos no hay autoplay", () => {
   assert.match(carouselSource, /return null/);
 });
 
-test("el componente usa setInterval 5 s con Embla y respeta matchMedia desde el arranque", () => {
+test("el componente usa setInterval 3 s con Embla y respeta matchMedia desde el arranque", () => {
   assert.equal(REDUCED_MOTION_QUERY, "(prefers-reduced-motion: reduce)");
   assert.match(carouselSource, /setInterval/);
   assert.match(carouselSource, /AUTOPLAY_INTERVAL_MS/);

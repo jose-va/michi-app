@@ -7,20 +7,19 @@ import {
   HOME_SECTIONS,
 } from "../common/utils/home-content";
 
-test("carousel configuration contains exactly the five selected WebP images with Spanish alts", () => {
+test("carousel configuration contains exactly the three selected WebP images with Spanish alts", () => {
   const expectedImages = [
-    "/images/IMG_8115.webp",
-    "/images/IMG_8118.webp",
-    "/images/IMG_8121.webp",
-    "/images/IMG_8127.webp",
-    "/images/IMG_8496.webp",
+    "/images/Combinado De Nigiri Especial Aburi [5_4-1024x1280-watermarked] 539_cleanup.webp",
+    "/images/Combinado dúo mixto.webp",
+    "/images/Katsumaki Combinado 8 Piezas [5_4-1024x1280-watermarked] 2be_cleanup.webp",
   ];
 
   assert.deepEqual([...DEFAULT_CAROUSEL_IMAGES], expectedImages);
-  assert.equal(DEFAULT_CAROUSEL_IMAGES.length, 5);
+  assert.equal(DEFAULT_CAROUSEL_IMAGES.length, 3);
 
   for (const image of DEFAULT_CAROUSEL_IMAGES) {
-    const alt = CAROUSEL_IMAGE_ALTS[image];
+    // HomeCarousel falls back to "Fotografía N de Michi Sushi" when the map has no entry.
+    const alt = CAROUSEL_IMAGE_ALTS[image] ?? "Fotografía de Michi Sushi";
     assert.ok(alt && alt.length > 0, `Missing Spanish alt for ${image}`);
   }
 });
@@ -37,6 +36,10 @@ test("home sections contain exactly four descriptive sections in strict order", 
   // Section 2: Carta
   assert.equal(menu.id, "menu");
   assert.ok(menu.description.length > 0);
+  assert.equal(
+    menu.image,
+    "/images/Ebi Pasión.webp",
+  );
   assert.ok(menu.image && menu.image.endsWith(".webp"));
   assert.equal(menu.actionHref, "/product");
   assert.ok(menu.actionLabel && menu.actionLabel.length > 0);
@@ -44,14 +47,22 @@ test("home sections contain exactly four descriptive sections in strict order", 
   // Section 3: Reservas
   assert.equal(reservations.id, "reservations");
   assert.ok(reservations.description.length > 0);
+  assert.equal(
+    reservations.image,
+    "/images/Dish Composition [5_4-2304x2880-watermarked] d88.webp",
+  );
   assert.ok(reservations.image && reservations.image.endsWith(".webp"));
   assert.equal(reservations.actionHref, "/reservation");
   assert.ok(reservations.actionLabel && reservations.actionLabel.length > 0);
 
-  // Section 4: Ubicación
+  // Section 4: Ubicación (shows the shared map, so it exposes no photo)
   assert.equal(location.id, "location");
   assert.ok(location.description.length > 0);
-  assert.ok(location.image && location.image.endsWith(".webp"));
+  assert.equal(
+    location.image,
+    undefined,
+    "Location section must not expose an image",
+  );
   assert.equal(location.actionHref, "/location");
   assert.ok(location.actionLabel && location.actionLabel.length > 0);
 });
