@@ -19,7 +19,7 @@ export default async function RootLayout({
   return (
     <html lang="es" className="dark" suppressHydrationWarning>  
       <body
-        className={`${montserrat.className} min-h-screen bg-[url("/background_michi.webp")] antialiased backdrop-blur-xs`}
+        className={`${montserrat.className} min-h-screen bg-[url("/background/background_michi.webp")] antialiased backdrop-blur-xs`}
       >
         <UserProvider initialUser={user}>
           <PageMenu>{children}</PageMenu>

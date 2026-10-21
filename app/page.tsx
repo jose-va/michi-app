@@ -1,13 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { montserrat, playfair } from "./fonts/font";
+import { montserrat, playfair, sigokae, centuryGothic } from "./fonts/font";
 import { HomeCarousel } from "@/common/components/ui/HomeCarousel";
+import GoogleMaps from "@/common/components/ui/location/GoogleMaps";
 import { Button } from "@/shadcn/components/button";
-import {
-  CONFIRMED_SCHEDULE,
-  HOME_SECTIONS,
-} from "@/common/utils/home-content";
-import { Clock, MapPin, CalendarDays } from "lucide-react";
+import { HOME_SECTIONS } from "@/common/utils/home-content";
 
 export default function Home() {
   const [mottoSection, menuSection, reservationsSection, locationSection] =
@@ -23,21 +20,17 @@ export default function Home() {
         <div className="flex flex-col justify-center space-y-4">
           <div className="flex items-end gap-3">
             <h1
-              className={`${montserrat.className} text-5xl font-extrabold tracking-tight text-white md:text-6xl lg:text-7xl`}
+              className={`${sigokae.className} text-6xl font-extrabold tracking-tight text-white md:text-7xl lg:text-8xl`}
             >
-              MICHI
-              <br />
-              SUSHI
+              <span className="block">MICHI</span>
+              <span className="block">SUSHI</span>
             </h1>
-            <span
-              className="mb-1 text-5xl font-light text-white/40 md:text-6xl"
-              aria-hidden="true"
-            >
+            <span className="mb-4 text-3xl text-white/40" aria-hidden="true">
               道
             </span>
           </div>
-          <p className="max-w-md text-base text-zinc-300 md:text-lg">
-            Cocina japonesa y tapeo artesanal en el corazón de Granada.
+          <p className="max-w-lg text-base text-zinc-300 md:text-lg">
+            Gastronomía japonesa y tapeo en el norte de Granada.
           </p>
         </div>
 
@@ -55,11 +48,11 @@ export default function Home() {
           className="mx-auto w-full max-w-3xl bg-transparent px-2 text-center"
         >
           <div className="space-y-3">
-            <span className="text-xs font-semibold tracking-widest text-primary uppercase">
+            <span className="text-primary text-xs font-bold tracking-widest uppercase brightness-120">
               {mottoSection.title}
             </span>
             <p
-              className={`${playfair.className} text-2xl leading-relaxed text-zinc-100 italic md:text-3xl`}
+              className={`${playfair.className} text-2xl leading-relaxed text-zinc-300 italic md:text-3xl`}
             >
               &ldquo;{mottoSection.description}&rdquo;
             </p>
@@ -79,20 +72,18 @@ export default function Home() {
               {menuSection.title}
             </h2>
             <p className="text-base text-zinc-300 md:text-lg">
-              Explora una cuidada selección de{" "}
-              <strong className="font-bold text-white">
-                sushi artesanal
-              </strong>
-              , <strong className="font-bold text-white">nigiris frescos</strong>{" "}
-              y rolls de fusión con el toque único de{" "}
-              <strong className="font-bold text-white">Granada</strong>,
-              preparados al momento con producto fresco.
+              Explora nuestra selección de{" "}
+              <strong className="font-bold text-white">sushi</strong>,{" "}
+              <strong className="font-bold text-white">nigiris </strong>y
+              <strong className="font-bold text-white"> maki rolls. </strong>
+              Todos nuestros productos se preparan al momento con productos
+              frescos.
             </p>
             <Button
               asChild
               variant="default"
               size="lg"
-              className="rounded-full font-semibold shadow-lg"
+              className="bg-black font-semibold shadow-lg"
             >
               <Link href={menuSection.actionHref || "/product"}>
                 {menuSection.actionLabel}
@@ -110,8 +101,13 @@ export default function Home() {
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
             )}
-            <span className="absolute right-4 bottom-4 flex size-20 items-center justify-center rounded-full bg-primary p-2 text-center text-xs font-semibold text-primary-foreground md:size-24">
-              Explora nuestros platos
+            <span className="absolute right-4 bottom-4 flex size-24 flex-col items-center justify-center rounded-full bg-linear-to-br from-amber-400 via-orange-400 to-amber-600 p-2.5 text-center text-white shadow-lg ring-2 shadow-orange-950/20 ring-white/50 md:size-28">
+              <span className="text-[9px] font-bold tracking-widest text-amber-100 uppercase drop-shadow-sm">
+                Fusión Tropical
+              </span>
+              <span className="mt-0.5 text-xs leading-tight font-black tracking-tight text-white drop-shadow md:text-sm">
+                Ebi &amp; Maracuyá
+              </span>
             </span>
           </div>
         </section>
@@ -135,16 +131,19 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col items-start gap-4">
-            <div className="flex size-10 items-center justify-center rounded-lg bg-primary/20 text-primary">
-              <CalendarDays className="size-5" />
-            </div>
-            <h2 className="text-2xl font-semibold text-white">
+            <h2
+              className={`${montserrat.className} text-4xl font-extrabold tracking-tight text-white uppercase md:text-5xl`}
+            >
               {reservationsSection.title}
             </h2>
-            <p className="text-base text-zinc-300">
+            <p className="text-base text-zinc-300 md:text-lg">
               {reservationsSection.description}
             </p>
-            <Button asChild size="lg" className="font-semibold shadow-lg">
+            <Button
+              asChild
+              size="lg"
+              className="bg-black font-semibold shadow-lg"
+            >
               <Link href={reservationsSection.actionHref || "/reservation"}>
                 {reservationsSection.actionLabel}
               </Link>
@@ -159,16 +158,19 @@ export default function Home() {
           className="grid items-center gap-8 bg-transparent md:grid-cols-2"
         >
           <div className="order-2 flex flex-col items-start gap-4 md:order-1">
-            <div className="flex size-10 items-center justify-center rounded-lg bg-primary/20 text-primary">
-              <MapPin className="size-5" />
-            </div>
-            <h2 className="text-2xl font-semibold text-white">
+            <h2
+              className={`${montserrat.className} text-4xl font-extrabold tracking-tight text-white uppercase md:text-5xl`}
+            >
               {locationSection.title}
             </h2>
-            <p className="text-base text-zinc-300">
+            <p className="text-base text-zinc-300 md:text-lg">
               {locationSection.description}
             </p>
-            <Button asChild size="lg" className="font-semibold shadow-lg">
+            <Button
+              asChild
+              size="lg"
+              className="bg-black font-semibold shadow-lg"
+            >
               <Link href={locationSection.actionHref || "/location"}>
                 {locationSection.actionLabel}
               </Link>
@@ -176,55 +178,10 @@ export default function Home() {
           </div>
 
           <div className="relative order-1 aspect-video w-full overflow-hidden md:order-2">
-            {locationSection.image && (
-              <Image
-                src={locationSection.image}
-                alt={locationSection.imageAlt || "Ubicación del restaurante"}
-                fill
-                className="object-cover transition-transform duration-500 hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            )}
+            <GoogleMaps zoom={15} />
           </div>
         </section>
       </div>
-
-      {/* 3. Bloque independiente con el horario confirmado (RF-5) */}
-      <section
-        id="bloque-horarios"
-        aria-label="Horario confirmado de apertura"
-        className="mx-auto w-full max-w-2xl bg-transparent text-center"
-      >
-        <div className="flex flex-col items-center gap-4">
-          <div className="flex size-12 items-center justify-center rounded-full bg-primary/20 text-primary">
-            <Clock className="size-6" />
-          </div>
-          <h2 className="text-2xl font-semibold text-white">
-            Horario de Apertura
-          </h2>
-          <p className="text-sm text-zinc-400">
-            Horario confirmado de atención al público
-          </p>
-          <div className="w-full divide-y divide-white/10 text-sm md:text-base">
-            <div className="flex flex-col justify-between gap-1 py-4 sm:flex-row sm:items-center sm:text-left">
-              <span className="font-medium text-zinc-200">
-                {CONFIRMED_SCHEDULE.weekdays.days}
-              </span>
-              <span className="font-semibold text-primary">
-                {CONFIRMED_SCHEDULE.weekdays.hours.join(" y ")}
-              </span>
-            </div>
-            <div className="flex flex-col justify-between gap-1 py-4 sm:flex-row sm:items-center sm:text-left">
-              <span className="font-medium text-zinc-200">
-                {CONFIRMED_SCHEDULE.sunday.days}
-              </span>
-              <span className="font-semibold text-zinc-400">
-                {CONFIRMED_SCHEDULE.sunday.status}
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
