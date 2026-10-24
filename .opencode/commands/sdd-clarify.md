@@ -1,6 +1,6 @@
 ---
 description: SDD · Revisa la spec como QA (detecta, no resuelve)
-agent: plan
+agent: reviewer
 ---
 
 Revisa `specs/$1/spec.md` como QA profesional. Usa la skill SDD.

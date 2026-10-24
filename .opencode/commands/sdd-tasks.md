@@ -1,6 +1,6 @@
 ---
 description: SDD · Divide el plan en tareas pequeñas y verificables
-agent: plan
+agent: planner
 ---
 
 A partir de `specs/$1/spec.md` y `specs/$1/plan.md`, genera `specs/$1/tasks.md` siguiendo la skill SDD:

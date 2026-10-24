@@ -5,18 +5,24 @@ import { logout } from "@/lib/server-actions";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/shadcn/components/sheet";
 import ProfileAvatar from "./ProfileAvatar";
+import ProfileHeader from "./ProfileHeader";
 import { User } from "@/common/types/user.types";
-import AdminMenu from "./AdminMenu";
 import UserMenu from "./UserMenu";
+import type { ReactNode } from "react";
 
-export function SideSheet({ user }: { user: User }) {
+export function SideSheet({
+  user,
+  profileTabs,
+}: {
+  user: User;
+  profileTabs: ReactNode;
+}) {
   const handleLogout = async () => {
     await logout();
     window.location.reload();
@@ -30,12 +36,14 @@ export function SideSheet({ user }: { user: User }) {
       </SheetTrigger>
       <SheetContent className="max-h-screen">
         <SheetHeader>
-          <SheetTitle>
+          <SheetTitle className="mb-2">
             {user.role === "ROLE_USER"
-              ? `Bienvenido, ${user.name}`
+              ? "¡Bienvenido!"
               : "Panel de administrador"}
           </SheetTitle>
-          <div>{user.role === "ROLE_USER" ? <UserMenu /> : <AdminMenu />}</div>
+          <ProfileHeader user={user} />
+          {profileTabs}
+          {user.role === "ROLE_USER" ? (<div><UserMenu /></div>) : null}
         </SheetHeader>
         <SheetFooter>
           <Button variant="outline" onClick={handleLogout}>

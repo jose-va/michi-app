@@ -113,9 +113,9 @@ export function ReservationPage({ hours }: { hours: Hours }) {
     .join(" · ");
 
   return (
-    <div className="flex w-full justify-center px-3 py-6 md:py-10">
+    <div className="mx-auto flex w-full max-w-6xl justify-center py-6 md:py-8">
       {/* Un único bloque: imagen + formulario pegados, con el mismo borde rounded-lg del resto de la web */}
-      <section className="black-glassmorphism grid w-full max-w-md grid-cols-1 overflow-hidden rounded-lg border border-white/10 md:max-w-4xl md:grid-cols-[2fr_3fr]">
+      <section className="black-glassmorphism grid w-full max-w-6xl grid-cols-1 overflow-hidden rounded-lg border border-white/10 md:grid-cols-[2fr_3fr]">
         {/* Imagen */}
         {!imageFailed && (
           <div
@@ -196,7 +196,7 @@ export function ReservationPage({ hours }: { hours: Hours }) {
               <Button
                 type="button"
                 onClick={goToStep2}
-                className="w-full hover:bg-primary/80 md:w-auto"
+                className="w-full bg-primary hover:bg-primary! hover:brightness-110 md:w-auto"
               >
                 Ver disponibilidad
               </Button>
@@ -204,7 +204,7 @@ export function ReservationPage({ hours }: { hours: Hours }) {
               <Button
                 type="submit"
                 form="form-reservation"
-                className="w-full hover:bg-primary/80 md:w-auto"
+                className="w-full bg-primary hover:bg-primary! hover:brightness-110 md:w-auto"
               >
                 Confirmar reserva
               </Button>

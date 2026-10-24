@@ -3,7 +3,6 @@
 import { ProductFormProps } from "@/common/types/product-form.types";
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -14,10 +13,26 @@ import { Separator } from "@/shadcn/components/separator";
 import { Textarea } from "@/shadcn/components/textarea";
 import CategoryInput from "./CategoryInput";
 import AllergenInput from "./AllergenInput";
+import ProductPhotoInput from "./ProductPhotoInput";
 
-export default function ProductForm({ form}: ProductFormProps) {
+export default function ProductForm({
+  form,
+  existingImageSrc,
+  existingImageAlt,
+  photoFile,
+  photoError,
+  onPhotoSelect,
+}: ProductFormProps) {
   return (
     <div className="flex flex-col gap-3">
+      <ProductPhotoInput
+        existingSrc={existingImageSrc ?? null}
+        existingAlt={existingImageAlt ?? "Fotografía del producto"}
+        file={photoFile ?? null}
+        error={photoError ?? null}
+        onSelect={onPhotoSelect ?? (() => {})}
+      />
+      <Separator />
       <FormField
         control={form.control}
         name="name"

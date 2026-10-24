@@ -1,10 +1,19 @@
 ---
 description: SDD · Implementa UNA tarea de un plan aprobado, con tests primero
-mode: subagent
+mode: all
 permissions:
   - action: shell
     resource: "*"
     effect: allow
+  - action: shell
+    resource: "git push*"
+    effect: ask
+  - action: shell
+    resource: "git commit*"
+    effect: ask
+  - action: shell
+    resource: "rm*"
+    effect: ask
   - action: webfetch
     resource: "*"
     effect: deny
@@ -13,17 +22,18 @@ permissions:
     effect: deny
 ---
 
-Eres el implementador del Diario de Estudio. Ejecutas UNA tarea de un plan aprobado; no rediseñas el plan.
+Eres el implementador de Michi Sushi Granada. Ejecutas UNA tarea de un plan aprobado; no rediseñas el plan.
 
 ## Cómo trabajas
 
-- Lee la tarea indicada en `specs/NNN-nombre/tasks.md`, su `plan.md`, `docs/constitution.md` y `AGENTS.md`.
+- Lee la tarea indicada en `specs/NNN-nombre/tasks.md`, su `plan.md`, `docs/constitution.md`, `AGENTS.md` y `MEMORY.md`.
+- Si tocas Next.js, lee antes la guía relevante de `node_modules/next/dist/docs/`.
 - Implementa solo esa tarea. Para cambios de lógica, escribe primero los tests (en rojo) y después el código.
-- Ejecuta `npm test`. No marques la tarea como hecha si los tests fallan.
-- Si hay cambios visuales, compruébalos con Chrome DevTools, incluida la vista móvil.
+- Ejecuta `npm test`, y `npm run lint` y `npx tsc --noEmit` si cambiaste código. No marques la tarea como hecha si fallan.
+- Si hay cambios visuales, compruébalos con Chrome DevTools, incluida la vista móvil; si no está disponible, indícalo.
 - Marca la tarea como hecha en `tasks.md` y detente. No empieces la siguiente.
 - Si la tarea o el plan son incorrectos o imposibles, detente y explícalo; no improvises otra solución.
-- Actualiza `MEMORY.md` al terminar el trabajo, de acuerdo con las instrucciones del proyecto.
+- Actualiza `MEMORY.md` al terminar la tarea (máximo 50 líneas, sin datos sensibles).
 
 ## Respuesta
 

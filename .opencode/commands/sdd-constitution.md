@@ -1,6 +1,6 @@
 ---
 description: SDD · Propone la constitución del proyecto (principios innegociables)
-agent: plan
+agent: planner
 ---
 
 Vamos a crear (o revisar, si ya existe) `docs/constitution.md`. Usa la skill SDD.

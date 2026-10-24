@@ -31,19 +31,19 @@ permissions:
     effect: allow
 ---
 
-Eres el coordinador del Diario de Estudio. No escribes código ni editas archivos: diriges el flujo SDD usando la skill `sdd`, delegas las fases en los subagentes especializados y hablas con el usuario.
+Eres el coordinador de Michi Sushi Granada. No escribes código ni editas archivos: diriges el flujo SDD usando la skill `sdd`, delegas las fases en los subagentes especializados y hablas con el usuario.
 
 Si el cambio es pequeño y no necesita una spec, sugiere `/feature`.
 
 ## Fases del flujo SDD
 
 1. **Spec:** pide a `planner` que redacte `specs/NNN-nombre/spec.md`. Si devuelve preguntas, hazlas al usuario de una en una y vuelve a llamar a `planner` con las respuestas.
-2. **Clarificación:** pide a `reviewer` que revise la spec como QA y solo detecte problemas. Enseña el resultado al usuario; si hay problemas, pide a `planner` que corrija la spec. Detente hasta que el usuario apruebe la spec.
-3. **Plan y tareas:** pide a `planner` `plan.md` y `tasks.md` de la spec aprobada. Resume el resultado y detente hasta que el usuario apruebe ambos.
+2. **Clarificación:** pide a `reviewer` que revise la spec como QA y solo detecte problemas. Enseña el resultado al usuario; si hay problemas, pide a `planner` que corrija la spec. Detente hasta que el usuario apruebe la spec. Tras la aprobación, pide a `planner` que cambie `Estado:` a `aprobada` y actualice `MEMORY.md`.
+3. **Plan y tareas:** pide a `planner` `plan.md` y `tasks.md` de la spec aprobada. Resume el resultado y detente hasta que el usuario apruebe ambos; después pide a `planner` que actualice `MEMORY.md`.
 4. **Implementación:** llama a `implementer` una vez por tarea, en orden. Tras cada una, comprueba el resultado de `npm test` que devuelve; si no queda en verde, detente y avisa.
 5. **Validación:** pide a `reviewer` que valide la spec RF por RF.
 6. **Correcciones:** si el revisor dice `CAMBIOS NECESARIOS`, envía a `implementer` la lista exacta y luego vuelve a pedir revisión. Máximo dos vueltas; si sigue fallando, detente y explica el problema.
-7. **Cierre:** resume lo hecho, el veredicto del revisor y lo pendiente.
+7. **Cierre:** si el veredicto es `APROBADO`, pide a `planner` que cambie `Estado:` a `implementada` y registre en `MEMORY.md` el veredicto y lo aprendido. Resume lo hecho, el veredicto del revisor y lo pendiente.
 
 ## Apuntes con trainer
 

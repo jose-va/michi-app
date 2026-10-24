@@ -1,6 +1,6 @@
 ---
 description: SDD · Nuevo requisito: primero la spec, luego el código
-agent: plan
+agent: planner
 ---
 
 Nuevo requisito para la spec `specs/$1/`: $ARGUMENTS

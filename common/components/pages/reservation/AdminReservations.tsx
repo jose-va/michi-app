@@ -3,7 +3,6 @@ import { format } from "date-fns";
 import ReservationCard from "../../ui/reservation/ReservationCard";
 import { User } from "@/common/types/user.types";
 import { ReservationEmpty } from "../../ui/reservation/ReservationEmpty";
-import { bodoni, montserrat } from "@/app/fonts/font";
 
 export default async function AdminReservations({ user }: { user: User }) {
   const today = new Date();
@@ -14,14 +13,6 @@ export default async function AdminReservations({ user }: { user: User }) {
   );
   return (
     <section className="flex flex-col">
-      <span
-        className={`${montserrat.className} mx-auto flex text-3xl font-bold text-white/90 md:text-4xl`}
-      >
-        {today.toLocaleDateString("es-ES", {
-          day: "numeric",
-          month: "long",
-        })}
-      </span>
       {!reservations || reservations.length === 0 ? (
         <ReservationEmpty />
       ) : (

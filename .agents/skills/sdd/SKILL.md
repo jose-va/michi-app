@@ -14,6 +14,8 @@ Constitución → Spec → Clarificación → Plan → Tareas → Implementació
 - Para cambiar requisitos, actualiza primero la spec, después el plan y las tareas, y finalmente el código.
 - Cada spec vive en `specs/NNN-nombre/` junto con sus respectivos archivos `spec.md`, `plan.md` y `tasks.md`.
 - Actualiza `MEMORY.md` al terminar cada fase.
+- El `planner` cambia `Estado:` de la spec (`borrador` → `aprobada` → `implementada`) solo tras la aprobación o el cierre confirmados por el usuario.
+- Si el cambio toca Next.js, lee antes la guía relevante de `node_modules/next/dist/docs/`.
 
 ## Plantilla de spec (`spec.md`)
 
@@ -48,7 +50,7 @@ Cada requisito debe ser verificable; evita términos subjetivos sin un criterio 
 
 ## Plan (`plan.md`)
 
-Incluye archivos y responsabilidades, funciones puras (con `hoy` explícito cuando aplique), algoritmo en pseudocódigo, interfaz, decisiones justificadas con alternativas descartadas y estrategia de pruebas con `npm test`. Indica qué RF cubre cada parte.
+Incluye archivos y responsabilidades, funciones puras (con parámetros explícitos para tiempo u otras dependencias externas solo cuando aplique), algoritmo en pseudocódigo, interfaz, decisiones justificadas con alternativas descartadas y estrategia de pruebas con `npm test`. Indica qué RF cubre cada parte.
 
 ## Tareas (`tasks.md`)
 

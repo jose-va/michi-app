@@ -16,7 +16,14 @@ export default function GuestCount({ field }: { field: any }) {
       <SelectTrigger className="w-full max-w-48">
         <SelectValue placeholder="Comensales" />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent
+        position="popper"
+        side="bottom"
+        align="start"
+        sideOffset={4}
+        avoidCollisions={false}
+        className="max-h-56"
+      >
         <SelectGroup>
           <SelectLabel>Introduzca un número</SelectLabel>
           {Array.from({ length: 12 }).map((_, index) => {

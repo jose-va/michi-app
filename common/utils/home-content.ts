@@ -1,16 +1,16 @@
 export const DEFAULT_CAROUSEL_IMAGES = [
-  "/images/Combinado De Nigiri Especial Aburi [5_4-1024x1280-watermarked] 539_cleanup.webp",
-  "/images/Combinado dúo mixto.webp",
-   "/images/Katsumaki Combinado 8 Piezas [5_4-1024x1280-watermarked] 2be_cleanup.webp",
+  "/carousel/Combinado De Nigiri.webp",
+  "/carousel/Combinando Duo Mixto.webp",
+   "/carousel/Ebi Assari.webp",
 ] as const;
 
 export const CAROUSEL_IMAGE_ALTS: Record<string, string> = {
-  "/images/Combinado De Nigiri Especial Aburi [5_4-1024x1280-watermarked] 539_cleanup.webp":
-    "Combinado De Nigiri Especial Aburi",
-  "/images/Combinado dúo mixto.webp":
+  "/carousel/Combinado De Nigiri.webp":
+    "Combinado De Nigiri",
+  "/carousel/Combinando Duo Mixto.webp":
     "Combinado dúo mixto",
-  "/images/Katsumaki Combinado 8 Piezas [5_4-1024x1280-watermarked] 2be_cleanup.webp":
-    "Katsumaki Combinado",
+  "/carousel/Ebi Assari.webp":
+    "Ebi Assari",
 };
 
 export interface HomeSection {
@@ -45,7 +45,7 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
     id: "reservations",
     title: "Reserva tu mesa",
     description:
-      "Disfruta de una experiencia gastronómica japonesa cercana",
+      "Disfruta de una experiencia gastronómica japonesa cercana.",
     image:
       "/images/Dish Composition [5_4-2304x2880-watermarked] d88.webp",
     imageAlt: "Dish Composition [5_4-2304x2880-watermarked] d88",

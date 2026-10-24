@@ -37,7 +37,7 @@ describe("Enlaces del Bloque Información legal del footer (RF-5)", () => {
     assert.deepEqual(FOOTER_LEGAL, [
       { label: "Política de privacidad", href: "/privacidad" },
       { label: "Aviso legal", href: "/aviso-legal" },
-      { label: "Política de cookies", href: "/cookies" },
+      { label: "Cookies", href: "/cookies" },
     ]);
   });
 

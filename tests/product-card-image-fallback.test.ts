@@ -41,10 +41,14 @@ test("ProductCard activa el fallo en onError del <Image>", () => {
   );
 });
 
-test("ProductCard mantiene la geometría con pt-0 condicional", () => {
+test("ProductCard mantiene la geometría con pt-0 siempre (con y sin foto)", () => {
   assert.ok(
-    /imageFailed\s*&&\s*"pt-0"/.test(source),
-    "El Card debe añadir pt-0 condicional cuando falla la imagen",
+    /className=\{cn\(\s*"[^"]*pt-0/.test(source),
+    "El Card debe incluir pt-0 en su cadena base para pegar la foto al borde superior",
+  );
+  assert.ok(
+    !/imageFailed\s*&&\s*"pt-0"/.test(source),
+    "El pt-0 no debe depender de imageFailed: la geometría es la misma con foto y con fallback",
   );
 });
 

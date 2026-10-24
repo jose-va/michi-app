@@ -15,4 +15,9 @@ export type ProductFormValues = z.infer<typeof productFormSchema>;
 
 export interface ProductFormProps {
   form: UseFormReturn<ProductFormValues>;
+  existingImageSrc?: string | null;
+  existingImageAlt?: string;
+  photoFile?: File | null;
+  photoError?: string | null;
+  onPhotoSelect?: (file: File | null) => void;
 }

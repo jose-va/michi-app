@@ -184,3 +184,11 @@
     animation: accordion-up 0.2s ease-out;
   }
 }
+
+/* About fade-in: con movimiento reducido se muestra el texto final
+   inmediato, sin aparición ni desplazamiento. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up {
+    animation: none;
+  }
+}

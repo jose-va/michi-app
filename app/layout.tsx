@@ -22,7 +22,7 @@ export default async function RootLayout({
         className={`${montserrat.className} min-h-screen bg-[url("/background/background_michi.webp")] antialiased backdrop-blur-xs`}
       >
         <UserProvider initialUser={user}>
-          <PageMenu>{children}</PageMenu>
+          <PageMenu user={user}>{children}</PageMenu>
         </UserProvider>
         <Toaster position="top-center" richColors />
       </body>

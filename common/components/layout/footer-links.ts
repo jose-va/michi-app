@@ -7,16 +7,16 @@ export interface FooterLink {
 
 export const FOOTER_SECTIONS: FooterLink[] = [
   { label: "Inicio", href: "/" },
-  { label: "Nosotros", href: "/about" },
   { label: "Carta", href: "/product" },
   { label: "Reservar", href: "/reservation" },
   { label: "Ubicación", href: "/location" },
+  { label: "Conócenos", href: "/about" },
 ];
 
 export const FOOTER_LEGAL: FooterLink[] = [
   { label: "Política de privacidad", href: "/privacidad" },
   { label: "Aviso legal", href: "/aviso-legal" },
-  { label: "Política de cookies", href: "/cookies" },
+  { label: "Cookies", href: "/cookies" },
 ];
 
 export interface FooterScheduleRow {

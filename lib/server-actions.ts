@@ -7,6 +7,13 @@ import { format } from "date-fns";
 import { ProductFormValues } from "@/common/types/product-form.types";
 import { Product } from "@/common/types/product.types";
 import { ProductService } from "@/service/ProductService";
+import {
+  buildProductImageFileName,
+  validateProductImageFile,
+} from "@/common/utils/product-image";
+import { convertToWebpBuffer } from "@/lib/product-image-conversion";
+import { writeFile } from "node:fs/promises";
+import { join } from "node:path";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { UserService } from "@/service/UserService";
@@ -58,6 +65,31 @@ export async function updateProduct(
   } catch (error) {
     console.error("No se ha podido actualizar el producto: " + error);
     return null;
+  }
+}
+
+export async function uploadProductImage(
+  formData: FormData,
+): Promise<boolean> {
+  try {
+    const name = formData.get("name");
+    const photo = formData.get("photo");
+    if (typeof name !== "string" || !(photo instanceof File)) return false;
+
+    const validation = validateProductImageFile(photo.name, photo.size);
+    if (!validation.ok) return false;
+
+    const fileName = buildProductImageFileName(name);
+    const webp = await convertToWebpBuffer(
+      Buffer.from(await photo.arrayBuffer()),
+      photo.name,
+    );
+    await writeFile(join(process.cwd(), "public", "images", fileName), webp);
+    revalidatePath("/product");
+    return true;
+  } catch (error) {
+    console.error("No se ha podido guardar la imagen del producto: " + error);
+    return false;
   }
 }
 

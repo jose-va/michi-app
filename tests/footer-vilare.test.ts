@@ -9,8 +9,8 @@ const source = readFileSync(
 );
 
 describe("Crédito Vilare en la línea de cierre (RF-23, T18)", () => {
-  it("muestra el texto visible «Diseñado por»", () => {
-    assert.ok(source.includes("Diseñado por"));
+  it("muestra el texto visible «Desarrollado por»", () => {
+    assert.ok(source.includes("Desarrollado por"));
   });
 
   it("usa la imagen Vilare con alt exacto y hueco 160×64 sin deformar", () => {

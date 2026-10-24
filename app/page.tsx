@@ -15,23 +15,45 @@ export default function Home() {
       {/* 1. Encabezado superior con nombre del restaurante y carrusel (RF-1) */}
       <section
         aria-label="Bienvenida y carrusel principal"
-        className="grid items-center gap-10 py-6 md:grid-cols-2 md:py-12"
+        className="grid items-center gap-10 py-6 md:grid-cols-2 md:py-8"
       >
-        <div className="flex flex-col justify-center space-y-4">
-          <div className="flex items-end gap-3">
+        <div className="flex flex-col justify-center space-y-3">
+          <div className="flex items-center gap-3">
             <h1
               className={`${sigokae.className} text-6xl font-extrabold tracking-tight text-white md:text-7xl lg:text-8xl`}
             >
               <span className="block">MICHI</span>
               <span className="block">SUSHI</span>
             </h1>
-            <span className="mb-4 text-3xl text-white/40" aria-hidden="true">
+            <span className="text-2xl leading-none text-white/40" aria-hidden="true">
               道
             </span>
           </div>
-          <p className="max-w-lg text-base text-zinc-300 md:text-lg">
-            Gastronomía japonesa y tapeo en el norte de Granada.
+          <span
+            aria-hidden="true"
+            className="h-1 w-16 rounded-full bg-primary"
+          />
+          <p className="max-w-md text-base text-zinc-100 drop-shadow-sm md:text-lg">
+            Gastronomía japonesa y tapeo.
+            Ven a visitar tu nuevo sushi bar en Granada.
           </p>
+          <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center">
+            <Button
+              asChild
+              size="lg"
+              className="bg-primary min-h-11 font-semibold hover:bg-primary! hover:brightness-110"
+            >
+              <Link href="/reservation">Reservar ahora</Link>
+            </Button>
+            <Button
+              asChild
+              variant="secondary"
+              size="lg"
+              className="min-h-11 bg-white/10 font-semibold text-white shadow-lg backdrop-blur"
+            >
+              <Link href="/about">Sobre nosotros</Link>
+            </Button>
+          </div>
         </div>
 
         <div className="flex justify-center md:justify-end">
@@ -48,11 +70,11 @@ export default function Home() {
           className="mx-auto w-full max-w-3xl bg-transparent px-2 text-center"
         >
           <div className="space-y-3">
-            <span className="text-primary text-xs font-bold tracking-widest uppercase brightness-120">
+            <span className="text-zinc-300 text-xs font-bold tracking-widest uppercase brightness-120">
               {mottoSection.title}
             </span>
             <p
-              className={`${playfair.className} text-2xl leading-relaxed text-zinc-300 italic md:text-3xl`}
+              className={`${centuryGothic.className} text-2xl leading-relaxed text-zinc-300 italic md:text-3xl`}
             >
               &ldquo;{mottoSection.description}&rdquo;
             </p>

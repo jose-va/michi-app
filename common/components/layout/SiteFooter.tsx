@@ -74,7 +74,7 @@ export default function SiteFooter() {
           ) : (
             <ul className="mt-2 flex flex-col gap-3">
               {FOOTER_SCHEDULE.rows.map((row) => (
-                <li key={row.days} className="flex flex-col gap-1">
+                <li key={row.days} className="flex flex-col gap-1 brightness-150">
                   <span className="font-medium text-zinc-200">
                     {row.days}
                   </span>
@@ -91,15 +91,15 @@ export default function SiteFooter() {
           <p className="text-sm text-zinc-400">
             © {year} Michi Sushi Granada. Todos los derechos reservados.
           </p>
-          <div className="flex items-center gap-0">
-            <span className="text-sm text-zinc-400">Diseñado por</span>
-            <div className="h-[64px] w-[160px]">
+          <div className="flex items-center">
+            <span className="text-sm text-zinc-400">Desarrollador</span>
+            <div className="h-16">
               <Image
                 src="/logos/LOGO-VILARE.webp"
                 alt="Desarrollado por Vilare"
                 width={160}
                 height={64}
-                className="h-[64px] w-[160px] object-contain"
+                className="h-17 object-contain"
                 loading="lazy"
               />
             </div>

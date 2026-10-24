@@ -10,12 +10,6 @@ export default function AvisoLegalPage() {
   return (
     <div className="mx-auto w-full max-w-3xl pb-16">
       <h1 className="text-3xl font-extrabold text-white">Aviso legal</h1>
-      <p
-        role="note"
-        className="mt-4 rounded-lg border-l-4 border-primary bg-white/5 px-4 py-3 text-zinc-200"
-      >
-        Aviso: contenido provisional pendiente de revisión legal definitiva
-      </p>
       <div className="mt-6 flex flex-col gap-8 rounded-lg bg-black/60 p-6 text-zinc-100 backdrop-blur-md md:p-8">
         <section aria-labelledby="identificacion">
           <h2 id="identificacion" className="text-xl font-bold text-white">
