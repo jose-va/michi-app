@@ -4,15 +4,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { useUser } from "../../provider/UserProvider";
 import { SideSheet } from "./SideSheet";
+import type { ReactNode } from "react";
 
-export default function ProfileAuth() {
+export default function ProfileAuth({
+  profileTabs,
+}: {
+  profileTabs: ReactNode;
+}) {
   const authUrl = process.env.NEXT_PUBLIC_AUTH_URL;
   const user = useUser();
 
   if (user) {
     return (
       <div className="ml-auto flex justify-center gap-4">
-        <SideSheet user={user}/>  
+        <SideSheet user={user} profileTabs={profileTabs} />
       </div>
     );
   }
