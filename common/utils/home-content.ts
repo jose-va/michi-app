@@ -1,20 +1,20 @@
 export const DEFAULT_CAROUSEL_IMAGES = [
-  "/images/Combinado De Nigiri Especial Aburi [5_4-1024x1280-watermarked] 539_cleanup.webp",
-  "/images/Combinado dúo mixto.webp",
-   "/images/Katsumaki Combinado 8 Piezas [5_4-1024x1280-watermarked] 2be_cleanup.webp",
+  "/carousel/Combinado De Nigiri.webp",
+  "/carousel/Combinando Duo Mixto.webp",
+   "/carousel/Ebi Assari.webp",
 ] as const;
 
 export const CAROUSEL_IMAGE_ALTS: Record<string, string> = {
-  "/images/Combinado De Nigiri Especial Aburi [5_4-1024x1280-watermarked] 539_cleanup.webp":
-    "Combinado De Nigiri Especial Aburi",
-  "/images/Combinado dúo mixto.webp":
+  "/carousel/Combinado De Nigiri.webp":
+    "Combinado De Nigiri",
+  "/carousel/Combinando Duo Mixto.webp":
     "Combinado dúo mixto",
-  "/images/Katsumaki Combinado 8 Piezas [5_4-1024x1280-watermarked] 2be_cleanup.webp":
-    "Katsumaki Combinado",
+  "/carousel/Ebi Assari.webp":
+    "Ebi Assari",
 };
 
 export interface HomeSection {
-  id: "motto" | "menu" | "reservations" | "location";
+  id: "motto" | "menu" | "reservations" | "location" | "delivery";
   title: string;
   description: string;
   image?: string;
@@ -23,10 +23,13 @@ export interface HomeSection {
   actionHref?: string;
 }
 
+export const UBER_EATS_URL =
+  "https://www.ubereats.com/store/michi-sushi-bar/C4prIh1gVIahmQgwtrvDTA/?analyticsUuid=1ad41473-1403-4d26-a8f3-5ae0165030bb&qrCodeScan=true&diningMode=DINE_IN" as const;
+
 export const HOME_SECTIONS: readonly HomeSection[] = [
   {
     id: "motto",
-    title: "Nuestra Filosofía",
+    title: " GRANADA",
     description:
       "Donde el arte del sushi se une al encanto de las tapas, creando una experiencia única que combina tradición japonesa con calidez granaína.",
   },
@@ -42,14 +45,23 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
     actionHref: "/product",
   },
   {
+    id: "delivery",
+    title: "PIDE A DOMICILIO",
+    description: "Tu sushi favorito en casa con Uber Eats. Pide desde la aplicación.",
+    image: "/images/Dish Composition [5_4-2304x2880-watermarked] d88.webp",
+    imageAlt: "Sushi de Michi para pedir en Uber Eats",
+    actionLabel: "Pedir en Uber Eats",
+    actionHref: UBER_EATS_URL,
+  },
+  {
     id: "reservations",
-    title: "Reserva tu mesa",
+    title: "Reserva mesa",
     description:
-      "Disfruta de una experiencia gastronómica japonesa cercana",
+      "Disfruta de una experiencia gastronómica japonesa cercana.",
     image:
-      "/images/Dish Composition [5_4-2304x2880-watermarked] d88.webp",
-    imageAlt: "Dish Composition [5_4-2304x2880-watermarked] d88",
-    actionLabel: "Reservar mesa",
+      "/images/2326ceaf-1ded-46d3-b174-c7c6cfe55ed6.webp",
+    imageAlt: "Reserva tu mesa en Michi Sushi",
+    actionLabel: "Reservar ahora",
     actionHref: "/reservation",
   },
   {
@@ -63,8 +75,12 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
 ] as const;
 
 export const CONFIRMED_SCHEDULE = {
-  weekdays: {
-    days: "Lunes a sábado",
+  monday: {
+    days: "Lunes",
+    hours: ["20:00–23:00"],
+  },
+  tuesdayToSaturday: {
+    days: "Martes a Sábado",
     hours: ["08:00–16:00", "20:00–23:00"],
   },
   sunday: {
