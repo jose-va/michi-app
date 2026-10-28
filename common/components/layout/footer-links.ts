@@ -7,16 +7,48 @@ export interface FooterLink {
 
 export const FOOTER_SECTIONS: FooterLink[] = [
   { label: "Inicio", href: "/" },
-  { label: "Nosotros", href: "/about" },
   { label: "Carta", href: "/product" },
   { label: "Reservar", href: "/reservation" },
   { label: "Ubicación", href: "/location" },
+  { label: "Conócenos", href: "/about" },
 ];
 
 export const FOOTER_LEGAL: FooterLink[] = [
   { label: "Política de privacidad", href: "/privacidad" },
   { label: "Aviso legal", href: "/aviso-legal" },
-  { label: "Política de cookies", href: "/cookies" },
+  { label: "Cookies", href: "/cookies" },
+];
+
+export interface FooterContactItem {
+  label: string;
+  href: string;
+  display?: string;
+  external?: boolean;
+}
+
+export const FOOTER_CONTACT_TITLE = "Contacto";
+
+export const FOOTER_CONTACT: FooterContactItem[] = [
+  {
+    label: "Teléfono",
+    href: "tel:+34673821148",
+    display: "673 821 148",
+  },
+  {
+    label: "WhatsApp",
+    href: "https://api.whatsapp.com/send/?phone=34673821148",
+    external: true,
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/michisushigranada",
+    external: true,
+  },
+  {
+    label: "Correo",
+    href: "mailto:michisushigranada@gmail.com",
+    display: "michisushigranada@gmail.com",
+  },
 ];
 
 export interface FooterScheduleRow {
@@ -33,12 +65,12 @@ export const FOOTER_SCHEDULE: FooterSchedule = {
   title: "Horario de Apertura",
   rows: [
     {
-      days: CONFIRMED_SCHEDULE.weekdays.days,
-      hours: CONFIRMED_SCHEDULE.weekdays.hours.join(" y "),
+      days: CONFIRMED_SCHEDULE.monday.days,
+      hours: CONFIRMED_SCHEDULE.monday.hours.join(" y "),
     },
     {
-      days: CONFIRMED_SCHEDULE.sunday.days,
-      hours: CONFIRMED_SCHEDULE.sunday.status,
+      days: CONFIRMED_SCHEDULE.tuesdayToSaturday.days,
+      hours: CONFIRMED_SCHEDULE.tuesdayToSaturday.hours.join(" y "),
     },
   ],
 };
