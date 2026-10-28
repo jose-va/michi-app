@@ -1,4 +1,6 @@
 export interface Reservation {
+  id?: string;
+  cancelToken?: string | null;
   date: string
   guests: number;
   location: "INSIDE" | "OUTSIDE";
@@ -8,5 +10,6 @@ export interface Reservation {
   email: string | null;
   observations: string | null;
   user: string | null;
+  state?: string | null;
 }
 
