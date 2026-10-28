@@ -1,11 +1,14 @@
 import Image from "next/image";
 import {
+  FOOTER_CONTACT,
+  FOOTER_CONTACT_TITLE,
   FOOTER_LEGAL,
   FOOTER_SCHEDULE,
   FOOTER_SCHEDULE_EMPTY_TEXT,
   FOOTER_SECTIONS,
   getFooterYear,
 } from "./footer-links";
+import { MICHI_ADDRESS } from "@/common/utils/location";
 import FooterNavLink from "./FooterNavLink";
 
 const FOOTER_TAGLINE = "Gastronomía japonesa y tapeo en el norte de granada.";
@@ -18,8 +21,8 @@ export default function SiteFooter() {
 
   return (
     <footer className="w-full border-t border-white/10 bg-black/60 backdrop-blur-md">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-7 py-12 md:grid md:grid-cols-4 md:gap-8">
-        <div>
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-7 py-12 md:grid md:grid-cols-4 md:gap-6 lg:gap-8">
+        <div className="md:col-span-4">
           <div className="h-20">
             <Image
               src="/logos/LOGO-HOR-WHITE_1.webp"
@@ -48,6 +51,42 @@ export default function SiteFooter() {
           </ul>
         </nav>
 
+        <section aria-label={FOOTER_CONTACT_TITLE}>
+          <h2 className="text-lg font-semibold text-white">
+            {FOOTER_CONTACT_TITLE}
+          </h2>
+          <ul className="mt-2 flex flex-col">
+            {FOOTER_CONTACT.map((item) => (
+              <li key={item.href}>
+                {item.external ? (
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${FOOTER_LINK_CLASSNAME} break-all`}
+                  >
+                    {item.label}
+                    <span className="sr-only">
+                      {" "}
+                      (se abre en una pestaña nueva)
+                    </span>
+                  </a>
+                ) : (
+                  <a
+                    href={item.href}
+                    aria-label={
+                      item.display ? `${item.label}: ${item.display}` : item.label
+                    }
+                    className={`${FOOTER_LINK_CLASSNAME} break-all`}
+                  >
+                    {item.label}
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+
         <nav aria-label="Información legal">
           <h2 className="text-lg font-semibold text-white">
             Información legal
@@ -74,7 +113,7 @@ export default function SiteFooter() {
           ) : (
             <ul className="mt-2 flex flex-col gap-3">
               {FOOTER_SCHEDULE.rows.map((row) => (
-                <li key={row.days} className="flex flex-col gap-1">
+                <li key={row.days} className="flex flex-col gap-1 brightness-150">
                   <span className="font-medium text-zinc-200">
                     {row.days}
                   </span>
@@ -83,6 +122,10 @@ export default function SiteFooter() {
               ))}
             </ul>
           )}
+          <div className="mt-4 flex flex-col gap-1">
+            <span className="font-medium text-zinc-200">Dirección</span>
+            <span className="text-sm text-zinc-300">{MICHI_ADDRESS}</span>
+          </div>
         </section>
       </div>
 
@@ -91,15 +134,15 @@ export default function SiteFooter() {
           <p className="text-sm text-zinc-400">
             © {year} Michi Sushi Granada. Todos los derechos reservados.
           </p>
-          <div className="flex items-center gap-0">
-            <span className="text-sm text-zinc-400">Diseñado por</span>
-            <div className="h-[64px] w-[160px]">
+          <div className="flex items-center">
+            <span className="text-sm text-zinc-400">Desarrollador</span>
+            <div className="h-16">
               <Image
                 src="/logos/LOGO-VILARE.webp"
                 alt="Desarrollado por Vilare"
                 width={160}
                 height={64}
-                className="h-[64px] w-[160px] object-contain"
+                className="h-17 object-contain"
                 loading="lazy"
               />
             </div>
