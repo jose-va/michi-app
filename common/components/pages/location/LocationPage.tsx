@@ -26,8 +26,8 @@ export default function LocationPage({
 }) {
   return (
     <>
-      <section className="mx-auto flex w-full max-w-6xl flex-col gap-6 pt-10 pb-6 md:py-8">
-        <header className="flex flex-col items-center gap-3 rounded-lg bg-gradient-to-b from-black/60 via-black/40 via-80% to-transparent px-4 py-8 text-center md:py-10">
+      <section className="mx-auto flex w-full max-w-6xl flex-col gap-6 pt-6 pb-6 md:py-8">
+        <header className="flex flex-col items-center gap-3 rounded-lg bg-linear-to-b from-black/60 via-black/40 via-80% to-transparent px-4 py-8 text-center md:py-10">
           <div className="flex w-full items-center justify-center gap-3">
             <span
               aria-hidden="true"
@@ -56,7 +56,7 @@ export default function LocationPage({
         </header>
 
         <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
-          <div className="h-96 overflow-hidden rounded-lg border border-white/10 shadow-2xl lg:h-auto lg:min-h-[28rem]">
+          <div className="h-96 overflow-hidden rounded-lg border border-white/10 shadow-2xl lg:h-auto lg:min-h-112">
             <GoogleMaps />
           </div>
 

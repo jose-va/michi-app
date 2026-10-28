@@ -37,11 +37,11 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
     id: "menu",
     title: "NUESTRA CARTA",
     description:
-      "Explora nuestra selección de sushi, nigiris y maki rolls, preparados al momento con el producto más fresco.",
+      "Todos nuestros productos se preparan al momento con ingredientes de alta calidad.",
     image:
       "/images/Ebi Pasión.webp",
     imageAlt: "Ebi Pasión",
-    actionLabel: "Ver todos los platos",
+    actionLabel: "Ver la carta",
     actionHref: "/product",
   },
   {
@@ -57,7 +57,7 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
     id: "reservations",
     title: "Reserva mesa",
     description:
-      "Disfruta de una experiencia gastronómica japonesa cercana.",
+      "Disfruta de una experiencia gastronómica japonesa cercana y auténtica.",
     image:
       "/images/2326ceaf-1ded-46d3-b174-c7c6cfe55ed6.webp",
     imageAlt: "Reserva tu mesa en Michi Sushi",
@@ -66,9 +66,9 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
   },
   {
     id: "location",
-    title: "¿Dónde estamos?",
+    title: "Dónde estamos",
     description:
-      "Visítanos en Calle Gutierre Tibón, Santiago Lozano 8, local 2",
+      "Visítenos en Calle Gutierre Tibón, Santiago Lozano 8, Local 2, Granada.",
     actionLabel: "Cómo llegar",
     actionHref: "/location",
   },

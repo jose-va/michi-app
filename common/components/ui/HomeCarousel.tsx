@@ -22,20 +22,20 @@ export function HomeCarousel({ images = DEFAULT_CAROUSEL_IMAGES }: HomeCarouselP
 
   return (
     <Carousel
-      className="w-full max-w-xl"
+      className="w-full max-w-2xl"
       opts={{ loop: true }}
       plugins={[autoplay]}
     >
       <CarouselContent>
         {images.map((src, index) => (
           <CarouselItem key={src}>
-            <div className="relative aspect-[4/3] w-full">
+            <div className="relative aspect-4/3 w-full">
               <Image
                 src={src}
                 alt={CAROUSEL_IMAGE_ALTS[src] || `Fotografía ${index + 1} de Michi Sushi`}
                 fill
-                sizes="(min-width: 768px) 36rem, 100vw"
-                className="object-contain"
+                sizes="(min-width: 1024px) 56rem, 100vw"
+                className="object-cover"
               />
             </div>
           </CarouselItem>

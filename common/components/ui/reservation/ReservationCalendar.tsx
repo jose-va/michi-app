@@ -1,8 +1,6 @@
 "use client";
 
 import { Calendar } from "@/shadcn/components/calendar";
-import { Badge } from "@/shadcn/components/badge";
-import { cn } from "@/lib/utils";
 import OpeningHours from "./OpeningHours";
 
 export default function ReservationCalendar({
@@ -13,10 +11,9 @@ export default function ReservationCalendar({
   onChange: (date: Date) => void;
 }) {
   const today = new Date();
-  const isToday = selectedValue.toDateString() === today.toDateString();
 
   return (
-    <div className="flex flex-wrap gap-4">
+    <div className="flex flex-wrap gap-4 mt-2">
       <Calendar
         mode="single"
         selected={selectedValue}
@@ -29,15 +26,6 @@ export default function ReservationCalendar({
       />
 
       <div className="mt-1 flex flex-col items-start gap-4">
-        <Badge
-          className={cn(
-            "animate-fade-in-up text-black capitalize duration-500",
-            isToday ? "bg-green-500" : "bg-blue-500"
-          )}
-        >
-          {selectedValue.toLocaleDateString("es-ES", { weekday: "long" })}
-        </Badge>
-
         <OpeningHours />
       </div>
     </div>
