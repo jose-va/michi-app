@@ -9,10 +9,20 @@ export const productFormSchema = z.object({
   category: z.string().min(1, "Por favor, seleccione una categoría"),
   allergens: z.array(z.string()),
   pieces: z.number().int().min(0),
+  position: z.number().int().min(0).optional(),
 });
 
 export type ProductFormValues = z.infer<typeof productFormSchema>;
 
 export interface ProductFormProps {
   form: UseFormReturn<ProductFormValues>;
+  showPosition?: boolean;
+  existingImageSrc?: string | null;
+  existingImageAlt?: string;
+  photoFile?: File | null;
+  photoError?: string | null;
+  onPhotoSelect?: (file: File | null) => void;
+  existingRemoved?: boolean;
+  onRemoveExisting?: () => void;
+  onRestoreExisting?: () => void;
 }

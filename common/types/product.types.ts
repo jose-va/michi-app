@@ -5,6 +5,7 @@ export type Product = {
   description: string;
   category: string;
   allergens: string[];
+  position?: number;
   pieces: number;
   price: number;
   status?: boolean;
