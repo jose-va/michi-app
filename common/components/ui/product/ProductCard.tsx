@@ -26,6 +26,7 @@ import { getCategoryTitle } from "@/common/mappers/category.mapper";
 import {
   getProductImageSrc,
 } from "@/common/utils/product-image";
+import { formatPriceES } from "@/common/utils/product-price";
 
 import { useUser } from "../../provider/UserProvider";
 import { cn } from "@/lib/utils";
@@ -42,9 +43,10 @@ export default function ProductCard({
   const user = useUser();
   const [imageFailed, setImageFailed] = useState(false);
   const favoriteProducts = user?.role === "ROLE_USER" ? user.favoriteProducts : [];
+  const formatted = formatPriceES(product.price);
   return (
     <div
-      className="animate-fade-in-up opacity-0"
+      className="animate-fade-in-up opacity-0 motion-reduce:animate-none motion-reduce:opacity-100"
       style={{
         animationDelay: `${index * 100}ms`,
         animationFillMode: "forwards",
@@ -52,31 +54,40 @@ export default function ProductCard({
     >
       <Card
         className={cn(
-          "black-glassmorphism hover:shadow-4xl relative mt-6 h-full rounded-lg border duration-500 hover:-translate-y-2",
-          !product.status && "opacity-60 grayscale",
-          imageFailed && "pt-0"
+          "black-glassmorphism hover:shadow-4xl relative mt-6 h-full rounded-lg border pt-0 duration-500 hover:-translate-y-2",
+          !product.status && "opacity-60 grayscale"
         )}
       >
-        {imageFailed ? (
-          <div className="h-44 w-full bg-black/60" aria-hidden="true" />
-        ) : (
-          <Image
-            src={getProductImageSrc(product.name)}
-            alt={`Fotografía de ${product.name}`}
-            width={400}
-            height={225}
-            className="h-44 w-full object-cover"
-            onError={() => setImageFailed(true)}
-          />
-        )}
-        <Badge
-          className={cn(
-            "absolute top-2 left-2 shadow-lg",
-            getCategoryBadge(product.category)
+        <div className="relative overflow-hidden rounded-t-lg">
+          {imageFailed ? (
+            <div className="h-44 w-full bg-black/60" aria-hidden="true" />
+          ) : (
+            <Image
+              src={getProductImageSrc(product.name)}
+              alt={`Fotografía de ${product.name}`}
+              width={400}
+              height={225}
+              className="h-44 w-full object-cover"
+              onError={() => setImageFailed(true)}
+            />
           )}
-        >
-          {getCategoryTitle(product.category)}
-        </Badge>
+          <Badge
+            className={cn(
+              "absolute top-2 left-2 shadow-lg",
+              getCategoryBadge(product.category)
+            )}
+          >
+            {getCategoryTitle(product.category)}
+          </Badge>
+          {formatted && (
+            <span
+              className="absolute right-2 bottom-2 rounded-full bg-black/75 px-3 py-1 text-sm font-bold text-white shadow-lg"
+              aria-label={`Precio ${formatted}`}
+            >
+              {formatted}
+            </span>
+          )}
+        </div>
         <CardHeader>
           <div className="flex flex-wrap items-center gap-2">
             <CardTitle className="text-sm">{product.name}</CardTitle>
@@ -117,9 +128,6 @@ export default function ProductCard({
               </Tooltip>
             ))}
           </div>
-          <span className="border-l border-white/40 pr-1 pl-3 font-semibold">
-            {product.price.toFixed(2)}€
-          </span>
         </CardFooter>
       </Card>
     </div>
