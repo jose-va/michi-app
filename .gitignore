@@ -45,8 +45,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-public
 preview
 
-.agents
-.opencode
+# agents
+.agents/
+.opencode/
+specs/

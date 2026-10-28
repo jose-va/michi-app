@@ -8,6 +8,15 @@ const nextConfig: NextConfig = {
     maxInactiveAge: 15 * 1000,
     pagesBufferLength: 5,
   },
+  async redirects() {
+    return [
+      {
+        source: "/product/favorite",
+        destination: "/product",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
