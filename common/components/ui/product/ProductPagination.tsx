@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   Pagination,
   PaginationContent,
@@ -18,13 +18,21 @@ interface Props {
 
 export function ProductPagination({ currentPage, totalPages }: Props) {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  function goToPage(page: number) {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", String(page));
+    router.push(`${pathname}?${params.toString()}`);
+  }
 
   return (
     <Pagination className="mt-10 mb-5">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            onClick={() => router.push(`?page=${currentPage - 1}`)}
+            onClick={() => goToPage(currentPage - 1)}
             className={cn(
               "cursor-pointer",
               currentPage == 0
@@ -35,7 +43,7 @@ export function ProductPagination({ currentPage, totalPages }: Props) {
         </PaginationItem>
         <PaginationItem>
           <PaginationNext
-            onClick={() => router.push(`?page=${currentPage + 1}`)}
+            onClick={() => goToPage(currentPage + 1)}
             className={cn(
               "cursor-pointer",
               currentPage == totalPages - 1
