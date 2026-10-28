@@ -1,6 +1,12 @@
+import { CONFIRMED_SCHEDULE } from "@/common/utils/home-content";
+
 const OPENING_HOURS = [
-  { days: "Lunes a sábado", time: "08:00–16:00 y 20:00–23:00" },
-  { days: "Domingo", time: "Cerrado" },
+  { days: CONFIRMED_SCHEDULE.monday.days, time: CONFIRMED_SCHEDULE.monday.hours.join(" y ") },
+  {
+    days: CONFIRMED_SCHEDULE.tuesdayToSaturday.days,
+    time: CONFIRMED_SCHEDULE.tuesdayToSaturday.hours.join(" y "),
+  },
+  { days: CONFIRMED_SCHEDULE.sunday.days, time: CONFIRMED_SCHEDULE.sunday.status },
 ] as const;
 
 export default function OpeningHours() {
