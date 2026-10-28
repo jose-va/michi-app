@@ -1,40 +1,30 @@
 import { ReservationService } from "@/service/ReservationService";
-import { format } from "date-fns";
-import ReservationCard from "../../ui/reservation/ReservationCard";
-import { User } from "@/common/types/user.types";
-import { ReservationEmpty } from "../../ui/reservation/ReservationEmpty";
-import { bodoni, montserrat } from "@/app/fonts/font";
+import ReservationShiftTabs from "../../ui/reservation/ReservationShiftTabs";
+import {
+  groupReservationsByShift,
+  sortReservationsByTimeAndName,
+} from "@/common/utils/reservation-day";
 
-export default async function AdminReservations({ user }: { user: User }) {
-  const today = new Date();
-  const date: string = format(today, "yyyy-MM-dd");
-  const reservations = await ReservationService.getReservations(
-    date,
-    user.role
-  );
+export default async function AdminReservations({ date }: { date: string }) {
+  const reservations = await ReservationService.getReservations(date);
+  if (reservations === null) {
+    return (
+      <section className="flex flex-col">
+        <p
+          role="alert"
+          className="black-glassmorphism my-5 w-full border border-destructive/60 px-4 py-6 text-destructive"
+        >
+          No se han podido cargar las reservas de este día. Inténtalo de nuevo
+          más tarde.
+        </p>
+      </section>
+    );
+  }
+  const ordered = sortReservationsByTimeAndName(reservations);
+  const groups = groupReservationsByShift(ordered);
   return (
-    <section className="flex flex-col">
-      <span
-        className={`${montserrat.className} mx-auto flex text-3xl font-bold text-white/90 md:text-4xl`}
-      >
-        {today.toLocaleDateString("es-ES", {
-          day: "numeric",
-          month: "long",
-        })}
-      </span>
-      {!reservations || reservations.length === 0 ? (
-        <ReservationEmpty />
-      ) : (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {reservations?.map((reservation, index) => (
-            <ReservationCard
-              key={index}
-              index={index}
-              reservation={reservation}
-            />
-          ))}
-        </div>
-      )}
+    <section className="flex flex-col gap-6">
+      <ReservationShiftTabs lunch={groups.lunch} dinner={groups.dinner} />
     </section>
   );
 }

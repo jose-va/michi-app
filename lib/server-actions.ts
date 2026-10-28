@@ -1,30 +1,78 @@
 "use server";
 
-import { ReservationService } from "@/service/ReservationService";
 import { Reservation } from "@/common/types/reservation.types";
 import { ReservationFormValues } from "@/common/types/reservation-form.types";
 import { format } from "date-fns";
+import { normalizeUserKey } from "@/common/utils/profile-reservations";
 import { ProductFormValues } from "@/common/types/product-form.types";
 import { Product } from "@/common/types/product.types";
 import { ProductService } from "@/service/ProductService";
+import {
+  buildProductImageFileName,
+  validateProductImageFile,
+} from "@/common/utils/product-image";
+import { convertToWebpBuffer } from "@/lib/product-image-conversion";
+import { unlink, writeFile } from "node:fs/promises";
+import { join } from "node:path";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { UserService } from "@/service/UserService";
 
-export async function createReservation(
-  data: ReservationFormValues
-): Promise<Reservation | null> {
-  try {
-    const payload: Reservation = {
-      ...data,
-      date: format(data.date, "yyyy-MM-dd"),
-      guests: parseInt(data.guests),
-    };
+import {
+  CancelReservationResult,
+  CreateReservationResult,
+  ReservationService,
+} from "@/service/ReservationService";
 
-    const reservation = await ReservationService.createReservation(payload);
-    revalidatePath("/reservation");
-    return reservation;
+export async function createReservation(
+  data: Omit<ReservationFormValues, "user">
+): Promise<CreateReservationResult> {
+  const profile = await UserService.getProfile(); 
+
+  const guests = Number(data.guests);
+  if (!Number.isInteger(guests) || guests < 1) {
+    return { ok: false, error: "UNKNOWN" };
+  }
+
+  try {
+    const result = await ReservationService.createReservation({
+      ...data,
+      user: normalizeUserKey(profile?.id), // "" para invitados
+      date: format(data.date, "yyyy-MM-dd"),
+      guests,
+    });
+    if (result.ok) revalidatePath("/reservation");
+    return result;
   } catch (error) {
+    console.error("Error al crear la reserva:", error);
+    return { ok: false, error: "UNKNOWN" };
+  }
+}
+
+export async function cancelReservation(
+  id: string,
+  token?: string
+): Promise<CancelReservationResult> {
+  if (!id) {
+    return { ok: false, status: 404 };
+  }
+
+  const result = await ReservationService.cancelReservation(id, token);
+  if (result.ok) {
+    revalidatePath("/");
+    revalidatePath("/reservation");
+    revalidatePath("/reservation/preview");
+  }
+  return result;
+}
+
+export async function getMyReservationsByDay(
+  date: string
+): Promise<Reservation[] | null> {
+  try {
+    return await ReservationService.getMyReservations(date);
+  } catch (error) {
+    console.error("Error al obtener las reservas del día:", error);
     return null;
   }
 }
@@ -58,6 +106,45 @@ export async function updateProduct(
   } catch (error) {
     console.error("No se ha podido actualizar el producto: " + error);
     return null;
+  }
+}
+
+export async function uploadProductImage(formData: FormData): Promise<boolean> {
+  try {
+    const name = formData.get("name");
+    const photo = formData.get("photo");
+    if (typeof name !== "string" || !(photo instanceof File)) return false;
+
+    const validation = validateProductImageFile(photo.name, photo.size);
+    if (!validation.ok) return false;
+
+    const fileName = buildProductImageFileName(name);
+    const webp = await convertToWebpBuffer(
+      Buffer.from(await photo.arrayBuffer()),
+      photo.name
+    );
+    await writeFile(join(process.cwd(), "public", "images", fileName), webp);
+    revalidatePath("/product");
+    return true;
+  } catch (error) {
+    console.error("No se ha podido guardar la imagen del producto: " + error);
+    return false;
+  }
+}
+
+export async function deleteProductImage(name: string): Promise<boolean> {
+  try {
+    const fileName = buildProductImageFileName(name);
+    await unlink(join(process.cwd(), "public", "images", fileName));
+    revalidatePath("/product");
+    return true;
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException)?.code === "ENOENT") {
+      revalidatePath("/product");
+      return true;
+    }
+    console.error("No se ha podido eliminar la imagen del producto: " + error);
+    return false;
   }
 }
 

@@ -17,7 +17,6 @@ export default async function ReservationDashboard({
   return (
     <div  className="flex flex-col gap-4">
       <ReservationPage hours={hours} />
-
     </div>
   )
 }
