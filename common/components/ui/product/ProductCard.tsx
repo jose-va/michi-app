@@ -23,9 +23,7 @@ import {
 } from "../../../mappers/allergen.mapper";
 import { getCategoryBadge } from "@/common/mappers/badge.mapper";
 import { getCategoryTitle } from "@/common/mappers/category.mapper";
-import {
-  getProductImageSrc,
-} from "@/common/utils/product-image";
+import { getProductImageSrc } from "@/common/utils/product-image";
 import { formatPriceES } from "@/common/utils/product-price";
 
 import { useUser } from "../../provider/UserProvider";
@@ -42,7 +40,8 @@ export default function ProductCard({
 }) {
   const user = useUser();
   const [imageFailed, setImageFailed] = useState(false);
-  const favoriteProducts = user?.role === "ROLE_USER" ? user.favoriteProducts : [];
+  const favoriteProducts =
+    user?.role === "ROLE_USER" ? user.favoriteProducts : [];
   const formatted = formatPriceES(product.price);
   return (
     <div
@@ -54,7 +53,7 @@ export default function ProductCard({
     >
       <Card
         className={cn(
-          "black-glassmorphism hover:shadow-4xl relative mt-6 h-full rounded-lg border pt-0 duration-500 hover:-translate-y-2",
+          "black-glassmorphism hover:shadow-4xl relative mt-2 h-full rounded-lg border pt-0 duration-500 hover:-translate-y-2",
           !product.status && "opacity-60 grayscale"
         )}
       >
@@ -80,12 +79,13 @@ export default function ProductCard({
             {getCategoryTitle(product.category)}
           </Badge>
           {formatted && (
-            <span
-              className="absolute right-2 bottom-2 rounded-full bg-black/75 px-3 py-1 text-sm font-bold text-white shadow-lg"
+            <Badge
+              variant="secondary"
+              className="absolute right-2 bottom-2 shadow-lg" 
               aria-label={`Precio ${formatted}`}
             >
               {formatted}
-            </span>
+            </Badge>
           )}
         </div>
         <CardHeader>
