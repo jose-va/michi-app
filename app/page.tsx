@@ -20,23 +20,23 @@ export default function Home() {
       {/* 1. Encabezado superior con nombre del restaurante y carrusel (RF-1) */}
       <section
         aria-label="Bienvenida y carrusel principal"
-        className="grid items-center gap-10 py-13 md:grid-cols-2 md:py-8"
+        className="grid items-center gap-10 py-13 md:grid-cols-2 md:py-8 -mt-1 md:-mt-2"
       >
-        <div className="flex flex-col justify-center space-y-3">
-          <div className="flex items-center gap-3">
+        <div className="flex flex-col justify-center space-y-3 ml-4">
+          <div className="flex items-end gap-2">
             <h1
               className={`${sigokae.className} text-6xl font-extrabold tracking-tight text-white md:text-7xl lg:text-8xl`}
             >
               <span className="block">MICHI</span>
               <span className="block">SUSHI</span>
             </h1>
-            <span className="text-2xl text-white/40" aria-hidden="true">
+            <span className="text-2xl text-white/40 mb-2" aria-hidden="true">
               道
             </span>
           </div>
           <span
             aria-hidden="true"
-            className="bg-primary h-1 w-16 rounded-full"
+            className="bg-primary h-1 w-20 rounded-full"
           />
           <p className="max-w-md text-base text-zinc-100 drop-shadow-sm md:text-lg">
             Gastronomía japonesa y tapeo. Ven a visitar tu nuevo sushi bar en
@@ -67,18 +67,18 @@ export default function Home() {
       </section>
 
       {/* 2. Cinco secciones descriptivas en orden estricto, sobre el fondo (RF-3) */}
-      <div className="flex flex-col gap-16 md:gap-20">
+      <div className="flex flex-col gap-14 md:gap-20">
         {/* Sección 1: Lema del bar */}
         <section
           id="seccion-lema"
           aria-label="Lema del restaurante"
-          className="mx-auto w-full max-w-3xl bg-transparent px-2 text-center"
+          className="mx-auto w-full max-w-3xl bg-transparent text-center"
         >
           <div className="space-y-3">
             <span className="text-xs font-bold tracking-widest text-zinc-300 uppercase brightness-120">
               Michi Café & Sushi Bar
             </span>
-            <span className="text-primary text-xs font-bold tracking-widest uppercase brightness-120">
+            <span className="text-primary text-xs font-bold tracking-widest uppercase brightness-150">
               {mottoSection.title}
             </span>
             <p
@@ -93,7 +93,7 @@ export default function Home() {
         <section
           id="seccion-carta"
           aria-label="Carta de Michi Sushi"
-          className="mt-6 grid grid-cols-1 items-center gap-8 bg-transparent md:grid-cols-2"
+          className="mt-8 grid grid-cols-1 items-center gap-8 bg-transparent md:grid-cols-2"
         >
           <div className="order-2 flex flex-col items-start gap-4 md:order-1">
             <h2
@@ -102,18 +102,13 @@ export default function Home() {
               {menuSection.title}
             </h2>
             <p className="text-base text-zinc-300 md:text-lg">
-              Explora nuestra selección de{" "}
-              <strong className="font-bold text-white">sushi</strong>,{" "}
-              <strong className="font-bold text-white">nigiris </strong>y
-              <strong className="font-bold text-white"> maki rolls. </strong>
-              Todos nuestros productos se preparan al momento con ingredientes
-              de alta calidad.
+              {menuSection.description}
             </p>
             <Button
               asChild
               variant="default"
               size="lg"
-              className="bg-black font-semibold shadow-lg"
+              className="bg-black font-semibold shadow-lg px-4 py-6 text-[15px] rounded-full"
             >
               <Link href={menuSection.actionHref || "/product"}>
                 {menuSection.actionLabel}
@@ -183,7 +178,7 @@ export default function Home() {
                 alt={deliverySection.actionLabel || "Pedir en Uber Eats"}
                 width={110}
                 height={42}
-                className="h-auto w-[110px]"
+                className="h-auto w-27.5"
               />
               <span className="sr-only"> (se abre en una pestaña nueva)</span>
             </a>
@@ -208,7 +203,7 @@ export default function Home() {
             <Button
               asChild
               size="lg"
-              className="bg-black font-semibold shadow-lg"
+              className="bg-black font-semibold shadow-lg px-4 py-6 text-[15px] rounded-full"
             >
               <Link href={reservationsSection.actionHref || "/reservation"}>
                 {reservationsSection.actionLabel}
@@ -251,7 +246,7 @@ export default function Home() {
             <Button
               asChild
               size="lg"
-              className="bg-black font-semibold shadow-lg"
+              className="bg-black font-semibold shadow-lg px-4 py-6 text-[15px] rounded-full"
             >
               <Link href={locationSection.actionHref || "/location"}>
                 {locationSection.actionLabel}

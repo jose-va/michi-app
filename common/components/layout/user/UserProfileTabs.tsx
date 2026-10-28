@@ -6,6 +6,10 @@ import { getTodayKey } from "@/common/utils/profile-day";
 import { resolveFavoriteProducts } from "@/common/utils/profile-favorites";
 import { Separator } from "@/shadcn/components/separator";
 import { SheetClose } from "@/shadcn/components/sheet";
+import { Badge } from "@/shadcn/components/badge";
+import { getCategoryBadge } from "@/common/mappers/badge.mapper";
+import { getCategoryTitle } from "@/common/mappers/category.mapper";
+import { cn } from "@/lib/utils";
 import {
   Tabs,
   TabsContent,
@@ -20,15 +24,31 @@ import UserReservationsByDay from "./UserReservationsByDay";
 
 function FavoriteDetail({ product, user }: { product: Product; user: User }) {
   return (
-    <li className="flex min-w-0 items-center gap-2">
+    <li className="flex min-w-0 items-center gap-3">
       <FavoriteProductPhoto name={product.name} />
       <div className="flex min-w-0 flex-1 flex-col">
-        <p className="truncate font-medium">{product.name}</p>
-        <p className="text-muted-foreground truncate text-sm">
-          {product.japaneseName}
-        </p>
+        <div className="flex min-w-0 items-baseline gap-1.5">
+          <p className="truncate font-medium">{product.name}</p>
+          <span className="shrink-0 text-xs font-extralight">
+            {product.pieces == 1 && `${product.pieces.toString()} pieza`}
+            {product.pieces > 1 && `${product.pieces.toString()} piezas`}
+          </span>
+        </div>
+        <div className="flex min-w-0 items-center gap-2">
+          <p className="text-muted-foreground min-w-0 flex-1 truncate text-sm">
+            {product.japaneseName}
+          </p>
+          <Badge
+            className={cn(
+              "px-2 py-0 text-[10px] mr-1",
+              getCategoryBadge(product.category),
+            )}
+          >
+            {getCategoryTitle(product.category)}
+          </Badge>
+        </div>
       </div>
-      <span className="shrink-0">
+      <span className="shrink-0 -translate-y-2.5">
         <UserOptions
           user={user.id}
           product={product.id ?? ""}
@@ -73,7 +93,7 @@ export default async function UserProfileTabs({ user }: { user: User }) {
         {favorites.length === 0 ? (
           <p className="text-primary brightness-150">No tienes productos favoritos</p>
         ) : (
-          <ul className="flex min-w-0 flex-col gap-4">
+          <ul className="flex min-w-0 flex-col gap-5">
             {favorites.map((product) => (
               <FavoriteDetail
                 key={product.id ?? product.name}

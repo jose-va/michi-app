@@ -35,7 +35,7 @@ export default async function RootLayout({
       <body
         className={`${montserrat.className} min-h-screen bg-[#100d0b] antialiased`}
       >
-        <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 scale-105 bg-[url('/background/background_michi.webp')] bg-cover bg-center blur-xs" />
+        <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 scale-105 bg-[url('/background/background_michi.webp')] bg-cover bg-center blur-xs brightness-80" />
         <UserProvider initialUser={user}>
           <PageMenu user={user}>{children}</PageMenu>
         </UserProvider>

@@ -10,6 +10,8 @@ import {
   FormMessage,
 } from "@/shadcn/components/form";
 import { Separator } from "@/shadcn/components/separator";
+import { Badge } from "@/shadcn/components/badge";
+import { cn } from "@/lib/utils";
 import { UseFormReturn } from "react-hook-form";
 import ReservationCalendar from "../../ui/reservation/ReservationCalendar";
 import { ReservationFormValues } from "@/common/types/reservation-form.types";
@@ -21,13 +23,25 @@ export default function DateForm({
   form: UseFormReturn<ReservationFormValues>;
 }) {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-4">
       <FormField
         control={form.control}
         name="date"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Fecha de reserva</FormLabel>
+            <div className="flex items-center gap-4">
+              <FormLabel>Fecha de reserva:</FormLabel>
+              <Badge
+                className={cn(
+                  "animate-fade-in-up text-black capitalize duration-500",
+                  field.value.toDateString() === new Date().toDateString()
+                    ? "bg-green-500"
+                    : "bg-blue-500"
+                )}
+              >
+                {field.value.toLocaleDateString("es-ES", { weekday: "long" })}
+              </Badge>
+            </div>
             <FormControl>
               <ReservationCalendar
                 selectedValue={field.value}

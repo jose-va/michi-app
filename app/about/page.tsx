@@ -21,15 +21,15 @@ export default function AboutPage() {
     paragraphBaseIndexes.push(runningChars);
     runningChars += paragraph.length;
   }
-  const signatureBaseIndex = runningChars;
+  
   return (
-    <section className="relative px-0 pt-0 pb-4 md:py-10 lg:pb-28">
+    <section className="relative px-0 pt-7 pb-4 md:py-10 lg:pb-28">
       <article
         lang="es"
         className={`${montserrat.className} relative mx-auto w-full max-w-prose overflow-hidden rounded-lg border border-white/10 bg-black/80 text-zinc-100 shadow-lg backdrop-blur-md`}
       >
-        <div className="relative p-6 md:p-8">
-          <header className="mb-6 flex items-center justify-between gap-4 border-b border-white/20 pb-4">
+        <div className="relative p-5 md:p-8">
+          <header className="mb-4 flex items-center justify-between gap-4 border-b border-white/20 pb-4">
             <h1
               className={`${centuryGothic.className} text-xl font-normal tracking-[0.2em] uppercase md:text-3xl`}
             >
@@ -55,7 +55,7 @@ export default function AboutPage() {
               </p>
             ))}
           </div>
-          <footer className="mt-6 border-t border-white/20 pt-6 text-center">
+          <footer className="mt-4 border-t border-white/20 pt-4 text-center">
             <Image
               src={ABOUT_SIGNATURE_IMAGE_SRC}
               alt={ABOUT_SIGNATURE_IMAGE_ALT}
@@ -64,10 +64,7 @@ export default function AboutPage() {
               className="mx-auto h-auto w-36"
             />
             <p className="mt-2 text-sm tracking-wide text-zinc-100 italic md:text-base">
-              <FadeInLetters
-                text={ABOUT_SIGNATURE}
-                baseIndex={signatureBaseIndex}
-              />
+
             </p>
           </footer>
         </div>
