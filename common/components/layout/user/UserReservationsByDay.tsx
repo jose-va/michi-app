@@ -19,6 +19,7 @@ import {
 } from "@/common/utils/reservation-day";
 import { getMyReservationsByDay } from "@/lib/server-actions";
 import { ReservationCancel } from "@/common/components/ui/reservation/ReservationCancel";
+import { ReservationEdit } from "@/common/components/ui/reservation/ReservationEdit";
 import { Badge } from "@/shadcn/components/badge";
 import { Calendar } from "@/shadcn/components/calendar";
 import {
@@ -35,7 +36,7 @@ function UserReservationDetail({
   onCancelled: (id: string) => void;
 }) {
   return (
-    <div className="relative flex min-w-0 flex-col gap-1 pr-12">
+    <div className="relative flex min-w-0 flex-col gap-1 pr-24">
       <p>
         <span className="font-medium">Hora:</span> <span className="font-extralight">{reservation.startTime}</span> 
       </p>
@@ -63,12 +64,17 @@ function UserReservationDetail({
         </p>
       ) : null}
       {reservation.id && reservation.state !== "CANCELLED" ? (
-        <ReservationCancel
-          id={reservation.id}
-          name={reservation.name}
-          token={reservation.cancelToken ?? undefined}
-          onCancelled={() => onCancelled(reservation.id as string)}
-        />
+        <div className="absolute -top-2 right-0 flex items-start gap-0">
+          <ReservationEdit id={reservation.id} name={reservation.name} />
+          <ReservationCancel
+            id={reservation.id}
+            name={reservation.name}
+            token={reservation.cancelToken ?? undefined}
+            onCancelled={() => onCancelled(reservation.id as string)}
+            triggerButtonClassName=""
+            triggerIconClassName="size-4 text-red-500/60 transition-all duration-200 group-hover:scale-110 group-hover:text-red-400 group-hover:drop-shadow-[0_0_6px_rgba(239,68,68,0.35)] hover:cursor-pointer hover:text-red-400"
+          />
+        </div>
       ) : null}
     </div>
   );
