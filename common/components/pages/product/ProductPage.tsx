@@ -34,9 +34,9 @@ export default async function ProductPage({
       <>
         {category ? (
           <>
-            <h2 className={`${centuryGothic.className} mt-8 mb-2 text-2xl text-white md:text-3xl font-medium`}>{getCategoryTitle(category)}</h2>
+            <h2 className={`${centuryGothic.className} mt-8 mb-1 text-2xl text-white md:text-3xl font-medium`}>{getCategoryTitle(category)}</h2>
             {getCategoryDescription(category) ? (
-              <p className="mb-6 text-base text-zinc-300">{getCategoryDescription(category)}</p>
+              <p className="mb-2 text-base text-zinc-300">{getCategoryDescription(category)}</p>
             ) : null}
           </>
         ) : null}

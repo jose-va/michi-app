@@ -30,6 +30,7 @@ import { useUser } from "../../provider/UserProvider";
 import { cn } from "@/lib/utils";
 import AdminOptions from "./AdminOptions";
 import UserOptions from "./UserOptions";
+import { ImageZoom } from "../ImageZoom";
 
 export default function ProductCard({
   product,
@@ -53,7 +54,7 @@ export default function ProductCard({
     >
       <Card
         className={cn(
-          "black-glassmorphism hover:shadow-4xl relative mt-2 h-full rounded-lg border pt-0 duration-500 hover:-translate-y-2",
+          "black-glassmorphism hover:shadow-4xl relative mt-4 h-full rounded-lg border pt-0 duration-500 hover:-translate-y-2",
           !product.status && "opacity-60 grayscale"
         )}
       >
@@ -61,7 +62,7 @@ export default function ProductCard({
           {imageFailed ? (
             <div className="h-44 w-full bg-black/60" aria-hidden="true" />
           ) : (
-            <Image
+            <ImageZoom
               src={getProductImageSrc(product.name)}
               alt={`Fotografía de ${product.name}`}
               width={400}
@@ -81,7 +82,7 @@ export default function ProductCard({
           {formatted && (
             <Badge
               variant="secondary"
-              className="absolute right-2 bottom-2 shadow-lg" 
+              className="absolute right-2 bottom-2 shadow-lg"
               aria-label={`Precio ${formatted}`}
             >
               {formatted}
