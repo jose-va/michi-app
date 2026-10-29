@@ -49,6 +49,7 @@ Las pruebas TypeScript usan el runner integrado de Node mediante `tsx`: ejecuta 
 - Para cambios en varias rutas, contratos de API o autenticación, identifica primero los entrypoints y servicios afectados; mantén el cambio acotado al objetivo.
 - Al terminar, resume qué cambió y qué comprobaciones se ejecutaron, indicando las que no se pudieron ejecutar.
 - Cuando la tarea use Spec-Driven Development, sigue `.agents/skills/sdd/SKILL.md` y los comandos de `.opencode/commands/`: no avances de fase sin aprobación y, al implementar, trabaja en una sola tarea aprobada cada vez.
+- Solo `implementer` puede cargar libremente skills instaladas vía `skill` cuando ayude a la tarea, respetando spec, plan y constitución; `coordinator`, `planner`, `reviewer` y `trainer` solo usan la skill `sdd`.
 
 ## Límites
 
