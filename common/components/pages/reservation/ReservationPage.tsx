@@ -19,12 +19,13 @@ import {
 import DateForm from "@/common/components/forms/reservation/DateForm";
 import AvailabilityForm from "@/common/components/forms/reservation/AvailabilityForm";
 import { createReservation } from "@/lib/server-actions";
+import { buildReservationWhatsappUrl } from "@/common/utils/whatsapp-contact";
 import { normalizeUserKey } from "@/common/utils/profile-reservations";
 import { useUser } from "../../provider/UserProvider";
 import { Hours } from "@/common/types/hour.types";
 
 const SIDE_IMAGE_SRC =
-  "/images/Dish Composition [5_4-2304x2880-watermarked] d88.webp";
+  "/images/2326ceaf-1ded-46d3-b174-c7c6cfe55ed6.webp";
 const SIDE_IMAGE_ALT = "Local Michi Sushi Granada";
 
 const STEP_COPY = {
@@ -71,6 +72,13 @@ export function ReservationPage({ hours }: { hours: Hours }) {
 
   const onSubmit = async (data: ReservationFormValues) => {
     const loadingId = toast.loading("Creando su reserva…");
+    const fecha = format(data.date, "EEEE, d 'de' MMMM", { locale: es });
+    // `startTime` puede llegar vacío (el esquema lo permite); el builder lo usa
+    // tal cual tras un trim y, solo si no hay hora, omite el tramo `a las ...`.
+    const whatsappUrl = buildReservationWhatsappUrl(
+      fecha,
+      data.startTime || form.getValues("startTime"),
+    );
     try {
       // Quitamos `user`: la identidad la resuelve el servidor con la sesión.
       const { user: _ignored, ...values } = data;
@@ -100,26 +108,25 @@ export function ReservationPage({ hours }: { hours: Hours }) {
           break;
         default:
           toast.error("No se ha podido crear su reserva", {
-            description: (
-              <span>
-                Contáctenos por{" "}
-                <a
-                  href="https://wa.me/34673821148"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium underline"
-                >
-                  WhatsApp
-                </a>
-                .
-              </span>
-            ),
+            description: <span>Contáctenos por WhatsApp</span>,
+            action: {
+              label: "Abrir Whatsapp",
+              onClick: () =>
+                window.open(whatsappUrl, "_blank", "noopener,noreferrer"),
+            },
           });
       }
     } catch (error) {
       toast.dismiss(loadingId);
       console.error("Error al crear la reserva: ", error);
-      toast.error("No se ha podido crear su reserva, contáctenos por WhatsApp");
+      toast.error("No se ha podido crear su reserva", {
+        description: <span>Contáctenos por WhatsApp</span>,
+        action: {
+          label: "Abrir Whatsapp",
+          onClick: () =>
+            window.open(whatsappUrl, "_blank", "noopener,noreferrer"),
+        },
+      });
     }
   };
 
@@ -174,7 +181,7 @@ export function ReservationPage({ hours }: { hours: Hours }) {
                 Michi Sushi
               </p>
               <p className="text-sm text-white/80">
-                Sushi para compartir en Granada
+                Gastronomía japonesa y tapeo.
               </p>
             </div>
           </div>
