@@ -12,7 +12,7 @@ export default function CartaDownloadButton() {
       aria-label="Descargar carta (se abre en una pestaña nueva)"
       className="flex items-center"
     >
-      <Download className="size-7.5 text-white hover:scale-105 hover:cursor-pointer hover:text-white" />
+      <Download className="size-7 text-white hover:scale-105 hover:cursor-pointer hover:text-white" />
     </a>
   );
 }

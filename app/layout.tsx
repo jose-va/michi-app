@@ -11,6 +11,12 @@ export const metadata: Metadata = {
   description:
     "Bienvenido a Michi Sushi, tu destino para disfrutar del auténtico sushi en el corazón de Granada.",
   icons: {
+    icon: [
+      {
+        url: "/logos/logo_michi.webp",
+        type: "image/webp",
+      },
+    ],
     apple: "/icons/apple-touch-icon-180.png",
   },
   appleWebApp: {
