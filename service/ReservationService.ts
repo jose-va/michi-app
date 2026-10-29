@@ -16,7 +16,43 @@ export type CreateReservationResult =
       error: "ALREADY_EXISTS" | "NO_TABLES" | "INVALID_TIME" | "UNKNOWN";
     };
 
+export type GetReservationByIdResult =
+  | { ok: true; reservation: Reservation }
+  | { ok: false; kind: "NOT_FOUND" | "FORBIDDEN" | "NETWORK" };
+
+export type UpdateReservationByIdResult =
+  | { ok: true; reservation: Reservation }
+  | {
+      ok: false;
+      status: 400 | 403 | 404 | 409 | 500;
+      code: string | null;
+      backendMessage: string | null;
+    };
+
+export type ReservationEditOverrides = {
+  token?: string;
+  userId?: string | null;
+  userRole?: string | null;
+  fetcher?: typeof fetch;
+};
+
 const ADMIN_ROLE = "ROLE_ADMIN";
+
+// Identificadores del backend para la modificación (RNF-5: se conservan en
+// inglés tal cual y solo se usan para la lógica, nunca se muestran).
+const EDIT_ERROR_CODES = [
+  "RESERVATION_NOT_MODIFIABLE",
+  "INVALID_TIME",
+  "RESERVATION_ALREADY_EXISTS",
+  "NO_TABLES_AVAILABLE",
+] as const;
+
+function extractEditErrorCode(body: string): string | null {
+  for (const code of EDIT_ERROR_CODES) {
+    if (body.includes(code)) return code;
+  }
+  return null;
+}
 
 export class ReservationService {
   private static baseUrl = process.env.BACKEND_URL;
@@ -189,6 +225,137 @@ export class ReservationService {
     } catch (error) {
       console.error("Error al crear la reserva:", error);
       return { ok: false, error: "UNKNOWN" };
+    }
+  }
+
+  private static async resolveEditIdentity(overrides?: ReservationEditOverrides): Promise<{
+    token?: string;
+    userId: string | null;
+    isAdmin: boolean;
+  }> {
+    if (
+      overrides &&
+      ("token" in overrides || "userId" in overrides || "userRole" in overrides)
+    ) {
+      return {
+        ...(overrides.token ? { token: overrides.token } : {}),
+        userId:
+          typeof overrides.userId === "string"
+            ? normalizeUserKey(overrides.userId)
+            : null,
+        isAdmin: overrides.userRole === ADMIN_ROLE,
+      };
+    }
+    const sessionToken = (await cookies()).get("token")?.value;
+    const profile = sessionToken ? await UserService.getProfile() : null;
+    return {
+      ...(sessionToken ? { token: sessionToken } : {}),
+      userId:
+        profile?.id !== null && profile?.id !== undefined
+          ? normalizeUserKey(profile.id)
+          : null,
+      isAdmin: profile?.role === ADMIN_ROLE,
+    };
+  }
+
+  private static buildEditHeaders(identity: {
+    token?: string;
+    userId: string | null;
+    isAdmin: boolean;
+  }): HeadersInit {
+    return {
+      ...(identity.userId ? { "User-Id": identity.userId } : {}),
+      ...(identity.isAdmin ? { "User-Role": ADMIN_ROLE } : {}),
+      ...(identity.token ? { Cookie: `token=${identity.token}` } : {}),
+    };
+  }
+
+  static async getReservationById(
+    id: string,
+    overrides?: ReservationEditOverrides
+  ): Promise<GetReservationByIdResult> {
+    if (!id) {
+      return { ok: false, kind: "NOT_FOUND" };
+    }
+    const baseUrl = process.env.BACKEND_URL ?? this.baseUrl;
+    const fetcher = overrides?.fetcher ?? fetch;
+    try {
+      const identity = await this.resolveEditIdentity(overrides);
+      const response = await fetcher(
+        `${baseUrl}/reservations/${encodeURIComponent(id)}`,
+        {
+          headers: this.buildEditHeaders(identity),
+          cache: "no-store",
+        }
+      );
+
+      if (response.ok) {
+        return { ok: true, reservation: await response.json() };
+      }
+      if (response.status === 404) {
+        return { ok: false, kind: "NOT_FOUND" };
+      }
+      if (response.status === 403) {
+        return { ok: false, kind: "FORBIDDEN" };
+      }
+      return { ok: false, kind: "NETWORK" };
+    } catch (error) {
+      console.error("Error al obtener la reserva:", error);
+      return { ok: false, kind: "NETWORK" };
+    }
+  }
+
+  static async updateReservationById(
+    id: string,
+    payload: Reservation,
+    overrides?: ReservationEditOverrides
+  ): Promise<UpdateReservationByIdResult> {
+    if (!id) {
+      return { ok: false, status: 404, code: null, backendMessage: null };
+    }
+    const baseUrl = process.env.BACKEND_URL ?? this.baseUrl;
+    const fetcher = overrides?.fetcher ?? fetch;
+    try {
+      const identity = await this.resolveEditIdentity(overrides);
+      const response = await fetcher(
+        `${baseUrl}/reservations/${encodeURIComponent(id)}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            ...this.buildEditHeaders(identity),
+          },
+          body: JSON.stringify(payload),
+          cache: "no-store",
+        }
+      );
+
+      if (response.ok) {
+        try {
+          return { ok: true, reservation: await response.json() };
+        } catch {
+          return { ok: true, reservation: payload };
+        }
+      }
+
+      if (
+        response.status === 400 ||
+        response.status === 403 ||
+        response.status === 404 ||
+        response.status === 409
+      ) {
+        const body = await response.text().catch(() => "");
+        return {
+          ok: false,
+          status: response.status,
+          code: extractEditErrorCode(body),
+          backendMessage: extractCancelConflictMessage(body),
+        };
+      }
+      return { ok: false, status: 500, code: null, backendMessage: null };
+    } catch (error) {
+      console.error("Error al modificar la reserva:", error);
+      return { ok: false, status: 500, code: null, backendMessage: null };
     }
   }
 }

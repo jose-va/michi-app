@@ -21,8 +21,33 @@ import { UserService } from "@/service/UserService";
 import {
   CancelReservationResult,
   CreateReservationResult,
+  GetReservationByIdResult,
+  ReservationEditOverrides,
   ReservationService,
+  UpdateReservationByIdResult,
 } from "@/service/ReservationService";
+
+export type GetReservationForEditResult =
+  | { ok: true; reservation: Reservation }
+  | {
+      ok: false;
+      kind: "NOT_FOUND" | "FORBIDDEN" | "NETWORK" | "UNAUTHENTICATED";
+    };
+
+export type UpdateReservationResult = UpdateReservationByIdResult;
+
+export type ReservationEditActionOverrides = ReservationEditOverrides & {
+  revalidate?: (path: string) => void;
+};
+
+function hasSessionOverride(overrides?: ReservationEditOverrides): boolean {
+  return (
+    !!overrides &&
+    ("token" in overrides ||
+      "userId" in overrides ||
+      "userRole" in overrides)
+  );
+}
 
 export async function createReservation(
   data: Omit<ReservationFormValues, "user">
@@ -64,6 +89,61 @@ export async function cancelReservation(
     revalidatePath("/reservation/preview");
   }
   return result;
+}
+
+export async function getReservationForEdit(
+  id: string,
+  overrides?: ReservationEditActionOverrides,
+): Promise<GetReservationForEditResult> {
+  if (!id || id.trim().length === 0) {
+    return { ok: false, kind: "NOT_FOUND" };
+  }
+  try {
+    if (!hasSessionOverride(overrides)) {
+      const profile = await UserService.getProfile();
+      if (!profile) {
+        return { ok: false, kind: "UNAUTHENTICATED" };
+      }
+    }
+    const result: GetReservationByIdResult =
+      await ReservationService.getReservationById(id, overrides);
+    return result;
+  } catch (error) {
+    console.error("Error al obtener la reserva para editar:", error);
+    return { ok: false, kind: "NETWORK" };
+  }
+}
+
+export async function updateReservation(
+  id: string,
+  payload: Reservation,
+  overrides?: ReservationEditActionOverrides,
+): Promise<UpdateReservationResult> {
+  if (!id || id.trim().length === 0) {
+    return { ok: false, status: 404, code: null, backendMessage: null };
+  }
+  try {
+    if (!hasSessionOverride(overrides)) {
+      const profile = await UserService.getProfile();
+      if (!profile) {
+        return { ok: false, status: 403, code: null, backendMessage: null };
+      }
+    }
+    const result = await ReservationService.updateReservationById(
+      id,
+      payload,
+      overrides,
+    );
+    if (result.ok) {
+      const revalidate = overrides?.revalidate ?? revalidatePath;
+      revalidate("/");
+      revalidate("/reservation");
+    }
+    return result;
+  } catch (error) {
+    console.error("Error al modificar la reserva:", error);
+    return { ok: false, status: 500, code: null, backendMessage: null };
+  }
 }
 
 export async function getMyReservationsByDay(
