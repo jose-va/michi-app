@@ -47,7 +47,7 @@ export default function LocationPage({
             Estamos en Granada
           </h1>
           <p className="max-w-xl text-lg text-white/80 md:text-xl">
-            Ven a descubrir tu nuevo sushi bar.
+            
           </p>
           <span
             aria-hidden="true"
