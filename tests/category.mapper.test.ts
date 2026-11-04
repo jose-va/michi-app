@@ -22,3 +22,13 @@ test("falls back to the category key when the category is unknown", () => {
 test("exports the supported category keys", () => {
   assert.ok(categories.includes("NIGIRI_SUSHI"));
 });
+
+test("includes the TARTAR category after NIGIRI_SUSHI", () => {
+  assert.ok(categories.includes("TARTAR"));
+  assert.equal(
+    categories.indexOf("TARTAR"),
+    categories.indexOf("NIGIRI_SUSHI") + 1,
+  );
+  assert.equal(getCategoryTitle("TARTAR"), "Tartar");
+  assert.notEqual(getCategoryDescription("TARTAR"), "");
+});
