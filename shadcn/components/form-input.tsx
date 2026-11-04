@@ -31,7 +31,9 @@ export const FormInput = <T extends FieldValues>({
       <FormItem>
         <FormLabel>
           {label}{" "}
-          {optional && <span className="font-extralight">(opcional)</span>}
+          {optional && (
+            <span className="font-normal text-muted-foreground">(opcional)</span>
+          )}
         </FormLabel>
         <FormControl>
           <Input

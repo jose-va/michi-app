@@ -12,15 +12,19 @@ import {
   SelectValue,
 } from "@/shadcn/components/select";
 
-export default function CategoryInput({ field }: { field: any }) {
+export default function CategoryInput({
+  field,
+}: {
+  field: { value?: string; onChange: (value: string) => void };
+}) {
   return (
     <Select onValueChange={field.onChange} defaultValue={field.value}>
-      <SelectTrigger className="w-full max-w-48">
-        <SelectValue placeholder="Categorías" />
+      <SelectTrigger className="w-full max-w-56">
+        <SelectValue placeholder="Seleccionar categoría" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>Categorías</SelectLabel>
+          <SelectLabel>Seleccionar categoría</SelectLabel>
           {categories.map((category) => (
             <SelectItem key={category} value={category}>
               {getCategoryTitle(category)}

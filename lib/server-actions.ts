@@ -12,6 +12,7 @@ import {
   validateProductImageFile,
 } from "@/common/utils/product-image";
 import { convertToWebpBuffer } from "@/lib/product-image-conversion";
+import { moveImageFile } from "@/lib/product-image-files";
 import { unlink, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { revalidatePath } from "next/cache";
@@ -225,6 +226,26 @@ export async function deleteProductImage(name: string): Promise<boolean> {
     }
     console.error("No se ha podido eliminar la imagen del producto: " + error);
     return false;
+  }
+}
+
+export async function renameProductImage(
+  oldName: string,
+  newName: string
+): Promise<"renamed" | "missing" | "exists" | "error"> {
+  try {
+    const oldFile = buildProductImageFileName(oldName);
+    const newFile = buildProductImageFileName(newName);
+    const result = await moveImageFile(
+      join(process.cwd(), "public", "images"),
+      oldFile,
+      newFile
+    );
+    if (result === "renamed") revalidatePath("/product");
+    return result;
+  } catch (error) {
+    console.error("No se ha podido mover la imagen del producto: " + error);
+    return "error";
   }
 }
 

@@ -51,7 +51,7 @@ export default function ProductPhotoInput({
 
   return (
     <div className="flex flex-col gap-2">
-      <span className="text-sm font-medium">Foto del producto</span>
+      <span className="text-sm font-medium">Foto del producto <span className="font-normal text-muted-foreground">(opcional)</span></span>
       {existingRemoved && !file ? (
         <div
           className="flex h-44 w-full items-center justify-center rounded-md bg-black/60"

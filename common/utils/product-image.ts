@@ -42,6 +42,42 @@ export function buildProductImageFileName(productName: string): string {
   return `${safe}.webp`;
 }
 
+export type ProductImageOperation = "none" | "rename" | "replace" | "delete";
+
+/**
+ * Decide qué hacer con la foto al editar un producto.
+ * Prioridad: 1) foto nueva → "replace" (aunque removeExisting esté activo);
+ * 2) removeExisting → "delete" (con el nombre VIEJO);
+ * 3) nombre cambiado tras sanear/trim → "rename"; 4) si no, "none".
+ */
+export function planProductImageOperation(input: {
+  oldName: string;
+  newName: string;
+  hasNewPhoto: boolean;
+  removeExisting: boolean;
+}): ProductImageOperation {
+  if (input.hasNewPhoto) return "replace";
+  if (input.removeExisting) return "delete";
+  const changed =
+    sanitizeProductImageName(input.oldName) !==
+    sanitizeProductImageName(input.newName);
+  return changed ? "rename" : "none";
+}
+
+/**
+ * ¿Hay que borrar la foto antigua tras subir la nueva? Solo si el nombre
+ * cambia de verdad; un cambio solo de mayúsculas se ignora porque en
+ * sistemas de archivos insensibles (Windows) es el mismo archivo.
+ */
+export function shouldDeleteOldProductImage(
+  oldName: string,
+  newName: string,
+): boolean {
+  const a = sanitizeProductImageName(oldName);
+  const b = sanitizeProductImageName(newName);
+  return a.toLowerCase() !== b.toLowerCase();
+}
+
 export type ProductImageValidation =
   | { ok: true }
   | { ok: false; error: string };

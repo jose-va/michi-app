@@ -17,7 +17,6 @@ import ProductPhotoInput from "./ProductPhotoInput";
 
 export default function ProductForm({
   form,
-  showPosition = false,
   existingImageSrc,
   existingImageAlt,
   photoFile,
@@ -45,7 +44,7 @@ export default function ProductForm({
         name="name"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Nombre</FormLabel>
+            <FormLabel>Nombre del producto</FormLabel>
             <FormControl>
               <Input {...field} placeholder="Michi" />
             </FormControl>
@@ -59,7 +58,7 @@ export default function ProductForm({
         name="japaneseName"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Nombre japonés (opcional)</FormLabel>
+            <FormLabel>Nombre japonés <span className="font-normal text-muted-foreground">(opcional)</span></FormLabel>
             <FormControl>
               <Input {...field} value={field.value ?? ""} placeholder="道" />
             </FormControl>
@@ -74,13 +73,38 @@ export default function ProductForm({
         name="description"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Descripción</FormLabel>
+            <FormLabel>Descripción <span className="font-normal text-muted-foreground">(opcional)</span></FormLabel>
             <FormControl>
               <Textarea
                 {...field}
                 value={field.value ?? ""}
-                placeholder="Introduzca una descripción sobre el producto"
+                placeholder="Introduzca una descripción"
                 className="min-h-30"
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <Separator />
+
+      <FormField
+        control={form.control}
+        name="pieces"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Piezas <span className="font-normal text-muted-foreground">(opcional)</span></FormLabel>
+            <FormControl>
+              <Input
+                type="number"
+                min={0}
+                step={1}
+                placeholder="0"
+                value={field.value || ""}
+                onChange={(e) =>
+                  field.onChange(e.target.value ? parseInt(e.target.value) : 0)
+                }
+                onBlur={field.onBlur}
               />
             </FormControl>
             <FormMessage />
@@ -115,63 +139,6 @@ export default function ProductForm({
         )}
       />
       <Separator />
-      <FormField
-        control={form.control}
-        name="pieces"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Piezas</FormLabel>
-            <FormControl>
-              <Input
-                type="number"
-                min={0}
-                step={1}
-                placeholder="0"
-                value={field.value || ""}
-                onChange={(e) =>
-                  field.onChange(e.target.value ? parseInt(e.target.value) : 0)
-                }
-                onBlur={field.onBlur}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <Separator />
-
-      {showPosition && (
-        <>
-          <FormField
-            control={form.control}
-            name="position"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Posición en la carta</FormLabel>
-                <FormControl>
-                  <Input
-                    type="number"
-                    min={1}
-                    step={1}
-                    placeholder="1"
-                    value={field.value ?? ""}
-                    onChange={(e) =>
-                      field.onChange(
-                        e.target.value === ""
-                          ? undefined
-                          : parseInt(e.target.value, 10)
-                      )
-                    }
-                    onBlur={field.onBlur}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Separator />
-        </>
-      )}
 
       <FormField
         control={form.control}
@@ -193,14 +160,12 @@ export default function ProductForm({
         name="allergens"
         render={({ field }) => (
           <FormItem>
-            <FormControl>
-              <AllergenInput field={field} />
-            </FormControl>
+            <FormLabel>Alérgenos</FormLabel>
+            <AllergenInput field={field} />
             <FormMessage />
           </FormItem>
         )}
       />
-      <Separator />
     </div>
   );
 }

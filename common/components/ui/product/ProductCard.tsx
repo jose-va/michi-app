@@ -44,6 +44,16 @@ export default function ProductCard({
   const favoriteProducts =
     user?.role === "ROLE_USER" ? user.favoriteProducts : [];
   const formatted = formatPriceES(product.price);
+  const priceBadge = () =>
+    formatted ? (
+      <Badge
+        variant="secondary"
+        className="bg-yellow-400 font-semibold text-yellow-950"
+        aria-label={`Precio ${formatted}`}
+      >
+        {formatted}
+      </Badge>
+    ) : null;
   return (
     <div
       className="animate-fade-in-up opacity-0 motion-reduce:animate-none motion-reduce:opacity-100"
@@ -54,14 +64,19 @@ export default function ProductCard({
     >
       <Card
         className={cn(
-          "black-glassmorphism hover:shadow-4xl relative mt-4 h-full rounded-lg border pt-0 duration-500 hover:-translate-y-2",
+          "black-glassmorphism hover:shadow-4xl relative mt-4 h-full rounded-lg border duration-500 hover:-translate-y-2",
+          !imageFailed && "pt-0",
           !product.status && "opacity-60 grayscale"
         )}
       >
-        <div className="relative overflow-hidden rounded-t-lg">
-          {imageFailed ? (
-            <div className="h-44 w-full bg-black/60" aria-hidden="true" />
-          ) : (
+        {imageFailed ? (
+          <div className="flex flex-wrap items-center gap-2 px-4">
+            <Badge className={getCategoryBadge(product.category)}>
+              {getCategoryTitle(product.category)}
+            </Badge>
+          </div>
+        ) : (
+          <div className="relative overflow-hidden rounded-t-lg">
             <ImageZoom
               src={getProductImageSrc(product.name)}
               alt={`Fotografía de ${product.name}`}
@@ -70,33 +85,35 @@ export default function ProductCard({
               className="h-44 w-full object-cover"
               onError={() => setImageFailed(true)}
             />
-          )}
-          <Badge
-            className={cn(
-              "absolute top-2 left-2 shadow-lg",
-              getCategoryBadge(product.category)
-            )}
-          >
-            {getCategoryTitle(product.category)}
-          </Badge>
-          {formatted && (
             <Badge
-              variant="secondary"
-              className="absolute right-2 bottom-2 shadow-lg"
-              aria-label={`Precio ${formatted}`}
+              className={cn(
+                "absolute top-2 left-2 shadow-lg",
+                getCategoryBadge(product.category)
+              )}
             >
-              {formatted}
+              {getCategoryTitle(product.category)}
             </Badge>
-          )}
-        </div>
-        <CardHeader>
-          <div className="flex flex-wrap items-center gap-2">
-            <CardTitle className="text-sm">{product.name}</CardTitle>
-            <span className="text-xs font-extralight">
-              {product.pieces == 1 && `${product.pieces.toString()} pieza`}
-              {product.pieces > 1 && `${product.pieces.toString()} piezas`}
-            </span>
           </div>
+        )}
+        <CardHeader>
+          <CardTitle className="text-sm">{product.name}</CardTitle>
+          {(formatted || product.pieces > 0) && (
+            <div className="mt-1 flex flex-wrap items-center gap-3">
+              {priceBadge()}
+              {product.pieces > 0 && (
+                <span
+                  className={cn(
+                    "text-sm font-extralight",
+                    formatted && "border-l border-white/30 pl-3"
+                  )}
+                >
+                  {product.pieces == 1
+                    ? `${product.pieces.toString()} pieza`
+                    : `${product.pieces.toString()} piezas`}
+                </span>
+              )}
+            </div>
+          )}
           <CardAction className="flex items-center justify-center gap-3 md:gap-2">
             {user?.role === "ROLE_ADMIN" && <AdminOptions product={product} />}
             {user?.role === "ROLE_USER" && (
@@ -109,26 +126,34 @@ export default function ProductCard({
           </CardAction>
         </CardHeader>
         <CardContent className="flex-1 font-extralight">
-          <p className="text-pretty">{product.description}</p>
+          {product.description?.trim() && (
+            <p className="text-pretty">{product.description}</p>
+          )}
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <div className="flex gap-1">
-            {product.allergens.map((allergen) => (
-              <Tooltip key={allergen}>
-                <TooltipTrigger asChild>
-                  <Image
-                    src={getAllergenIcon(allergen)}
-                    alt={allergen}
-                    width={25}
-                    height={25}
-                  />
-                </TooltipTrigger>
-                <TooltipContent className="capitalize">
-                  {getAllergenTitle(allergen)}
-                </TooltipContent>
-              </Tooltip>
-            ))}
-          </div>
+        <CardFooter className="flex items-center justify-between">
+          {product.allergens?.length ? (
+            <div className="flex min-h-[25px] items-center gap-1">
+              {product.allergens.map((allergen) => (
+                <Tooltip key={allergen}>
+                  <TooltipTrigger asChild>
+                    <Image
+                      src={getAllergenIcon(allergen)}
+                      alt={allergen}
+                      width={25}
+                      height={25}
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent className="capitalize">
+                    {getAllergenTitle(allergen)}
+                  </TooltipContent>
+                </Tooltip>
+              ))}
+            </div>
+          ) : (
+            <p className="flex min-h-[25px] items-center text-xs text-zinc-400">
+              Este plato no contiene alérgenos
+            </p>
+          )}
         </CardFooter>
       </Card>
     </div>
