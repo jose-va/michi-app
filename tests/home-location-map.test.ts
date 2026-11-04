@@ -1,4 +1,4 @@
-import assert from "node:assert/strict";
+﻿import assert from "node:assert/strict";
 import { test } from "node:test";
 import { readFileSync } from "node:fs";
 import { HOME_SECTIONS } from "../common/utils/home-content";
@@ -52,7 +52,7 @@ test("Home: seccion-ubicacion keeps the borderless aspect-video container", () =
   assert.ok(!containerMatch[1].includes("border"), "Map container must not add border");
 });
 
-test("Home: seccion-ubicacion keeps title, description and Cómo llegar button", () => {
+test("Home: seccion-ubicacion keeps title, description and Ver ubicación button", () => {
   const block = ubicacionBlock();
   assert.ok(block.includes("<h2"), "Ubicacion section must keep its h2 title");
   assert.ok(
@@ -64,8 +64,8 @@ test("Home: seccion-ubicacion keeps title, description and Cómo llegar button",
     "Ubicacion section must render locationSection.description",
   );
   assert.ok(
-    block.includes("locationSection.actionLabel") || block.includes("Cómo llegar"),
-    "Ubicacion button must show «Cómo llegar»",
+    block.includes("locationSection.actionLabel") || block.includes("Ver ubicación"),
+    "Ubicacion button must show «Ver ubicación»",
   );
   assert.ok(
     block.includes('locationSection.actionHref') || block.includes('"/location"'),

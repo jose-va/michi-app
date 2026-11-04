@@ -62,7 +62,7 @@ export default function LocationPage({
 
           <aside className="flex flex-col gap-6 rounded-lg border border-white/10 bg-black/50 p-6 backdrop-blur-md">
             <div className="flex gap-4">
-              <div className="bg-primary/20 text-primary flex size-10 shrink-0 items-center justify-center rounded-full">
+              <div className="bg-michi-aqua/15 text-michi-aqua flex size-10 shrink-0 items-center justify-center rounded-full">
                 <MapPin className="size-5" aria-hidden="true" />
               </div>
               <div className="flex flex-col gap-1">
@@ -84,7 +84,7 @@ export default function LocationPage({
             </div>
 
             <div className="flex gap-4">
-              <div className="bg-primary/20 text-primary flex size-10 shrink-0 items-center justify-center rounded-full">
+              <div className="bg-michi-aqua/15 text-michi-aqua flex size-10 shrink-0 items-center justify-center rounded-full">
                 <Clock className="size-5" aria-hidden="true" />
               </div>
               <div className="flex w-full flex-col gap-2">
@@ -101,7 +101,7 @@ export default function LocationPage({
                       </span>
                     ) : (
                       services.map(({ label, time }) => (
-                        <span key={label} className="text-primary brightness-150 font-medium text-sm">
+                        <span key={label} className="text-michi-aqua font-medium text-sm">
                           <span className="font-medium text-white">
                             {label}:{" "}
                           </span>

@@ -269,16 +269,16 @@ export default function UserReservationsByDay({
       <div aria-live="polite" className="flex min-w-0 flex-col gap-3">
         {isPending ? <p>Cargando…</p> : null}
         {!isPending && reservations === null ? (
-          <p className="text-primary brightness-150">No tienes ninguna reserva</p>
+          <p className="text-michi-aqua">No tienes ninguna reserva</p>
         ) : null}
         {!isPending && ordered !== null && ordered.length === 0 ? (
-          <p className="text-primary brightness-150">No has reservado para este día</p>
+          <p className="text-michi-aqua">No has reservado para este día</p>
         ) : null}
         {!isPending && groups !== null && ordered !== null && ordered.length > 0 ? (
           <>
             {groups.lunch.length > 0 ? (
               <section aria-label="Comida" className="flex flex-col gap-2">
-                <h3 className="text-sm font-bold text-primary brightness-150">Comida</h3>
+                <h3 className="text-sm font-bold text-michi-aqua">Comida</h3>
                 <ul className="flex min-w-0 flex-col gap-3">
                   {groups.lunch.map((reservation, index) => (
                     <li
@@ -292,7 +292,7 @@ export default function UserReservationsByDay({
             ) : null}
             {groups.dinner.length > 0 ? (
               <section aria-label="Cena" className="flex flex-col gap-2">
-                <h3 className="text-sm font-bold text-primary brightness-150">Cena</h3>
+                <h3 className="text-sm font-bold text-michi-aqua">Cena</h3>
                 <ul className="flex min-w-0 flex-col gap-3">
                   {groups.dinner.map((reservation, index) => (
                     <li

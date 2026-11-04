@@ -172,7 +172,7 @@ export default function ProducFormPage({ product }: { product?: Product }) {
       <Card className="black-glassmorphism w-md">
         <CardHeader>
           <div className="flex justify-between">
-            <CardTitle className={`${montserrat.className} text-primary brightness-150 font-bold`}>
+            <CardTitle className={`${montserrat.className} text-michi-aqua font-bold`}>
               {product ? "Modificar producto" : "Crear producto"}
             </CardTitle>
             <ArrowLeftIcon

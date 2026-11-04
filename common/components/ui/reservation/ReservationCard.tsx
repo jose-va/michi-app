@@ -49,7 +49,7 @@ export default function ReservationCard({
         <CardHeader>
           <p className="flex items-center gap-2 text-sm font-semibold text-white/90">
             <CalendarDays className="size-4" aria-hidden="true" />
-            <span className="text-primary brightness-150 font-semibold">{dateLabel}</span> · <Clock className="size-4" aria-hidden="true" /> {reservation.startTime}
+            <span className="text-michi-aqua font-semibold">{dateLabel}</span> · <Clock className="size-4" aria-hidden="true" /> {reservation.startTime}
           </p>
           <div className="flex items-center justify-between mt-2">
             <div className="flex items-center gap-3">

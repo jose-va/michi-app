@@ -1,5 +1,6 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
+import { MapPin } from "lucide-react";
 import { montserrat, playfair, sigokae, centuryGothic } from "./fonts/font";
 import { HomeCarousel } from "@/common/components/ui/HomeCarousel";
 import GoogleMaps from "@/common/components/ui/location/GoogleMaps";
@@ -78,7 +79,7 @@ export default function Home() {
             <span className="text-xs font-bold tracking-widest text-zinc-300 uppercase brightness-120">
               Michi Café & Sushi Bar
             </span>
-            <span className="text-primary text-xs font-bold tracking-widest uppercase brightness-150">
+            <span className="text-michi-aqua text-xs font-bold tracking-widest uppercase">
               {mottoSection.title}
             </span>
             <p
@@ -137,13 +138,52 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Sección 4: Reservas (texto descriptivo, imagen y botón a /reservation) */}
+        <section
+          id="seccion-reservas"
+          aria-label="Reservas en Michi Sushi"
+          className="grid items-center gap-8 bg-transparent md:grid-cols-2"
+        >
+          <div className="order-2 flex flex-col items-start gap-4">
+            <h2
+              className={`${montserrat.className} text-4xl font-extrabold tracking-tight text-white uppercase md:text-5xl`}
+            >
+              {reservationsSection.title}
+            </h2>
+            <p className="text-base text-zinc-300 md:text-lg">
+              {reservationsSection.description}
+            </p>
+            <Button
+              asChild
+              size="lg"
+              className="bg-black font-semibold shadow-lg px-4 py-6 text-[15px] rounded-full"
+            >
+              <Link href={reservationsSection.actionHref || "/reservation"}>
+                {reservationsSection.actionLabel}
+              </Link>
+            </Button>
+          </div>
+
+          <div className="relative order-1 aspect-video w-full overflow-hidden">
+            {reservationsSection.image && (
+              <Image
+                src={reservationsSection.image}
+                alt={reservationsSection.imageAlt || "Reservas en restaurante"}
+                fill
+                className="object-cover transition-transform duration-500 hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            )}
+          </div>
+        </section>
+
         {/* Sección 3: Pide a domicilio (texto descriptivo, imagen y enlace a Uber Eats) */}
         <section
           id="seccion-pedido"
           aria-label="Pedir a domicilio en Uber Eats"
           className="grid items-center gap-8 bg-transparent md:grid-cols-2"
         >
-          <div className="relative aspect-video w-full overflow-hidden">
+          <div className="relative aspect-video w-full overflow-hidden md:order-2">
             {deliverySection.image && (
               <Image
                 src={deliverySection.image}
@@ -158,7 +198,7 @@ export default function Home() {
             )}
           </div>
 
-          <div className="flex flex-col items-start gap-4">
+          <div className="flex flex-col md:order-1 items-start gap-4">
             <h2
               className={`${montserrat.className} text-4xl font-extrabold tracking-tight text-white uppercase md:text-5xl`}
             >
@@ -182,45 +222,6 @@ export default function Home() {
               />
               <span className="sr-only"> (se abre en una pestaña nueva)</span>
             </a>
-          </div>
-        </section>
-
-        {/* Sección 4: Reservas (texto descriptivo, imagen y botón a /reservation) */}
-        <section
-          id="seccion-reservas"
-          aria-label="Reservas en Michi Sushi"
-          className="grid items-center gap-8 bg-transparent md:grid-cols-2"
-        >
-          <div className="order-2 flex flex-col items-start gap-4 md:order-1">
-            <h2
-              className={`${montserrat.className} text-4xl font-extrabold tracking-tight text-white uppercase md:text-5xl`}
-            >
-              {reservationsSection.title}
-            </h2>
-            <p className="text-base text-zinc-300 md:text-lg">
-              {reservationsSection.description}
-            </p>
-            <Button
-              asChild
-              size="lg"
-              className="bg-black font-semibold shadow-lg px-4 py-6 text-[15px] rounded-full"
-            >
-              <Link href={reservationsSection.actionHref || "/reservation"}>
-                {reservationsSection.actionLabel}
-              </Link>
-            </Button>
-          </div>
-
-          <div className="relative order-1 aspect-video w-full overflow-hidden md:order-2">
-            {reservationsSection.image && (
-              <Image
-                src={reservationsSection.image}
-                alt={reservationsSection.imageAlt || "Reservas en restaurante"}
-                fill
-                className="object-cover transition-transform duration-500 hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            )}
           </div>
         </section>
 

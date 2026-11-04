@@ -205,7 +205,7 @@ export function EditReservationPage({
       <div className="mx-auto flex w-full max-w-xl flex-col gap-4 py-6 md:py-8">
         <section className="flex flex-col gap-6 rounded-lg border border-white/10 bg-black/50 p-6 backdrop-blur-md">
           <div className="flex gap-4">
-            <div className="bg-primary/20 text-primary flex size-10 shrink-0 items-center justify-center rounded-full">
+            <div className="bg-michi-aqua/15 text-michi-aqua flex size-10 shrink-0 items-center justify-center rounded-full">
               <Pencil className="size-5" aria-hidden="true" />
             </div>
             <div className="flex flex-col gap-1">

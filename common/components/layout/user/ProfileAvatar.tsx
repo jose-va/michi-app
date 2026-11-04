@@ -6,7 +6,7 @@ import {
   AvatarImage,
 } from "@/shadcn/components/avatar";
 
-import { ShieldCheck } from "lucide-react";
+import { Crown } from "lucide-react";
 
 export default function ProfileAvatar({ user }: { user: User }) {
   return (
@@ -14,10 +14,14 @@ export default function ProfileAvatar({ user }: { user: User }) {
       <AvatarImage src={user.picture} alt={`Foto de perfil de ${user.name}`} />
       <AvatarFallback>{user.name.charAt(0).toUpperCase()}</AvatarFallback>
       {user.role === "ROLE_USER" ? (
-        <AvatarBadge className="animate-bounce bg-green-600" />
+        <AvatarBadge className="bg-green-600" />
       ) : (
-        <AvatarBadge className="10! size-4! bg-transparent text-purple-700 ring-transparent">
-          <ShieldCheck className="size-5!" strokeWidth={3} />
+        <AvatarBadge
+          title="Administrador"
+          aria-label="Administrador"
+          className="size-3! bg-yellow-400 text-zinc-900 ring-2 ring-background"
+        >
+          <Crown className="size-2!" strokeWidth={3} />
         </AvatarBadge>
       )}
     </Avatar>

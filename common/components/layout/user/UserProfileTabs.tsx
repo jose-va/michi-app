@@ -91,7 +91,7 @@ export default async function UserProfileTabs({ user }: { user: User }) {
       </TabsContent>
       <TabsContent value="favoritos">
         {favorites.length === 0 ? (
-          <p className="text-primary brightness-150">No tienes productos favoritos</p>
+          <p className="text-michi-aqua">No tienes productos favoritos</p>
         ) : (
           <ul className="flex min-w-0 flex-col gap-5">
             {favorites.map((product) => (

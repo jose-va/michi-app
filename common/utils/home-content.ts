@@ -1,4 +1,4 @@
-export const DEFAULT_CAROUSEL_IMAGES = [
+﻿export const DEFAULT_CAROUSEL_IMAGES = [
   "/carousel/Combinado De Nigiri.webp",
   "/carousel/Combinando Duo Mixto.webp",
    "/carousel/Ebi Assari.webp",
@@ -69,7 +69,7 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
     title: "Dónde estamos",
     description:
       "Te esperamos en C/ Gutierre Tibón, Santiago Lozano, 8, Local 2, Granada.",
-    actionLabel: "Cómo llegar",
+    actionLabel: "Ver ubicación",
     actionHref: "/location",
   },
 ] as const;

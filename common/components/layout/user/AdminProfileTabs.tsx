@@ -24,27 +24,27 @@ function TodayReservationDetail({
   return (
     <div className="flex flex-col gap-1">
        <p>
-        <span className="font-semibold text-primary brightness-150">Cliente:</span> {reservation.name}
+        <span className="font-semibold text-michi-aqua">Cliente:</span> {reservation.name}
       </p>
 
       <p>
-        <span className="font-semibold text-primary brightness-150">Hora:</span> {reservation.startTime}
+        <span className="font-semibold text-michi-aqua">Hora:</span> {reservation.startTime}
       </p>
       <p>
-        <span className="font-semibold text-primary brightness-150">Comensales:</span> {reservation.guests}
+        <span className="font-semibold text-michi-aqua">Comensales:</span> {reservation.guests}
       </p>
       {reservation.location ? (
         <p>
-          <span className="font-semibold text-primary brightness-150">Ubicación:</span>{" "}
+          <span className="font-semibold text-michi-aqua">Ubicación:</span>{" "}
           {reservation.location === "OUTSIDE" ? "Terraza" : "Interior"}
         </p>
       ) : null}
       <p>
-        <span className="font-semibold text-primary brightness-150">Teléfono:</span> {reservation.phone}
+        <span className="font-semibold text-michi-aqua">Teléfono:</span> {reservation.phone}
       </p>
       {reservation.observations ? (
         <p>
-          <span className="font-semibold text-primary brightness-150">Observaciones:</span>{" "}
+          <span className="font-semibold text-michi-aqua">Observaciones:</span>{" "}
           {reservation.observations}
         </p>
       ) : null}
@@ -94,9 +94,9 @@ export default async function AdminProfileTabs({ user }: { user: User }) {
       </TabsList>
       <TabsContent value="reservas-hoy">
         {reservations === null ? (
-          <p className="mt-4 text-primary brightness-150">No hay ninguna reserva</p>
+          <p className="mt-4 text-michi-aqua">No hay ninguna reserva</p>
         ) : active.length === 0 ? (
-          <p className="mt-4 text-primary brightness-150">Todavía no se han realizado reservas</p>
+          <p className="mt-4 text-michi-aqua">Todavía no se han realizado reservas</p>
         ) : (
           <div className="mt-4 flex min-w-0 flex-col gap-4">
             <ul className="flex min-w-0 flex-col gap-4">

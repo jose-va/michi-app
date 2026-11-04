@@ -12,7 +12,7 @@ export default function OpeningHours() {
             services
               .filter(({ label }) => label !== "Desayuno")
               .map(({ label, time }) => (
-                <dd key={label} className="text-primary font-semibold brightness-150">
+                <dd key={label} className="text-michi-aqua font-semibold">
                   <span className="font-normal text-white">
                     {label}:{" "}
                   </span>
