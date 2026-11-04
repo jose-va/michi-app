@@ -235,7 +235,7 @@ export default function UserReservationsByDay({
               ]}
               locale={es}
               weekStartsOn={1}
-              className="bg-[#090B0C] in-data-[slot=popover-content]:bg-[#090B0C] [&_[data-selected-single=true]]:bg-teal-600 [&_[data-selected-single=true]]:text-white"
+              className="rounded-lg border"
             />
           </PopoverContent>
         </Popover>
