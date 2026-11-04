@@ -32,7 +32,7 @@ export default function UserOptions({
     <>
       {isFavorite ? (
         <HeartMinus
-          className="size-5 opacity-50 hover:cursor-pointer hover:opacity-100 md:size-5"
+          className="size-6 opacity-50 hover:cursor-pointer hover:opacity-100 md:size-5"
           onClick={handleUnmark}
         />
       ) : (
