@@ -10,7 +10,7 @@ import Link from "next/link";
 import { Clock, MapPin, Navigation } from "lucide-react";
 import type { ReactNode } from "react";
 import { montserrat } from "@/app/fonts/font";
-import { CONFIRMED_SCHEDULE } from "@/common/utils/home-content";
+import { getDetailedScheduleRows } from "@/common/utils/home-content";
 
 const DIRECTIONS_URL = getDirectionsUrl(MICHI_LOCATION);
 const PLACE_URL = getPlaceUrl(MICHI_LOCATION);
@@ -89,24 +89,28 @@ export default function LocationPage({
               </div>
               <div className="flex w-full flex-col gap-2">
                 <h2 className="font-semibold text-white">Horario</h2>
-                <div className="flex flex-col text-sm text-zinc-300">
-                  <span>{CONFIRMED_SCHEDULE.monday.days}</span>
-                  <span className="text-primary font-semibold">
-                    {CONFIRMED_SCHEDULE.monday.hours.join(" y ")}
-                  </span>
-                </div>
-                <div className="flex flex-col text-sm text-zinc-300">
-                  <span>{CONFIRMED_SCHEDULE.tuesdayToSaturday.days}</span>
-                  <span className="text-primary font-semibold">
-                    {CONFIRMED_SCHEDULE.tuesdayToSaturday.hours.join(" y ")}
-                  </span>
-                </div>
-                <div className="flex flex-col text-sm text-zinc-300">
-                  <span>{CONFIRMED_SCHEDULE.sunday.days}</span>
-                  <span className="font-semibold text-zinc-400">
-                    {CONFIRMED_SCHEDULE.sunday.status}
-                  </span>
-                </div>
+                {getDetailedScheduleRows().map(({ days, services, status }) => (
+                  <div
+                    key={days}
+                    className="flex flex-col text-sm text-zinc-300"
+                  >
+                    <span>{days}</span>
+                    {status ? (
+                      <span className="font-semibold text-red-700">
+                        {status}
+                      </span>
+                    ) : (
+                      services.map(({ label, time }) => (
+                        <span key={label} className="text-primary brightness-150 font-medium text-sm">
+                          <span className="font-medium text-white">
+                            {label}:{" "}
+                          </span>
+                          {time}
+                        </span>
+                      ))
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
 

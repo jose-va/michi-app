@@ -77,14 +77,84 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
 export const CONFIRMED_SCHEDULE = {
   monday: {
     days: "Lunes",
-    hours: ["20:00–23:00"],
+    meals: { dinner: "20:00–23:00" },
   },
   tuesdayToSaturday: {
     days: "Martes a Sábado",
-    hours: ["08:00–16:00", "20:00–23:00"],
+    meals: {
+      breakfast: "desde las 08:00",
+      lunch: "13:00–16:00",
+      dinner: "20:00–23:00",
+    },
   },
   sunday: {
     days: "Domingo",
     status: "Cerrado",
   },
 } as const;
+
+const MEAL_LABELS = {
+  breakfast: "Desayuno",
+  lunch: "Comida",
+  dinner: "Cena",
+} as const;
+
+type MealKey = keyof typeof MEAL_LABELS;
+
+export interface DetailedScheduleRow {
+  days: string;
+  services: { label: string; time: string }[];
+  status: string | undefined;
+}
+
+export interface CompactScheduleRow {
+  days: string;
+  hours: string;
+}
+
+interface ScheduleDay {
+  days: string;
+  meals?: Partial<Record<MealKey, string>>;
+  status?: string;
+}
+
+function scheduleDays(): ScheduleDay[] {
+  return [
+    CONFIRMED_SCHEDULE.monday,
+    CONFIRMED_SCHEDULE.tuesdayToSaturday,
+    CONFIRMED_SCHEDULE.sunday,
+  ];
+}
+
+function mealEntries(day: ScheduleDay): { label: string; time: string }[] {
+  const order: MealKey[] = ["breakfast", "lunch", "dinner"];
+  return order.flatMap((key) => {
+    const time = day.meals?.[key];
+    return time ? [{ label: MEAL_LABELS[key], time }] : [];
+  });
+}
+
+/** Una línea por servicio (Desayuno/Comida/Cena): ubicación y reserva. */
+export function getDetailedScheduleRows(): DetailedScheduleRow[] {
+  return scheduleDays().map((day) => ({
+    days: day.days,
+    services: mealEntries(day),
+    status: day.status,
+  }));
+}
+
+function compactHours(day: ScheduleDay): string {
+  const { breakfast, lunch, dinner } = day.meals ?? {};
+  const start = breakfast?.match(/\d{2}:\d{2}/)?.[0];
+  const lunchEnd = lunch?.split("–")[1];
+  const first = start && lunchEnd ? `${start}–${lunchEnd}` : (lunch ?? breakfast);
+  return [first, dinner].filter(Boolean).join(" y ");
+}
+
+/** Una sola línea por día, con desayuno y comida fusionados: pie de página. */
+export function getCompactScheduleRows(): CompactScheduleRow[] {
+  return scheduleDays().map((day) => ({
+    days: day.days,
+    hours: day.status ?? compactHours(day),
+  }));
+}

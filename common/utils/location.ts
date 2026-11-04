@@ -1,8 +1,8 @@
 export type LatLng = { lat: number; lng: number };
 
 export const MICHI_LOCATION: LatLng = {
-  lat: 37.19753975627692,
-  lng: -3.6019811043498033,
+  lat: 37.19745861183875,
+  lng: -3.6019810999930373,
 };
 
 export const MICHI_ADDRESS =
