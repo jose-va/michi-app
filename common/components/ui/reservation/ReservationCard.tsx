@@ -90,7 +90,7 @@ export default function ReservationCard({
           </Link>
         </CardFooter>
         {reservation.id && reservation.state !== "CANCELLED" && (
-          <ReservationCancel id={reservation.id} name={reservation.name} triggerButtonClassName="absolute top-2 right-4" />
+          <ReservationCancel id={reservation.id} name={reservation.name} date={reservation.date} startTime={reservation.startTime} triggerButtonClassName="absolute top-2 right-4" />
         )}
       </Card>
     </div>

@@ -53,6 +53,8 @@ function TodayReservationDetail({
           <ReservationCancel
             id={reservation.id}
             name={reservation.name}
+            date={reservation.date}
+            startTime={reservation.startTime}
             trigger="text"
           />
         </div>

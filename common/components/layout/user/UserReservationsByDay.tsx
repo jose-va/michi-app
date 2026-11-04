@@ -69,6 +69,8 @@ function UserReservationDetail({
           <ReservationCancel
             id={reservation.id}
             name={reservation.name}
+            date={reservation.date}
+            startTime={reservation.startTime}
             token={reservation.cancelToken ?? undefined}
             onCancelled={() => onCancelled(reservation.id as string)}
             triggerButtonClassName=""

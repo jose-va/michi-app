@@ -33,6 +33,7 @@ import {
   resolveUpdateErrorMessage,
   type UpdateErrorStatus,
 } from "@/common/utils/reservation-edit";
+import { buildEditWhatsappUrl } from "@/common/utils/whatsapp-contact";
 
 // El local cierra los domingos: si hoy es domingo, se propone el lunes
 // (igual que en la creación; solo se usa cuando la reserva no trae día).
@@ -162,7 +163,21 @@ export function EditReservationPage({
         result.status as UpdateErrorStatus,
         body,
       );
-      toast.error(resolveUpdateErrorMessage(mapped));
+      if (mapped.kind === "CONFLICT_MESSAGE") {
+        const fecha = format(data.date, "EEEE, d 'de' MMMM", { locale: es });
+        const whatsappUrl = buildEditWhatsappUrl(
+          fecha,
+          data.startTime || form.getValues("startTime"),
+        );
+        toast.error("No se ha podido modificar su reserva", {
+          description: <span>Contáctenos por WhatsApp</span>,
+          action: {
+            label: "Abrir Whatsapp",
+            onClick: () =>
+              window.open(whatsappUrl, "_blank", "noopener,noreferrer"),
+          },
+        });
+      } else toast.error(resolveUpdateErrorMessage(mapped));
     } catch (error) {
       toast.dismiss(loadingId);
       console.error("Error al modificar la reserva: ", error);

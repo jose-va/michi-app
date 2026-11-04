@@ -7,6 +7,9 @@ import { toast } from "sonner";
 
 import { cancelReservation } from "@/lib/server-actions";
 import { getCancelErrorMessage } from "@/common/utils/cancel-error";
+import { buildCancelWhatsappUrl } from "@/common/utils/whatsapp-contact";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,9 +23,19 @@ import {
   AlertDialogTrigger,
 } from "@/shadcn/components/alert-dialog";
 
+function formatCancelDate(date: string | undefined): string {
+  const limpia = typeof date === "string" ? date.trim() : "";
+  if (!limpia) return "";
+  const parsed = new Date(`${limpia}T12:00:00`);
+  if (Number.isNaN(parsed.getTime())) return limpia;
+  return format(parsed, "EEEE, d 'de' MMMM", { locale: es });
+}
+
 export function ReservationCancel({
   id,
   name,
+  date,
+  startTime,
   trigger = "icon",
   token,
   onCancelled,
@@ -31,6 +44,8 @@ export function ReservationCancel({
 }: {
   id: string;
   name: string;
+  date?: string;
+  startTime?: string;
   trigger?: "icon" | "text";
   token?: string | null;
   onCancelled?: () => void;
@@ -49,6 +64,17 @@ export function ReservationCancel({
         toast.success("Reserva cancelada");
         onCancelled?.();
         router.refresh();
+      } else if (result.status === 409) {
+        const fecha = formatCancelDate(date);
+        const whatsappUrl = buildCancelWhatsappUrl(fecha, startTime);
+        toast.error("No se ha podido cancelar su reserva", {
+          description: <span>Contáctenos por WhatsApp</span>,
+          action: {
+            label: "Abrir Whatsapp",
+            onClick: () =>
+              window.open(whatsappUrl, "_blank", "noopener,noreferrer"),
+          },
+        });
       } else toast.error(getCancelErrorMessage(result));
     } catch {
       toast.error("Error inesperado, inténtalo de nuevo");
