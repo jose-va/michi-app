@@ -12,7 +12,7 @@ const header = source.slice(
 );
 
 test("la badge de precio se define una sola vez, sin parámetro de clase", () => {
-  assert.equal((source.match(/<Badge/g) ?? []).length, 3);
+  assert.equal((source.match(/<Badge/g) ?? []).length, 4);
   assert.equal((source.match(/Precio \$\{formatted\}/g) ?? []).length, 1);
   assert.ok(/const priceBadge\s*=\s*\(\)\s*=>/.test(source));
   assert.equal((source.match(/priceBadge\(\)/g) ?? []).length, 1);

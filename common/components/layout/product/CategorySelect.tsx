@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/shadcn/components/select";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { resetPageParam } from "@/common/utils/product-filters";
 import {
   FEATURED_CATEGORY,
   filterCategories,
@@ -28,7 +29,7 @@ export const CategorySelect = () => {
     : rawCategory;
 
   function handleCategory(value: string) {
-    const params = new URLSearchParams(searchParams);
+    const params = resetPageParam(searchParams);
     if (value === "all") params.delete("category");
     else params.set("category", value);
 

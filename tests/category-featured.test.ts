@@ -31,7 +31,7 @@ test("filterCategories antepone featured y conserva el resto", () => {
 test("título y descripción de Destacados", () => {
   for (const v of ["featured", "Featured", "FEATURED"]) {
     assert.equal(getCategoryTitle(v), "Destacados");
-    assert.equal(getCategoryDescription(v), "Recomendaciones de la casa.");
+    assert.equal(getCategoryDescription(v), "Recomendaciones de la casa y platos más vendidos.");
   }
   assert.equal(getCategoryTitle("DESSERTS"), "Postres");
 });

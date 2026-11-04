@@ -3,6 +3,7 @@
 import { getCategoryTitle } from "@/common/mappers/category.mapper";
 import { Tabs, TabsList, TabsTrigger } from "@/shadcn/components/tabs";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { resetPageParam } from "@/common/utils/product-filters";
 import { categories } from "@/common/mappers/category.mapper";
 
 export default function CategoryTab() {
@@ -11,7 +12,7 @@ export default function CategoryTab() {
   const router = useRouter();
 
   function handleCategory(value: string) {
-    const params = new URLSearchParams(searchParams);
+    const params = resetPageParam(searchParams);
     params.set("category", value.toLocaleLowerCase());
 
     router.replace(`${pathname}?${params.toString()}`);

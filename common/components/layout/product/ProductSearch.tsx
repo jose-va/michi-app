@@ -1,6 +1,7 @@
 "use client";
 
 import { Search } from "lucide-react";
+import { resetPageParam } from "@/common/utils/product-filters";
 import { Input } from "@/shadcn/components/input";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
@@ -10,7 +11,7 @@ export default function ProductSearch() {
   const router = useRouter();
 
   function handleSearch(value: string) {
-    const params = new URLSearchParams(searchParams);
+    const params = resetPageParam(searchParams);
     params.set("name", value.toLocaleLowerCase());
 
     router.replace(`${pathname}?${params.toString()}`);

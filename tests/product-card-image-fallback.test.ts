@@ -35,8 +35,8 @@ test("ProductCard no pinta recuadro oscuro si la foto falla y muestra las insign
   );
   assert.equal(
     (source.match(/<Badge/g) ?? []).length,
-    3,
-    "Debe haber 3 <Badge: categoría con foto, categoría sin foto y precio (constante priceBadge, una sola ubicación)",
+    4,
+    "Debe haber 4 <Badge: categoría con foto, categoría sin foto, Destacado y precio (constante priceBadge, una sola ubicación)",
   );
 });
 

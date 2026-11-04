@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { resetPageParam } from "@/common/utils/product-filters";
 import AllergenPicker from "@/common/components/layout/product/AllergenPicker";
 
 export default function AllergenSelect() {
@@ -11,7 +12,7 @@ export default function AllergenSelect() {
   const selected = searchParams.getAll("allergens");
 
   const handleChange = (selected: string[]) => {
-    const params = new URLSearchParams(searchParams);
+    const params = resetPageParam(searchParams);
     params.delete("allergens");
     selected.forEach((a) => params.append("allergens", a));
     router.push(`${pathname}?${params.toString()}`);
