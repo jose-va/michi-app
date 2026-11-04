@@ -23,9 +23,12 @@ import {
   updateProduct,
   uploadProductImage,
   deleteProductImage,
+  renameProductImage,
 } from "@/lib/server-actions";
 import {
   getProductImageSrc,
+  planProductImageOperation,
+  shouldDeleteOldProductImage,
   validateProductImageFile,
 } from "@/common/utils/product-image";
 import { useState } from "react";
@@ -46,7 +49,7 @@ export default function ProducFormPage({ product }: { product?: Product }) {
       category: product?.category ?? "",
       allergens: product?.allergens ?? [],
       pieces: product?.pieces ?? 0,
-      position: product?.position, // <- nuevo
+      position: product?.position, // valor oculto: se reenvía en el PUT; se gestiona en base de datos
     },
   });
 
@@ -98,16 +101,26 @@ export default function ProducFormPage({ product }: { product?: Product }) {
     if (product?.id) {
       const updated = await updateProduct(product.id, data as Product);
       if (updated) {
-        if (photoFile) {
+        const operation = planProductImageOperation({
+          oldName: product.name,
+          newName: data.name,
+          hasNewPhoto: !!photoFile,
+          removeExisting: removeExistingPhoto,
+        });
+        if (operation === "replace") {
           const photoSaved = await savePhoto(data.name);
           if (photoSaved) {
+            if (shouldDeleteOldProductImage(product.name, data.name)) {
+              // No crítico: si falla, el éxito de la edición no cambia.
+              await deleteProductImage(product.name).catch(() => false);
+            }
             toast.success("¡Se ha actualizado el producto!");
           } else {
             toast.success(
               "Producto actualizado, pero no se ha podido guardar la imagen."
             );
           }
-        } else if (removeExistingPhoto) {
+        } else if (operation === "delete") {
           const photoDeleted = await deleteProductImage(product.name);
           if (photoDeleted) {
             toast.success("¡Se ha actualizado el producto!");
@@ -115,6 +128,19 @@ export default function ProducFormPage({ product }: { product?: Product }) {
             toast.success(
               "Producto actualizado, pero no se ha podido eliminar la imagen."
             );
+          }
+        } else if (operation === "rename") {
+          const moved = await renameProductImage(product.name, data.name);
+          if (moved === "exists") {
+            toast.warning(
+              "Producto actualizado, pero ya existe una imagen con el nuevo nombre; no se ha movido la foto."
+            );
+          } else if (moved === "error") {
+            toast.warning(
+              "Producto actualizado, pero no se ha podido mover la imagen."
+            );
+          } else {
+            toast.success("¡Se ha actualizado el producto!");
           }
         } else {
           toast.success("¡Se ha actualizado el producto!");
@@ -146,7 +172,7 @@ export default function ProducFormPage({ product }: { product?: Product }) {
       <Card className="black-glassmorphism w-md">
         <CardHeader>
           <div className="flex justify-between">
-            <CardTitle className={`${montserrat.className}`}>
+            <CardTitle className={`${montserrat.className} text-primary brightness-150 font-bold`}>
               {product ? "Modificar producto" : "Crear producto"}
             </CardTitle>
             <ArrowLeftIcon
@@ -157,7 +183,7 @@ export default function ProducFormPage({ product }: { product?: Product }) {
           <CardDescription className="max-w-3xs">
             {product
               ? "Rellene los siguientes campos para la modificación del producto"
-              : "Rellene los siguientes campos para la incorporación de un producto en la carta"}
+              : "Rellene los siguientes campos para crear un nuevo producto"}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -165,7 +191,6 @@ export default function ProducFormPage({ product }: { product?: Product }) {
             <form id="form-product" onSubmit={form.handleSubmit(onSubmit)}>
               <ProductForm
                 form={form}
-                showPosition={!!product}
                 existingImageSrc={
                   product ? getProductImageSrc(product.name) : null
                 }
