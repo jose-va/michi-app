@@ -51,6 +51,12 @@ Las pruebas TypeScript usan el runner integrado de Node mediante `tsx`: ejecuta 
 - Cuando la tarea use Spec-Driven Development, sigue `.agents/skills/sdd/SKILL.md` y los comandos de `.opencode/commands/`: no avances de fase sin aprobación y, al implementar, trabaja en una sola tarea aprobada cada vez.
 - Solo `implementer` puede cargar libremente skills instaladas vía `skill` cuando ayude a la tarea, respetando spec, plan y constitución; `coordinator`, `planner`, `reviewer` y `trainer` solo usan la skill `sdd`.
 
+## Commits
+
+- Haz commit y push solo cuando el usuario lo apruebe de forma explícita; nunca por iniciativa propia.
+- Usa Conventional Commits con el formato `tipo: [ÁMBITO]: Descripción en español.` (por ejemplo, `style: [CALENDAR]: Eliminar el doble recuadro del calendario.`). Los tipos habituales son `feat`, `fix`, `style`, `docs`, `refactor`, `test` y `chore`.
+- Un commit por cambio lógico; añade solo los archivos de ese cambio y no incluyas cambios ajenos.
+
 ## Límites
 
 - ✅ Reutiliza tipos y servicios existentes y ejecuta las verificaciones relevantes.

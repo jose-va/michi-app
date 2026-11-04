@@ -75,7 +75,7 @@ export default function Home() {
           aria-label="Lema del restaurante"
           className="mx-auto w-full max-w-3xl bg-transparent text-center"
         >
-          <div className="space-y-3">
+          <div className="space-y-4">
             <span className="text-xs font-bold tracking-widest text-zinc-300 uppercase brightness-120">
               Michi Café & Sushi Bar
             </span>
