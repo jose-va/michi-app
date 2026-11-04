@@ -3,12 +3,9 @@ import {
   FOOTER_CONTACT,
   FOOTER_CONTACT_TITLE,
   FOOTER_LEGAL,
-  FOOTER_SCHEDULE,
-  FOOTER_SCHEDULE_EMPTY_TEXT,
   FOOTER_SECTIONS,
   getFooterYear,
 } from "./footer-links";
-import { MICHI_ADDRESS } from "@/common/utils/location";
 import FooterNavLink from "./FooterNavLink";
 
 const FOOTER_TAGLINE = "Gastronomía japonesa y tapeo en el norte de granada.";
@@ -104,29 +101,6 @@ export default function SiteFooter() {
           </ul>
         </nav>
 
-        <section aria-label={FOOTER_SCHEDULE.title}>
-          <h2 className="text-lg font-semibold text-white">
-            {FOOTER_SCHEDULE.title}
-          </h2>
-          {FOOTER_SCHEDULE.rows.length === 0 ? (
-            <p className="mt-2 text-zinc-300">{FOOTER_SCHEDULE_EMPTY_TEXT}</p>
-          ) : (
-            <ul className="mt-2 flex flex-col gap-3">
-              {FOOTER_SCHEDULE.rows.map((row) => (
-                <li key={row.days} className="flex flex-col gap-1 brightness-150">
-                  <span className="font-medium text-zinc-200">
-                    {row.days}
-                  </span>
-                  <span className="text-primary">{row.hours}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-          <div className="mt-4 flex flex-col gap-1">
-            <span className="font-medium text-zinc-200">Dirección</span>
-            <span className="text-sm text-zinc-300">{MICHI_ADDRESS}</span>
-          </div>
-        </section>
       </div>
 
       <div className="border-t border-white/10">

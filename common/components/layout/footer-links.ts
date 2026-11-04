@@ -1,4 +1,4 @@
-import { CONFIRMED_SCHEDULE } from "@/common/utils/home-content";
+import { getCompactScheduleRows } from "@/common/utils/home-content";
 
 export interface FooterLink {
   label: string;
@@ -63,16 +63,7 @@ export interface FooterSchedule {
 
 export const FOOTER_SCHEDULE: FooterSchedule = {
   title: "Horario de Apertura",
-  rows: [
-    {
-      days: CONFIRMED_SCHEDULE.monday.days,
-      hours: CONFIRMED_SCHEDULE.monday.hours.join(" y "),
-    },
-    {
-      days: CONFIRMED_SCHEDULE.tuesdayToSaturday.days,
-      hours: CONFIRMED_SCHEDULE.tuesdayToSaturday.hours.join(" y "),
-    },
-  ],
+  rows: getCompactScheduleRows(),
 };
 
 export const FOOTER_SCHEDULE_EMPTY_TEXT =
