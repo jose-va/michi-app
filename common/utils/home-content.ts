@@ -37,11 +37,11 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
     id: "menu",
     title: "NUESTRA CARTA",
     description:
-      "Todos nuestros productos se preparan al momento con ingredientes de alta calidad.",
+      "Todos nuestros platos se preparan al momento con ingredientes de alta calidad.",
     image:
       "/images/Ebi Pasión.webp",
     imageAlt: "Ebi Pasión",
-    actionLabel: "Ver la carta",
+    actionLabel: "Ver carta",
     actionHref: "/product",
   },
   {
@@ -61,14 +61,14 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
     image:
       "/images/2326ceaf-1ded-46d3-b174-c7c6cfe55ed6.webp",
     imageAlt: "Reserva tu mesa en Michi Sushi",
-    actionLabel: "Reservar ahora",
+    actionLabel: "Reservar",
     actionHref: "/reservation",
   },
   {
     id: "location",
     title: "Dónde estamos",
     description:
-      "Visítenos en Calle Gutierre Tibón, Santiago Lozano 8, Local 2, Granada.",
+      "Te esperamos en C/ Gutierre Tibón, Santiago Lozano, 8, Local 2, Granada.",
     actionLabel: "Cómo llegar",
     actionHref: "/location",
   },

@@ -14,7 +14,7 @@ import {
 } from "@/shadcn/components/card";
 import { ReservationCancel } from "./ReservationCancel";
 import { cn } from "@/lib/utils";
-import { Phone, CalendarDays } from "lucide-react";
+import { Phone, CalendarDays, Clock, Users } from "lucide-react";
 
 export default function ReservationCard({
   reservation,
@@ -49,7 +49,7 @@ export default function ReservationCard({
         <CardHeader>
           <p className="flex items-center gap-2 text-sm font-semibold text-white/90">
             <CalendarDays className="size-4" aria-hidden="true" />
-            {dateLabel}
+            <span className="text-primary brightness-150 font-semibold">{dateLabel}</span> · <Clock className="size-4" aria-hidden="true" /> {reservation.startTime}
           </p>
           <div className="flex items-center justify-between mt-2">
             <div className="flex items-center gap-3">
@@ -64,16 +64,19 @@ export default function ReservationCard({
               )}
               <CardTitle>{reservation.name}</CardTitle>
             </div>
-            <div className="flex items-center gap-2">
-              <Badge>
-                {reservation.location === "OUTSIDE" ? "Terraza" : "Interior"}
-              </Badge>
-            </div>
           </div>
         </CardHeader>
         <CardContent className="flex-1 font-extralight">
-          <span className="text-primary brightness-150 font-semibold">Hora: </span>{reservation.startTime}
-          <span className="text-pretty flex">
+          <div className="mb-4 flex items-center gap-2">
+            <Badge>
+              {reservation.location === "OUTSIDE" ? "Terraza" : "Interior"}
+            </Badge>
+            <span className="flex items-center gap-1 text-white/90">
+              <Users className="size-4" aria-hidden="true" />
+              {reservation.guests}
+            </span>
+          </div>
+          <span className="text-pretty flex text-white/90">
             {reservation.observations || "Sin observaciones"}
           </span>
         </CardContent>
@@ -81,13 +84,13 @@ export default function ReservationCard({
           {/* TODO: sustituye este href temporal por el enlace definitivo del teléfono */}
           <Link
             href={`tel:${reservation.phone}`}
-            className="flex items-center gap-2 hover:scale-101 text-zinc-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            className="flex items-center gap-2 font-extralight hover:scale-101 text-white/90 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             <Phone className="size-4" /> {reservation.phone}
           </Link>
         </CardFooter>
         {reservation.id && reservation.state !== "CANCELLED" && (
-          <ReservationCancel id={reservation.id} name={reservation.name} />
+          <ReservationCancel id={reservation.id} name={reservation.name} triggerButtonClassName="absolute top-2 right-4" />
         )}
       </Card>
     </div>

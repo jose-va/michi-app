@@ -40,9 +40,10 @@ export default function ReservationDayNavigator({
   const isPreviousBlocked = previous === date || isPastKey(previous, today);
   const isNextBlocked =
     next === date || isPastKey(next, today) || next > maxDate;
-  const controlClass =
+  const baseClass =
     "inline-flex min-h-[44px] min-w-[44px] w-auto items-center justify-center gap-1 whitespace-nowrap px-3 text-sm sm:text-base";
-  const blockedClass = `${controlClass} opacity-50`;
+  const controlClass = `${baseClass} group rounded-md transition-all duration-200 hover:bg-white/10 hover:text-white active:scale-95 motion-reduce:transition-none motion-reduce:active:scale-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white [&>svg]:transition-transform [&>svg]:duration-200 hover:[&>svg]:scale-110 [&>span]:transition-transform [&>span]:duration-200 motion-reduce:[&>span]:transition-none`;
+  const blockedClass = `${baseClass} opacity-50`;
 
   function closeAndRefocus() {
     setOpen(false);
@@ -71,7 +72,7 @@ export default function ReservationDayNavigator({
             aria-label="Día anterior"
             className={controlClass}
           >
-            <span aria-hidden="true" className="shrink-0">‹</span> Anterior
+            <span aria-hidden="true" className="shrink-0 transition-transform duration-200 group-hover:-translate-x-1 motion-reduce:transform-none">‹</span> Anterior
           </Link>
         )}
         <div aria-hidden="true" className="my-2 w-px self-stretch bg-white/15" />
@@ -150,7 +151,7 @@ export default function ReservationDayNavigator({
             aria-label="Día siguiente"
             className={controlClass}
           >
-            Siguiente <span aria-hidden="true" className="shrink-0">›</span>
+            Siguiente <span aria-hidden="true" className="shrink-0 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none">›</span>
           </Link>
         )}
       </nav>

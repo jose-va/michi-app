@@ -48,7 +48,7 @@ export default function Home() {
               size="lg"
               className="bg-primary hover:bg-primary! min-h-11 font-semibold hover:brightness-110"
             >
-              <Link href="/reservation">Reservar ahora</Link>
+              <Link href="/reservation">Reservar</Link>
             </Button>
             <Button
               asChild
