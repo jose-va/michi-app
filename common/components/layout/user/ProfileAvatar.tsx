@@ -6,7 +6,7 @@ import {
   AvatarImage,
 } from "@/shadcn/components/avatar";
 
-import { Swords } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 
 export default function ProfileAvatar({ user }: { user: User }) {
   return (
@@ -16,8 +16,8 @@ export default function ProfileAvatar({ user }: { user: User }) {
       {user.role === "ROLE_USER" ? (
         <AvatarBadge className="animate-bounce bg-green-600" />
       ) : (
-        <AvatarBadge className="10! size-4! bg-transparent text-yellow-400 ring-transparent animate-pulse">
-          <Swords className="size-4!" />
+        <AvatarBadge className="10! size-4! bg-transparent text-purple-700 ring-transparent">
+          <ShieldCheck className="size-5!" strokeWidth={3} />
         </AvatarBadge>
       )}
     </Avatar>
