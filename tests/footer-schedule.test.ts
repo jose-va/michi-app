@@ -4,40 +4,26 @@ import {
   FOOTER_SCHEDULE,
   FOOTER_SCHEDULE_EMPTY_TEXT,
 } from "@/common/components/layout/footer-links";
-import { CONFIRMED_SCHEDULE } from "@/common/utils/home-content";
+import { getCompactScheduleRows } from "@/common/utils/home-content";
 
 describe("Datos puros del Bloque Horario del footer (RF-18)", () => {
   it("tiene el título exacto", () => {
     assert.equal(FOOTER_SCHEDULE.title, "Horario de Apertura");
   });
 
-  it("tiene las filas exactas, idénticas al home sin inventar horas", () => {
+  it("tiene las filas exactas en formato compacto", () => {
     assert.deepEqual(FOOTER_SCHEDULE.rows, [
+      { days: "Lunes", hours: "20:00–23:00" },
       {
-        days: "Lunes a sábado",
+        days: "Martes a Sábado",
         hours: "08:00–16:00 y 20:00–23:00",
       },
       { days: "Domingo", hours: "Cerrado" },
     ]);
   });
 
-  it("reutiliza el contenido exacto del home (CONFIRMED_SCHEDULE unido con ' y ')", () => {
-    assert.equal(
-      FOOTER_SCHEDULE.rows[0].days,
-      CONFIRMED_SCHEDULE.weekdays.days,
-    );
-    assert.equal(
-      FOOTER_SCHEDULE.rows[0].hours,
-      CONFIRMED_SCHEDULE.weekdays.hours.join(" y "),
-    );
-    assert.equal(
-      FOOTER_SCHEDULE.rows[1].days,
-      CONFIRMED_SCHEDULE.sunday.days,
-    );
-    assert.equal(
-      FOOTER_SCHEDULE.rows[1].hours,
-      CONFIRMED_SCHEDULE.sunday.status,
-    );
+  it("deriva de CONFIRMED_SCHEDULE mediante el helper compartido", () => {
+    assert.deepEqual(FOOTER_SCHEDULE.rows, getCompactScheduleRows());
   });
 });
 

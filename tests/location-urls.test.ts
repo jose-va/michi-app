@@ -14,21 +14,21 @@ describe("URLs de ubicación (RF-5, RNF-6)", () => {
   it("getDirectionsUrl con MICHI_LOCATION", () => {
     assert.equal(
       getDirectionsUrl(MICHI_LOCATION),
-      "https://www.google.com/maps/dir/?api=1&destination=37.19753975627692,-3.6019811043498033"
+      "https://www.google.com/maps/dir/?api=1&destination=37.19745861183875,-3.6019810999930373"
     );
   });
 
   it("getPlaceUrl con MICHI_LOCATION", () => {
     assert.equal(
       getPlaceUrl(MICHI_LOCATION),
-      "https://www.google.com/maps/search/?api=1&query=37.19753975627692,-3.6019811043498033"
+      "https://www.google.com/maps/search/?api=1&query=37.19745861183875,-3.6019810999930373"
     );
   });
 
   it("getEmbedUrl con MICHI_LOCATION", () => {
     assert.equal(
       getEmbedUrl(MICHI_LOCATION),
-      "https://maps.google.com/maps?q=37.19753975627692,-3.6019811043498033&z=16&hl=es&output=embed"
+      "https://maps.google.com/maps?q=37.19745861183875,-3.6019810999930373&z=16&hl=es&output=embed"
     );
   });
 

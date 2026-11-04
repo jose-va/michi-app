@@ -68,8 +68,14 @@ test("home sections contain exactly four descriptive sections in strict order", 
 });
 
 test("confirmed schedule matches the confirmed opening hours", () => {
-  assert.equal(CONFIRMED_SCHEDULE.weekdays.days, "Lunes a sábado");
-  assert.deepEqual(CONFIRMED_SCHEDULE.weekdays.hours, ["08:00–16:00", "20:00–23:00"]);
+  assert.equal(CONFIRMED_SCHEDULE.monday.days, "Lunes");
+  assert.deepEqual(CONFIRMED_SCHEDULE.monday.meals, { dinner: "20:00–23:00" });
+  assert.equal(CONFIRMED_SCHEDULE.tuesdayToSaturday.days, "Martes a Sábado");
+  assert.deepEqual(CONFIRMED_SCHEDULE.tuesdayToSaturday.meals, {
+    breakfast: "desde las 08:00",
+    lunch: "13:00–16:00",
+    dinner: "20:00–23:00",
+  });
   assert.equal(CONFIRMED_SCHEDULE.sunday.days, "Domingo");
   assert.equal(CONFIRMED_SCHEDULE.sunday.status, "Cerrado");
 });
