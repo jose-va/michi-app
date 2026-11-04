@@ -40,7 +40,7 @@ export function ReservationCancel({
   token,
   onCancelled,
   triggerButtonClassName = "absolute top-4 right-4",
-  triggerIconClassName = "size-5 text-destructive transition-all duration-200 group-hover:scale-110 group-hover:text-red-300 group-hover:drop-shadow-[0_0_8px_rgba(248,113,113,0.7)] hover:cursor-pointer hover:text-red-400",
+  triggerIconClassName = "size-5 text-destructive transition-all duration-200 group-hover:scale-105 group-hover:text-red-300 group-hover:drop-shadow-[0_0_8px_rgba(248,113,113,0.7)] hover:cursor-pointer hover:text-red-400",
 }: {
   id: string;
   name: string;

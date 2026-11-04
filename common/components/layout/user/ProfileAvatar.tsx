@@ -10,7 +10,7 @@ import { Crown } from "lucide-react";
 
 export default function ProfileAvatar({ user }: { user: User }) {
   return (
-    <Avatar className="hover:scale-110 hover:cursor-pointer">
+    <Avatar className="hover:scale-105 hover:cursor-pointer">
       <AvatarImage src={user.picture} alt={`Foto de perfil de ${user.name}`} />
       <AvatarFallback>{user.name.charAt(0).toUpperCase()}</AvatarFallback>
       {user.role === "ROLE_USER" ? (

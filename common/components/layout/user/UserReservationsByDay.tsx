@@ -74,7 +74,7 @@ function UserReservationDetail({
             token={reservation.cancelToken ?? undefined}
             onCancelled={() => onCancelled(reservation.id as string)}
             triggerButtonClassName=""
-            triggerIconClassName="size-4 text-red-500/60 transition-all duration-200 group-hover:scale-110 group-hover:text-red-400 group-hover:drop-shadow-[0_0_6px_rgba(239,68,68,0.35)] hover:cursor-pointer hover:text-red-400"
+            triggerIconClassName="size-4 text-red-500/60 transition-all duration-200 group-hover:scale-105 group-hover:text-red-400 group-hover:drop-shadow-[0_0_6px_rgba(239,68,68,0.35)] hover:cursor-pointer hover:text-red-400"
           />
         </div>
       ) : null}

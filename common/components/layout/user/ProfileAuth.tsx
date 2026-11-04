@@ -4,13 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useUser } from "../../provider/UserProvider";
 import { SideSheet } from "./SideSheet";
-import { UserRound } from "lucide-react";
+import { User } from "lucide-react";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetDescription,
 } from "@/shadcn/components/sheet";
 import type { ReactNode } from "react";
 
@@ -19,7 +20,7 @@ export default function ProfileAuth({
 }: {
   profileTabs: ReactNode;
 }) {
-  const authUrl = process.env.NEXT_PUBLIC_AUTH_URL;
+  const authUrl = process.env.NEXT_PUBLIC_AUTH_URL ?? "#";
   const user = useUser();
 
   if (user) {
@@ -36,27 +37,32 @@ export default function ProfileAuth({
         <SheetTrigger asChild>
           <button
             aria-label="Abrir panel de usuario"
-            className="flex size-8 items-center justify-center rounded-full bg-white/90 text-black duration-300 hover:scale-110 hover:cursor-pointer hover:bg-white"
+            className="flex size-7 items-center justify-center rounded-full bg-white/85 text-black duration-300 hover:scale-105 hover:cursor-pointer hover:bg-white lg:size-8"
           >
-            <UserRound className="size-5" />
+            <User className="size-5.5 lg:size-6.5" />
           </button>
         </SheetTrigger>
         <SheetContent>
           <SheetHeader>
-            <SheetTitle>No has iniciado sesión</SheetTitle>
+            <SheetTitle>¡Te damos la bienvenida!</SheetTitle>
+            <SheetDescription>
+              Accede a tu cuenta para consultar tus reservas y guardar tus preferencias.
+            </SheetDescription>
           </SheetHeader>
-          <div className="px-4">
+
+          <div className="px-6">
             <Link
-              href={`${authUrl}`}
-              className="flex items-center justify-center gap-3 rounded-full bg-neutral-200 px-6 py-3 text-sm font-semibold text-neutral-800 duration-300 hover:bg-neutral-300"
+              href={authUrl}
+              className="flex items-center justify-center gap-3 rounded-full bg-white px-6 py-3 text-sm font-medium text-[#1f1f1f] shadow-[0_1px_2px_0_rgba(60,64,67,0.3),0_1px_3px_1px_rgba(60,64,67,0.15)] transition-all duration-200 hover:bg-[#f8fafd] hover:shadow-[0_1px_3px_0_rgba(60,64,67,0.3),0_4px_8px_3px_rgba(60,64,67,0.15)] focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:outline-none active:bg-[#e8eaed]"
             >
               <Image
                 src="/icons/google.svg"
                 alt=""
                 width={20}
                 height={20}
+                className="shrink-0"
               />
-              Continuar con Google
+              <span>Continuar con Google</span>
             </Link>
           </div>
         </SheetContent>

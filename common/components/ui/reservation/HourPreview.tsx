@@ -17,7 +17,7 @@ export default function HourPreview({
         return (
           <Badge
             key={hour}
-            className={`animate-fade-in-up hover:scale-110 hover:cursor-pointer ${
+            className={`animate-fade-in-up hover:scale-105 hover:cursor-pointer ${
               selectedHour === hour
                 ? "bg-green-600 text-white hover:bg-green-700"
                 : "bg-gray-800 text-gray-200 hover:bg-gray-700"

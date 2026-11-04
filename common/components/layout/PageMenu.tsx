@@ -29,7 +29,7 @@ export default function PageMenu({
               alt="Logo Michi"
               width={80}
               height={80}
-              className="mt-2 cursor-pointer transition-all duration-500 hover:scale-115"
+              className="mt-2 cursor-pointer transition-all duration-500 hover:scale-110"
               loading="eager"
             />
           </Link>

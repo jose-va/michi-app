@@ -17,7 +17,7 @@ export default function UberSync() {
       alt="logo_uber"
       width={34}
       height={10}
-      className="hover:animate-bounce hover:cursor-pointer hover:brightness-120 ml-auto scale-120 md:scale-100"
+      className="hover:animate-bounce hover:cursor-pointer hover:brightness-120 ml-auto scale-110"
       onClick={handleUber}
     />
   );

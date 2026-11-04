@@ -21,7 +21,7 @@ export function ReservationEdit({
   const className =
     "group inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-sm p-1 transition-colors duration-200 hover:bg-yellow-400/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
   const iconClassName =
-    "size-4 text-yellow-600/70 transition-all duration-200 group-hover:scale-110 group-hover:text-yellow-500 group-hover:drop-shadow-[0_0_6px_rgba(202,138,4,0.4)] hover:cursor-pointer hover:text-yellow-500";
+    "size-4 text-yellow-600/70 transition-all duration-200 group-hover:scale-105 group-hover:text-yellow-500 group-hover:drop-shadow-[0_0_6px_rgba(202,138,4,0.4)] hover:cursor-pointer hover:text-yellow-500";
 
   if (id) {
     return (

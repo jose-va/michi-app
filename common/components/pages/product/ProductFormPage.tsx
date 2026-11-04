@@ -179,7 +179,7 @@ export default function ProducFormPage({ product }: { product?: Product }) {
               {product ? "Modificar producto" : "Crear producto"}
             </CardTitle>
             <ArrowLeftIcon
-              className="transition-all hover:scale-115 hover:cursor-pointer"
+              className="transition-all hover:scale-110 hover:cursor-pointer"
               onClick={() => router.back()}
             />
           </div>
