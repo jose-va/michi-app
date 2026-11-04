@@ -11,22 +11,32 @@ const utilsSource = readFileSync(
   "utf8",
 );
 
-test("ProductCard muestra un recuadro negro translúcido del mismo tamaño si la foto falla", () => {
+test("ProductCard no pinta recuadro oscuro si la foto falla y muestra las insignias en fila", () => {
   assert.ok(
     source.includes("imageFailed"),
     "ProductCard debe usar el estado imageFailed",
   );
   assert.ok(
-    /\{imageFailed\s*\?\s*\(/.test(source),
-    "ProductCard debe renderizar de forma condicional según imageFailed",
+    !source.includes("h-44 w-full bg-black/60"),
+    "Ya no debe existir el recuadro h-44 w-full bg-black/60",
   );
   assert.ok(
-    source.includes('className="h-44 w-full bg-black/60"'),
-    "El fallback debe ser un div negro del mismo tamaño (h-44 w-full bg-black/60)",
+    source.includes("<ImageZoom"),
+    "ProductCard debe seguir renderizando ImageZoom si la foto carga",
   );
   assert.ok(
-    source.includes("<Image"),
-    "ProductCard debe seguir renderizando <Image> si la foto carga",
+    source.includes("flex flex-wrap items-center gap-2 px-4"),
+    "Sin foto, las insignias deben ir en una fila flex flex-wrap",
+  );
+  assert.ok(
+    source.includes("Precio ${formatted}") &&
+      source.includes("getCategoryBadge("),
+    "Las insignias de categoría y precio deben conservarse",
+  );
+  assert.equal(
+    (source.match(/<Badge/g) ?? []).length,
+    3,
+    "Debe haber 3 <Badge: categoría con foto, categoría sin foto y precio (constante priceBadge, una sola ubicación)",
   );
 });
 
@@ -41,10 +51,15 @@ test("ProductCard activa el fallo en onError del <Image>", () => {
   );
 });
 
-test("ProductCard mantiene la geometría con pt-0 condicional", () => {
+// Nueva semántica: pt-0 sirve para la imagen a ras; sin foto el Card recupera su py-4 normal.
+test("ProductCard aplica pt-0 solo cuando hay imagen", () => {
   assert.ok(
-    /imageFailed\s*&&\s*"pt-0"/.test(source),
-    "El Card debe añadir pt-0 condicional cuando falla la imagen",
+    /!imageFailed\s*&&\s*"pt-0"/.test(source),
+    "El Card debe añadir pt-0 solo si la imagen no ha fallado",
+  );
+  assert.ok(
+    !/rounded-lg border pt-0/.test(source),
+    "pt-0 no debe ser fijo",
   );
 });
 
