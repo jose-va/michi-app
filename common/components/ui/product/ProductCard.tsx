@@ -16,6 +16,8 @@ import {
 } from "@/shadcn/components/tooltip";
 import { Badge } from "@/shadcn/components/badge";
 import Image from "next/image";
+import { BadgeCheck } from "lucide-react";
+import { normalizeFeatured } from "@/common/utils/product-featured";
 import { useState } from "react";
 import {
   getAllergenIcon,
@@ -43,6 +45,19 @@ export default function ProductCard({
   const [imageFailed, setImageFailed] = useState(false);
   const favoriteProducts =
     user?.role === "ROLE_USER" ? user.favoriteProducts : [];
+  const isFeatured = normalizeFeatured(product.featured);
+  const featuredIcon = (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <BadgeCheck
+          role="img"
+          aria-label="Producto destacado"
+          className="size-6 text-yellow-400 stroke-[2.5]"
+        />
+      </TooltipTrigger>
+      <TooltipContent>Producto destacado</TooltipContent>
+    </Tooltip>
+  );
   const formatted = formatPriceES(product.price);
   const priceBadge = () =>
     formatted ? (
@@ -74,6 +89,7 @@ export default function ProductCard({
             <Badge className={getCategoryBadge(product.category)}>
               {getCategoryTitle(product.category)}
             </Badge>
+            {isFeatured && featuredIcon}
           </div>
         ) : (
           <div className="relative overflow-hidden rounded-t-lg">
@@ -93,6 +109,11 @@ export default function ProductCard({
             >
               {getCategoryTitle(product.category)}
             </Badge>
+            {isFeatured && (
+              <span className="absolute top-2 right-2 drop-shadow-[0_0_2px_rgba(0,0,0,0.9)] drop-shadow-[0_1px_4px_rgba(0,0,0,0.7)]">
+                {featuredIcon}
+              </span>
+            )}
           </div>
         )}
         <CardHeader>

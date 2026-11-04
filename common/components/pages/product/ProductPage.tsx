@@ -1,6 +1,6 @@
 import { ProductService } from "@/service/ProductService";
 import { centuryGothic } from "@/app/fonts/font";
-import { getCategoryDescription, getCategoryTitle } from "@/common/mappers/category.mapper";
+import { getCategoryDescription, getCategoryTitle, isFeaturedCategory } from "@/common/mappers/category.mapper";
 import { paginateProducts } from "@/common/utils/product-pagination";
 import ProductCard from "../../ui/product/ProductCard";
 import { ProductPagination } from "../../ui/product/ProductPagination";
@@ -25,7 +25,9 @@ export default async function ProductPage({
   const hasFilters = category || name || allergensList?.length;
 
   if (hasFilters) {
-    const products = await ProductService.searchProducts({ name, category, allergens: allergensList });
+    const products = isFeaturedCategory(category)
+      ? await ProductService.getFeaturedProducts({ name, allergens: allergensList })
+      : await ProductService.searchProducts({ name, category, allergens: allergensList });
     if (!products.length) return <ProductEmpty />;
 
     const filteredPage = paginateProducts(products, page, size);

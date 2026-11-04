@@ -31,6 +31,7 @@ import {
   shouldDeleteOldProductImage,
   validateProductImageFile,
 } from "@/common/utils/product-image";
+import { normalizeFeatured } from "@/common/utils/product-featured";
 import { useState } from "react";
 import { toast } from "sonner";
 import { ArrowLeftIcon } from "lucide-react";
@@ -50,6 +51,7 @@ export default function ProducFormPage({ product }: { product?: Product }) {
       allergens: product?.allergens ?? [],
       pieces: product?.pieces ?? 0,
       position: product?.position, // valor oculto: se reenvía en el PUT; se gestiona en base de datos
+      featured: normalizeFeatured(product?.featured),
     },
   });
 
@@ -98,8 +100,9 @@ export default function ProducFormPage({ product }: { product?: Product }) {
   };
 
   const onSubmit = async (data: ProductFormValues) => {
+    const payload = { ...data, featured: normalizeFeatured(data.featured) };
     if (product?.id) {
-      const updated = await updateProduct(product.id, data as Product);
+      const updated = await updateProduct(product.id, payload);
       if (updated) {
         const operation = planProductImageOperation({
           oldName: product.name,
@@ -150,7 +153,7 @@ export default function ProducFormPage({ product }: { product?: Product }) {
         toast.error("No se ha podido actualizar el producto");
       }
     } else {
-      const created = await createProduct(data);
+      const created = await createProduct(payload);
       if (created) {
         const photoSaved = await savePhoto(data.name);
         if (photoSaved) {

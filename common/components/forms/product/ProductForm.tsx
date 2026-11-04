@@ -8,6 +8,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/shadcn/components/form";
+import { Checkbox } from "@/shadcn/components/checkbox";
 import { Input } from "@/shadcn/components/input";
 import { Separator } from "@/shadcn/components/separator";
 import { Textarea } from "@/shadcn/components/textarea";
@@ -162,6 +163,25 @@ export default function ProductForm({
           <FormItem>
             <FormLabel>Alérgenos</FormLabel>
             <AllergenInput field={field} />
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <Separator />
+
+      <FormField
+        control={form.control}
+        name="featured"
+        render={({ field }) => (
+          <FormItem className="flex flex-row items-center gap-2">
+            <FormControl>
+              <Checkbox
+                checked={field.value === true}
+                onCheckedChange={(checked) => field.onChange(checked === true)}
+                onBlur={field.onBlur}
+              />
+            </FormControl>
+            <FormLabel>Destacado <span className="font-normal text-muted-foreground">(opcional)</span></FormLabel>
             <FormMessage />
           </FormItem>
         )}

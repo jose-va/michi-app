@@ -4,6 +4,7 @@ const categoryInfo = new Map<string, { title: string; description: string }>([
   ["HOT_DISHES", { title: "Platos calientes", description: "Nuestras raciones de fideos y de arroz." }],
   ["SOGIZUKURI", { title: "Sogizukuri", description: "Cortes de pescado estilo nigiri, realza la textura y suavidad del pescado." }],
   ["NIGIRI_SUSHI", { title: "Nigiri sushi", description: "Bolita de arroz coronada con cortes de pescado." }],
+  ["TARTAR", { title: "Tartar", description: "Pescado fresco cortado en dados y aliñado, servido al estilo tartar." }],
   ["GUNKAN_SUSHI", { title: "Gunkan sushi", description: "Bolita de arroz envuelta en alga nori con toppings variados." }],
   ["ZUKE_DON", { title: "Zuke don", description: "Bol de arroz con cortes de pescado marinado en salsa especial." }],
   ["TEMAKI", { title: "Temaki", description: "Cono de alga nori relleno de arroz y cortes de pescado." }],
@@ -17,12 +18,22 @@ const categoryInfo = new Map<string, { title: string; description: string }>([
   ["DESSERTS", { title: "Postres", description: "Nuestra selección de postres." }],
 ]);
 
+export const FEATURED_CATEGORY = "featured";
+
+export function isFeaturedCategory(value?: string): boolean {
+  return value?.trim().toLowerCase() === FEATURED_CATEGORY;
+}
+
 export function getCategoryTitle(category: string): string {
+  if (isFeaturedCategory(category)) return "Destacados";
   return categoryInfo.get(category)?.title ?? category;
 }
 
 export function getCategoryDescription(category: string): string {
+  if (isFeaturedCategory(category)) return "Recomendaciones de la casa y platos más vendidos.";
   return categoryInfo.get(category)?.description ?? "";
 }
 
 export const categories = [...categoryInfo.keys()];
+
+export const filterCategories = [FEATURED_CATEGORY, ...categories];

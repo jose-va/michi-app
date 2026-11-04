@@ -11,14 +11,21 @@ import {
   SelectValue,
 } from "@/shadcn/components/select";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { categories } from "@/common/mappers/category.mapper";
+import {
+  FEATURED_CATEGORY,
+  filterCategories,
+  isFeaturedCategory,
+} from "@/common/mappers/category.mapper";
 
 export const CategorySelect = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
 
-  const currentCategory = searchParams.get("category") ?? "";
+  const rawCategory = searchParams.get("category") ?? "";
+  const currentCategory = isFeaturedCategory(rawCategory)
+    ? FEATURED_CATEGORY
+    : rawCategory;
 
   function handleCategory(value: string) {
     const params = new URLSearchParams(searchParams);
@@ -36,7 +43,7 @@ export const CategorySelect = () => {
         <SelectGroup >
           <SelectLabel>Categorías</SelectLabel>
           <SelectItem value="all">Todas</SelectItem>
-          {categories.map((category) => (
+          {filterCategories.map((category) => (
             <SelectItem key={category} value={category}>
               {getCategoryTitle(category)}
             </SelectItem>

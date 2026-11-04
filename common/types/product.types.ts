@@ -9,6 +9,7 @@ export type Product = {
   pieces: number;
   price: number;
   status?: boolean;
+  featured?: boolean | null;
 };
 
 export type Page<Product> = {

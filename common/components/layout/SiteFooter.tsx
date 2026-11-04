@@ -8,7 +8,7 @@ import {
 } from "./footer-links";
 import FooterNavLink from "./FooterNavLink";
 
-const FOOTER_TAGLINE = "Gastronomía japonesa y tapeo en el norte de granada.";
+const FOOTER_TAGLINE = "Gastronomía japonesa y tapeo.";
 
 const FOOTER_LINK_CLASSNAME =
   "flex min-h-[44px] items-center text-zinc-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";

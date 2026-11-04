@@ -12,6 +12,7 @@ export const productFormSchema = z.object({
   allergens: z.array(z.string()),
   pieces: z.number().int().min(0),
   position: z.number().int().min(0).optional(),
+  featured: z.boolean().optional(),
 });
 
 export type ProductFormValues = z.infer<typeof productFormSchema>;

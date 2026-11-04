@@ -35,7 +35,7 @@ export default function ProductDeactivate({ id }: { id: string }) {
           </AlertDialogMedia>
           <AlertDialogTitle>¿Desactivar producto?</AlertDialogTitle>
           <AlertDialogDescription>
-            El producto se desactivará y no se mostrará a los clienttes
+            El producto se desactivará y no se mostrará a los clientes
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

@@ -1,5 +1,9 @@
 import { ProductFormValues } from "@/common/types/product-form.types";
 import { Product, Page } from "@/common/types/product.types";
+import {
+  buildFeaturedQuery,
+  parseFeaturedResponse,
+} from "@/common/utils/product-featured";
 import { cookies } from "next/headers";
 
 export class ProductService {
@@ -79,6 +83,30 @@ export class ProductService {
       return await response.json();
     } catch (error) {
       console.error("Error en la búsqueda de productos:", error);
+      return [];
+    }
+  }
+
+  static async getFeaturedProducts(
+    params?: { name?: string; allergens?: string[] },
+    overrides?: { fetcher?: typeof fetch; baseUrl?: string },
+  ): Promise<Product[]> {
+    const fetcher = overrides?.fetcher ?? fetch;
+    const baseUrl = overrides?.baseUrl ?? this.baseUrl;
+    try {
+      const query = buildFeaturedQuery(params ?? {});
+      const url = `${baseUrl}/products/featured${query ? `?${query}` : ""}`;
+      const response = await fetcher(url, { method: "GET" });
+
+      if (!response.ok) {
+        console.error(
+          `Error al obtener productos destacados: ${response.status}`,
+        );
+        return [];
+      }
+      return parseFeaturedResponse(await response.json());
+    } catch (error) {
+      console.error("Error al obtener productos destacados:", error);
       return [];
     }
   }
