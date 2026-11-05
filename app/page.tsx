@@ -73,7 +73,7 @@ export default function Home() {
         <section
           id="seccion-lema"
           aria-label="Lema del restaurante"
-          className="mx-auto w-full max-w-3xl bg-transparent text-center"
+          className="mx-auto -mt-2 md:mt-0 w-full max-w-3xl bg-transparent text-center"
         >
           <div className="space-y-4">
             <span className="text-xs font-bold tracking-widest text-zinc-300 uppercase brightness-120">
