@@ -27,23 +27,16 @@ export function SideSheet({
     await logout();
     window.location.reload();
   };
-  // No modal: con modal=true Radix desactiva los pointer-events fuera del
-  // diálogo (body { pointer-events: none }) y el clic en el toast de
-  // WhatsApp (sonner, fuera del Sheet) nunca le llega; preventDefault solo
-  // evitaba el cierre. Con modal={false} el primer clic sí abre wa.me y la
-  // exención de onInteractOutside mantiene el panel abierto.
-  // Radix no renderiza overlay en modo no modal, así que se mantiene uno
-  // visual propio que no bloquea (pointer-events-none); el clic fuera sigue
-  // cerrando vía DismissableLayer, igual que Escape y la X.
+  // Modal: con modal=true Radix monta DismissableLayer con
+  // disableOutsidePointerEvents (body { pointer-events: none } inline) y
+  // recupera overlay con blur + focus trap originales. El toast de sonner
+  // vive fuera del diálogo, así que hereda el none: la regla
+  // [data-sonner-toaster]{pointer-events:auto;} en globals.css (hijo
+  // explícito gana a la herencia) re-activa el clic, y la exención de
+  // onInteractOutside con preventDefault mantiene el panel abierto.
   const [open, setOpen] = useState(false);
   return (
-    <Sheet open={open} onOpenChange={setOpen} modal={false}>
-      {open && (
-        <div
-          aria-hidden="true"
-          className="pointer-events-none fixed inset-0 z-40 bg-black/10 supports-backdrop-filter:backdrop-blur-xs"
-        />
-      )}
+    <Sheet open={open} onOpenChange={setOpen} modal={true}>
       <SheetTrigger asChild>
         <button>
           <ProfileAvatar user={user} />

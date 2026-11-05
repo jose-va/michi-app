@@ -283,3 +283,14 @@
     animation: none;
   }
 }
+
+/* Sheet modal + toast sonner: con modal=true Radix (DismissableLayer con
+   disableOutsidePointerEvents) pone body { pointer-events: none } inline y
+   solo re-activa el contenido del diálogo. El toaster de sonner cuelga de
+   body (fuera del diálogo) y hereda el none, así que el clic en el toast
+   nunca le llega. Basta hijo explícito con auto: la herencia solo aplica
+   sin valor en cascada, por lo que este selector simple gana sin necesidad
+   de !important ni de body[data-scroll-locked]. */
+[data-sonner-toaster] {
+  pointer-events: auto;
+}
