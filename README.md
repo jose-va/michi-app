@@ -20,27 +20,30 @@ Plataforma web para gestionar las reservas y la carta de un bar de sushi en Gran
 
 ## Descripción
 
-Michi Sushi Granada es una plataforma para digitalizar la gestión interna de un bar de sushi en Granada. Este repositorio contiene la aplicación web (front-end), que se comunica con un back-end REST.
+Michi Sushi Granada es una plataforma para digitalizar la gestión interna de un bar de sushi en Granada. Este repositorio contiene el front-end, que se comunica con un back-end REST.
 
-- Los **clientes** pueden explorar la carta, guardar sus platos favoritos y reservar mesa.
-- Los **administradores** gestionan las reservas y los productos, accediendo con su cuenta de Google.
-- La web incluye la ubicación del bar en Google Maps y una sección de reseñas.
+- Los **clientes** pueden explorar la carta, guardar sus platos favoritos y reservar mesa en el bar.
+- Los **administradores** gestionan todas las reservas y los productos desde su panel de administrador.
+- Los **usuarios** pueden ingresar en su cuenta de Google, teniendo acceso a nuevas funcionalidades.
+- La página incluye la ubicación del bar en Google Maps y una sección de reseñas obtenida mediante conexion a la API de Maps Grounding Lite.
 
 ## Funcionalidades
 
-- Reserva de mesa en dos pasos, con calendario, número de comensales y comprobación de disponibilidad.
-- Carta con filtros por categoría y alérgenos, paginación y favoritos.
-- Perfil de usuario con sus reservas y productos favoritos.
-- Panel de administración para gestionar reservas (por turnos de comida y cena) y productos (crear, editar, activar/desactivar y eliminar).
+
+- Reserva de mesa en dos pasos con un calendario, número de comensales (primer paso) y comprobación de disponibilidad en el bar (segundo paso).
+- Carta con filtros por búsqueda, categoría y alérgenos. Incluye paginación y productos favoritos.
 - Inicio de sesión con Google (OAuth 2.0) y perfiles con distintos roles.
-- Ubicación del bar con Google Maps interactivo.
+- Perfil de usuario con sus reservas y productos agregados como favoritos.
+- Panel de administración para gestión de reservas y productos (crear, editar, activar/desactivar y eliminar).
+- Ubicación del bar con Google Maps interactivo y conexión a Google Maps Grounding Lite.
 
 ## Objetivos
 
 - Digitalizar el sistema de reservas.
+- Digitalizar la carta del bar.
 - Digitalizar la gestión interna de los productos de la carta.
 - Permitir el registro y la gestión de distintos perfiles de usuario con roles.
-- Mostrar la ubicación del bar mediante Google Maps.
+- Mostrar la ubicación del bar.
 
 ## Tecnologías
 
@@ -61,15 +64,15 @@ Michi Sushi Granada es una plataforma para digitalizar la gestión interna de un
 
 - [Node.js](https://nodejs.org/) 18.18 o superior
 - npm
-- El back-end en marcha (ver [repositorio del back-end]([ENLACE_AL_REPO_BACKEND])), que requiere Java [VERSIÓN] y MongoDB
+- El back-end en funcionamiento. Requiere Java 21 y conexión con la base de datos MongoDB.
 
 ### Pasos
 
 1. Clona el repositorio:
 
    ```bash
-   git clone [URL_DEL_REPOSITORIO]
-   cd [NOMBRE_DE_LA_CARPETA]
+   git clone https://github.com/jose-va/michi-app
+   cd michi-app
    ```
 
 2. Instala las dependencias:
@@ -78,7 +81,7 @@ Michi Sushi Granada es una plataforma para digitalizar la gestión interna de un
    npm install
    ```
 
-3. Crea un archivo `.env.local` en la raíz del proyecto con tus variables de entorno (ver siguiente sección).
+3. Crea un archivo `.env.local` en la raíz del proyecto con las variables de entorno.
 
 4. Arranca el servidor de desarrollo:
 
@@ -90,7 +93,7 @@ Michi Sushi Granada es una plataforma para digitalizar la gestión interna de un
 
 ### Variables de entorno
 
-Ejemplo de `.env.local` (ajusta los nombres a los que use tu proyecto):
+Ejemplo de `.env.local`:
 
 ```env
 # URL del back-end REST
@@ -101,16 +104,6 @@ NEXT_PUBLIC_GOOGLE_CLIENT_ID=tu_client_id
 
 # Google Maps
 NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=tu_api_key
-```
-
-> ⚠️ No subas nunca tu `.env.local` al repositorio. Incluye un `.env.example` con los nombres de las variables y sin valores reales.
-
-### Otros comandos
-
-```bash
-npm run build   # Genera la versión de producción
-npm run start   # Arranca la versión de producción
-npm run lint    # Revisa el código con el linter
 ```
 
 ## Vista previa
@@ -196,5 +189,5 @@ Pie de página con secciones, contacto y enlaces legales, y página "Sobre nosot
 
 **Jose Manuel Vilchez Arenas [VILARE]**
 
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)]([TU_GITHUB])
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)]([TU_LINKEDIN])
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jose-va)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jose-manuel-vilchez-arenas-937b87435)
