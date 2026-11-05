@@ -3,12 +3,13 @@ import LocationPage from "@/common/components/pages/location/LocationPage";
 import ReviewsSection from "@/common/components/ui/location/ReviewsSection";
 import { ReviewsEnrichmentService } from "@/service/ReviewsEnrichmentService";
 import type { PublicView } from "@/common/utils/reviews-content";
+import { Metadata } from "next";
 
-// Spec 004 T7 — Hueco asíncrono solo-servidor (RF-11, RNF-2): resuelve el
-// enriquecimiento sin bloquear la 003. La página es síncrona, así que la
-// cabecera, el mapa y el panel forman el shell estático que se envía de
-// inmediato; la sección solo se añade debajo cuando hay vista pública.
-// Sin clave o con fallo → vista nula → omisión en silencio (RF-9/RF-10).
+export const metadata: Metadata = {
+  title: "Ubicación",
+  alternates: { canonical: "/location" },
+};
+
 async function ReviewsSlot() {
   let view: PublicView | null = null;
   try {

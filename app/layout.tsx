@@ -9,13 +9,16 @@ import { montserrat } from "./fonts/font";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://michisushigranada.es"),
-  title: "Michi Sushi Granada",
+  title: {
+    default: "Michi Sushi Granada | Sushi y tapeo japonés",
+    template: "%s | Michi Sushi Granada",
+  },
   description:
-    "Bienvenido a Michi Sushi, tu destino para disfrutar del auténtico sushi y tapeo en Granada.",
+    "Sushi y tapeo japonés en Granada. Consulta la carta, pide a domicilio y reserva tu mesa online en Michi Sushi.",
   openGraph: {
     title: "Michi Sushi Granada",
     description:
-      "Gastronomía japonesa y tapeo en Granada. Consulta la carta y reserva tu mesa online.",
+      "Sushi y tapeo japonés en Granada. Consulta la carta, pide a domicilio y reserva tu mesa online en Michi Sushi.",
     siteName: "Michi Sushi Granada",
     images: [
       {
@@ -58,11 +61,14 @@ export default async function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const user = await UserService.getProfile();
   return (
-    <html lang="es" className="dark" suppressHydrationWarning>  
+    <html lang="es" className="dark" suppressHydrationWarning>
       <body
         className={`${montserrat.className} min-h-screen bg-[#100d0b] antialiased`}
       >
-        <div aria-hidden="true" className="pointer-events-none fixed top-0 left-0 -z-10 h-lvh w-screen scale-105 bg-[url('/background/background_michi.webp')] bg-cover bg-center blur-xs brightness-80" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none fixed top-0 left-0 -z-10 h-lvh w-screen scale-105 bg-[url('/background/background_michi.webp')] bg-cover bg-center blur-xs brightness-80"
+        />
         <UserProvider initialUser={user}>
           <ServiceWorkerRegister />
           <PageMenu user={user}>{children}</PageMenu>

@@ -1,6 +1,12 @@
 import ProductPage from "@/common/components/pages/product/ProductPage";
 import SkeletonCards from "@/common/components/skeletons/SkeletonCards";
+import { Metadata } from "next";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Carta",
+  alternates: { canonical: "/product" },
+};
 
 export default async function ProductDashboard({
   searchParams,

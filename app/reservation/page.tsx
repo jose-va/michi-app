@@ -1,6 +1,11 @@
 import { ReservationPage } from "@/common/components/pages/reservation/ReservationPage";
 import { ReservationService } from "@/service/ReservationService";
-import { bodoni, montserrat, playfair } from "../fonts/font";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Reservar",
+  alternates: { canonical: "/reservation" },
+};
 
 export default async function ReservationDashboard({
   searchParams,
