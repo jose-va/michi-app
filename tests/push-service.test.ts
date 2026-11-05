@@ -534,3 +534,158 @@ test("proxy test informa el fallo de red en español", async (t) => {
     profile.mock.restore();
   }
 });
+
+// --- T6 fallback de baja (RF-6/RF-7, CL-16): vía alternativa ante 502 ---
+
+test("unsubscribeFallback pide la baja alternativa con el mismo extremo", async (t) => {
+  for (const status of [200, 204]) {
+    const { fetcher, urls, inits } = recorder(
+      () => new Response(null, { status }),
+    );
+    stubError(t);
+    const result = await PushService.unsubscribeFallback(SUB.endpoint, {
+      fetcher,
+      baseUrl: BASE,
+    });
+    assert.equal(urls[0], `${BASE}/api/push/subscriptions/delete`);
+    assert.equal(inits[0]?.method, "POST");
+    assert.deepEqual(JSON.parse(String(inits[0]?.body)), {
+      endpoint: SUB.endpoint,
+    });
+    assert.deepEqual(result, { ok: true, status });
+  }
+});
+
+test("unsubscribeFallback propaga el 403 e informa el fallo de red sin el extremo", async (t) => {
+  const denied = recorder(() => new Response(null, { status: 403 }));
+  stubError(t);
+  assert.deepEqual(
+    await PushService.unsubscribeFallback(SUB.endpoint, {
+      fetcher: denied.fetcher,
+      baseUrl: BASE,
+    }),
+    { ok: false, status: 403 },
+  );
+  const down = recorder(() => {
+    throw new TypeError("fetch failed");
+  });
+  const err = stubError(t);
+  assert.deepEqual(
+    await PushService.unsubscribeFallback(SUB.endpoint, {
+      fetcher: down.fetcher,
+      baseUrl: BASE,
+    }),
+    { ok: false, status: 0 },
+  );
+  assert.equal(err.mock.callCount(), 1);
+  assert.ok(!loggedText(err).includes(SUB.endpoint));
+});
+
+test("proxy delete alternativo exige admin y reenvía al backend con Cookie y User-Role", async (t) => {
+  const { POST } = await import(
+    "../app/api/push/subscriptions/delete/route"
+  );
+  const denied = mockProfile(t, null);
+  const idle = stubBackend(t, () => new Response(null, { status: 204 }));
+  stubError(t);
+  try {
+    const res = await POST(
+      new Request(`${BASE}/api/push/subscriptions/delete`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ endpoint: SUB.endpoint }),
+      }) as never,
+    );
+    assert.equal(res.status, 403);
+    assert.equal(idle.urls.length, 0);
+  } finally {
+    idle.restore();
+    denied.mock.restore();
+  }
+  const profile = mockProfile(t, "ROLE_ADMIN");
+  const backend = stubBackend(t, () => new Response(null, { status: 204 }));
+  try {
+    const res = await POST(
+      new Request(`${BASE}/api/push/subscriptions/delete`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          cookie: "token=sesion-1",
+        },
+        body: JSON.stringify({ endpoint: SUB.endpoint }),
+      }) as never,
+    );
+    assert.equal(res.status, 204);
+    assert.equal(
+      backend.urls[0],
+      `${BACKEND}/reservations/push/subscriptions/delete`,
+    );
+    assert.equal(backend.inits[0]?.method, "POST");
+    const headers = new Headers(backend.inits[0]?.headers);
+    assert.equal(headers.get("cookie"), "token=sesion-1");
+    assert.equal(headers.get("user-role"), "ROLE_ADMIN");
+    assert.deepEqual(JSON.parse(String(backend.inits[0]?.body)), {
+      endpoint: SUB.endpoint,
+    });
+  } finally {
+    backend.restore();
+    profile.mock.restore();
+  }
+});
+
+test("proxy delete alternativo con extremo ausente devuelve 400 sin backend", async (t) => {
+  const { POST } = await import(
+    "../app/api/push/subscriptions/delete/route"
+  );
+  const profile = mockProfile(t, "ROLE_ADMIN");
+  const backend = stubBackend(t, () => new Response(null, { status: 204 }));
+  stubError(t);
+  try {
+    const res = await POST(
+      new Request(`${BASE}/api/push/subscriptions/delete`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          cookie: "token=sesion-1",
+        },
+        body: JSON.stringify({ endpoint: "" }),
+      }) as never,
+    );
+    assert.equal(res.status, 400);
+    assert.equal(backend.urls.length, 0);
+  } finally {
+    backend.restore();
+    profile.mock.restore();
+  }
+});
+
+test("proxy delete alternativo informa el fallo de red con 502 en español", async (t) => {
+  const { POST } = await import(
+    "../app/api/push/subscriptions/delete/route"
+  );
+  const profile = mockProfile(t, "ROLE_ADMIN");
+  const backend = stubBackend(t, () => {
+    throw new TypeError("fetch failed");
+  });
+  const err = stubError(t);
+  try {
+    const res = await POST(
+      new Request(`${BASE}/api/push/subscriptions/delete`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          cookie: "token=sesion-1",
+        },
+        body: JSON.stringify({ endpoint: SUB.endpoint }),
+      }) as never,
+    );
+    assert.equal(res.status, 502);
+    const body = await res.json();
+    assert.ok(typeof body.error === "string" && body.error.length > 0);
+    assert.equal(err.mock.callCount(), 1);
+    assert.ok(!loggedText(err).includes(SUB.endpoint));
+  } finally {
+    backend.restore();
+    profile.mock.restore();
+  }
+});

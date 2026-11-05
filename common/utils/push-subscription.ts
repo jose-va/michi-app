@@ -41,6 +41,9 @@ export type PushDeactivateDeps = {
   deleteSubscription: (
     endpoint: string,
   ) => Promise<{ ok: boolean; status: number }>;
+  deleteSubscriptionFallback?: (
+    endpoint: string,
+  ) => Promise<{ ok: boolean; status: number }>;
 };
 
 export type PushDeactivateResult = {
@@ -130,9 +133,13 @@ export async function activatePushSubscription(
   };
 }
 
-// Secuencia de baja (RF-12, RF-13): primero `unsubscribe()` en el navegador
-// y después DELETE `?endpoint=...`. Si el backend falla por red, la baja
-// local se mantiene e informa «pendiente de reintento manual» (RF-13).
+// Secuencia de baja (RF-6, RF-7, CL-16): primero `unsubscribe()` en el
+// navegador y después DELETE `?endpoint=...`. Si la vía principal devuelve
+// 502 observable o falla por red, se reintenta una única vez con la vía
+// alternativa (`POST .../subscriptions/delete` con el mismo extremo). La
+// baja es éxito ante 2xx/204 de cualquiera de las dos vías; si ambas fallan
+// por red, la baja local se mantiene e informa «pendiente de reintento
+// manual». Nunca registra la suscripción (RF-19, RNF-2).
 export async function deactivatePushSubscription(
   deps: PushDeactivateDeps,
 ): Promise<PushDeactivateResult> {
@@ -159,11 +166,24 @@ export async function deactivatePushSubscription(
     };
   }
   const endpoint = current.endpoint;
+  let primary: { ok: boolean; status: number };
   try {
-    const deleted = await deps.deleteSubscription(endpoint);
-    if (deleted.ok) return { removed: true, status: "unknown", message: null };
+    primary = await deps.deleteSubscription(endpoint);
   } catch {
-    // El fallo de red se informa abajo manteniendo la baja local (RF-13).
+    primary = { ok: false, status: 0 };
+  }
+  if (primary.ok) return { removed: true, status: "unknown", message: null };
+  const shouldRetry =
+    typeof deps.deleteSubscriptionFallback === "function" &&
+    (primary.status === 502 || primary.status === 0);
+  if (shouldRetry) {
+    try {
+      const fallback = await deps.deleteSubscriptionFallback!(endpoint);
+      if (fallback.ok)
+        return { removed: true, status: "unknown", message: null };
+    } catch {
+      // El fallo de red de la alternativa se informa abajo (RF-7).
+    }
   }
   return {
     removed: true,
