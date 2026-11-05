@@ -42,6 +42,7 @@ Las pruebas TypeScript usan el runner integrado de Node mediante `tsx`: ejecuta 
 - Los servicios leen `process.env.BACKEND_URL`. Las peticiones autenticadas obtienen la cookie `token` y la reenvían al backend.
 - `app/auth/route.ts` toma `token` de la query y lo guarda como cookie; logout está en `lib/server-actions.ts`. Comprueba ambos puntos antes de cambiar el flujo de autenticación.
 - La implementación del backend no está aquí. No inventes endpoints ni payloads; verifica los cambios de contrato contra el código y el comportamiento esperado del backend.
+- Dominio canónico SEO: `https://michisushigranada.es` (apex sin `www`, también en `metadataBase`); `robots.txt` y `sitemap.xml` se generan en `app/robots.ts` y `app/sitemap.ts`, nunca en `public/`.
 
 ## Forma de trabajar
 

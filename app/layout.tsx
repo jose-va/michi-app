@@ -3,14 +3,15 @@ import "./globals.css";
 import { Toaster } from "@/shadcn/components/sonner";
 import PageMenu from "@/common/components/layout/PageMenu";
 import { UserProvider } from "@/common/components/provider/UserProvider";
+import ServiceWorkerRegister from "@/common/components/pwa/ServiceWorkerRegister";
 import { UserService } from "@/service/UserService";
 import { montserrat } from "./fonts/font";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.michisushigranada.es"),
+  metadataBase: new URL("https://michisushigranada.es"),
   title: "Michi Sushi Granada",
   description:
-    "Bienvenido a Michi Sushi, tu destino para disfrutar del auténtico sushi en el corazón de Granada.",
+    "Bienvenido a Michi Sushi, tu destino para disfrutar del auténtico sushi y tapeo en Granada.",
   openGraph: {
     title: "Michi Sushi Granada",
     description:
@@ -63,6 +64,7 @@ export default async function RootLayout({
       >
         <div aria-hidden="true" className="pointer-events-none fixed top-0 left-0 h-full w-screen -z-10 scale-105 bg-[url('/background/background_michi.webp')] bg-cover bg-center blur-xs brightness-80" />
         <UserProvider initialUser={user}>
+          <ServiceWorkerRegister />
           <PageMenu user={user}>{children}</PageMenu>
         </UserProvider>
         <Toaster position="top-center" richColors />
