@@ -1,4 +1,5 @@
 import AdminReservations from "@/common/components/pages/reservation/AdminReservations";
+import PushSettings from "@/common/components/admin/PushSettings";
 import SkeletonCards from "@/common/components/skeletons/SkeletonCards";
 import {
   formatDayLabel,
@@ -33,6 +34,7 @@ export default async function ReservationPreview({
           today={today}
           label={formatDayLabel(selected)}
         />
+        <PushSettings userRole={user.role} />
         <Suspense fallback={<SkeletonCards />} key={selected}>
           <AdminReservations date={selected} />
         </Suspense>
