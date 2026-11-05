@@ -1,100 +1,200 @@
+<div align="center">
+
 # Michi Sushi Granada 🍣
 
+Plataforma web para gestionar las reservas y la carta de un bar de sushi en Granada.
+
+🌐 **[www.michisushigranada.es](https://www.michisushigranada.es)**
+
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge&logo=shadcnui&logoColor=white)
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+
+</div>
+
+---
+
 ## Descripción
-Michi Sushi Granada es una plataforma para digitalizar la gestión interna de un restaurante de sushi en Granada. Este repositorio contiene su aplicación web front-end, que se comunica con el back-end REST. 
-Los usuarios pueden explorar la carta y hacer reservas; los administradores gestionan reservas y productos con autenticación mediante Google. También hay ubicación en Google Maps y sincronización con Uber
-para mantener la carta actualizada en tiempo real.
+
+Michi Sushi Granada es una plataforma para digitalizar la gestión interna de un bar de sushi en Granada. Este repositorio contiene la aplicación web (front-end), que se comunica con un back-end REST.
+
+- Los **clientes** pueden explorar la carta, guardar sus platos favoritos y reservar mesa.
+- Los **administradores** gestionan las reservas y los productos, accediendo con su cuenta de Google.
+- La web incluye la ubicación del bar en Google Maps y una sección de reseñas.
+
+## Funcionalidades
+
+- Reserva de mesa en dos pasos, con calendario, número de comensales y comprobación de disponibilidad.
+- Carta con filtros por categoría y alérgenos, paginación y favoritos.
+- Perfil de usuario con sus reservas y productos favoritos.
+- Panel de administración para gestionar reservas (por turnos de comida y cena) y productos (crear, editar, activar/desactivar y eliminar).
+- Inicio de sesión con Google (OAuth 2.0) y perfiles con distintos roles.
+- Ubicación del bar con Google Maps interactivo.
 
 ## Objetivos
-* **General:**
-    * Digitalizar el sistema de reservas y la gestión interna de los productos.
-    * Sincronización con la API de Uber Eats v2.
-    * Inicio de sesión OAuth 2.0
 
-* **Específicos:**
-    * Permitir el registro y gestión de  distintos perfiles de usuario con roles.
-    * Mostrar la ubicación del bar mediante Google Maps.
+- Digitalizar el sistema de reservas.
+- Digitalizar la gestión interna de los productos de la carta.
+- Permitir el registro y la gestión de distintos perfiles de usuario con roles.
+- Mostrar la ubicación del bar mediante Google Maps.
 
 ## Tecnologías
-* **Frontend:** Typescript + Next.js con componentes Shadcn UI y estilos Tailwind CSS.
-* **Backend:** Java + Spring Boot con base de datos no relacional MongoDB.
+
+| Capa | Tecnologías |
+|------|-------------|
+| **Frontend** | TypeScript, Next.js, shadcn/ui, Tailwind CSS |
+| **Backend** | Java, Spring Boot |
+| **Base de datos** | MongoDB (no relacional) |
+| **Autenticación** | Google OAuth 2.0 |
 
 ## Estado del proyecto
-La plataforma sigue en desarrollo.
+
+✅ **Proyecto terminado.**
+
+## Instalación y ejecución
+
+### Requisitos previos
+
+- [Node.js](https://nodejs.org/) 18.18 o superior
+- npm
+- El back-end en marcha (ver [repositorio del back-end]([ENLACE_AL_REPO_BACKEND])), que requiere Java [VERSIÓN] y MongoDB
+
+### Pasos
+
+1. Clona el repositorio:
+
+   ```bash
+   git clone [URL_DEL_REPOSITORIO]
+   cd [NOMBRE_DE_LA_CARPETA]
+   ```
+
+2. Instala las dependencias:
+
+   ```bash
+   npm install
+   ```
+
+3. Crea un archivo `.env.local` en la raíz del proyecto con tus variables de entorno (ver siguiente sección).
+
+4. Arranca el servidor de desarrollo:
+
+   ```bash
+   npm run dev
+   ```
+
+5. Abre [http://localhost:3000](http://localhost:3000) en el navegador.
+
+### Variables de entorno
+
+Ejemplo de `.env.local` (ajusta los nombres a los que use tu proyecto):
+
+```env
+# URL del back-end REST
+NEXT_PUBLIC_API_URL=http://localhost:8080
+
+# Google OAuth 2.0
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=tu_client_id
+
+# Google Maps
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=tu_api_key
+```
+
+> ⚠️ No subas nunca tu `.env.local` al repositorio. Incluye un `.env.example` con los nombres de las variables y sin valores reales.
+
+### Otros comandos
+
+```bash
+npm run build   # Genera la versión de producción
+npm run start   # Arranca la versión de producción
+npm run lint    # Revisa el código con el linter
+```
 
 ## Vista previa
+
 ### Página principal
-Página de bienvenida donde se muestra un carrusel de fotos del restaurante y un acceso rápido a la carta.
-![Página principal](preview/home-page.gif)
+Portada con carrusel de imágenes, secciones informativas y botones de acceso directo a la carta y a las reservas.
+
+<video src="preview/demo-home.mp4" controls width="600"></video>
 
 ---
 
-### Inicio de sesión con Google
-Nos redirigirá a la página de Google para identificarnos en Michi Sushi sin necesidad de registrar un nuevo usuario
-![Inicio de sesión](preview/google-login.gif)
+### Carta de productos
+Carta en cuadrícula con filtros por categoría y alérgenos, paginación y la opción de guardar platos favoritos.
+
+<video src="preview/demo-products.mp4" controls width="600"></video>
 
 ---
 
-### Panel de usuario
-Los usuarios identificados podrán acceder a una sección donde se muestran todos sus productos favoritos y reservas realizadas
-![Panel de usuario](preview/user-panel.gif)
+### Reserva · Paso 1
+Elección de fecha en el calendario y número de comensales, con validación del formulario.
+
+<video src="preview/demo-reservation1.mp4" controls width="600"></video>
 
 ---
 
-### Página de productos
-Vista previa de toda la carta del restaurante, así como información relevante (alérgenos, precio...)
-![Página de productos](preview/filter-product.gif)
+### Reserva · Paso 2
+Consulta de la disponibilidad, datos de contacto y confirmación de la reserva con aviso en pantalla.
+
+<video src="preview/demo-reservation2.mp4" controls width="600"></video>
 
 ---
 
-### Guardar productos como favoritos
-Se permite a los usuarios identificados marcar todos sus productos favoritos
-![Guardar productos](preview/favorite-products.gif)
+### Ubicación
+Mapa interactivo con la localización del bar y sección de reseñas.
+
+<video src="preview/demo-location.mp4" controls width="600"></video>
 
 ---
 
-### Desactivar productos
-El administrador puede marcar como fuera de stock cualquiera de los productos de la carta
-![Desactivar productos](preview/deactivate-product.gif)
+### Perfil de usuario
+Panel lateral con las reservas organizadas por día y los productos favoritos.
+
+<video src="preview/demo-userprofile.mp4" controls width="600"></video>
 
 ---
 
-### Página de reservas
-Formulario para crear una nueva reserva en el sistema, introduciendo tus datos personales y preferencias de la reserva
-![Página de reservas](preview/reservation.gif)
+### Panel de administrador
+Panel lateral con el resumen de las reservas del día y accesos rápidos a la gestión.
 
-![Página de reservas](preview/reservation2.gif)
-
----
-
-### Integración de Google Maps
-Mapa de google interactivo en el que podrás ubicar el restaurante de forma sencilla
-![Google Maps](preview/location.gif)
+<video src="preview/demo-admin.mp4" controls width="600"></video>
 
 ---
 
-### Panel de administración
-Panel exclusivo del administrador para gestionar las reservas activas y todos los produtos de la carta
-![Página de reservas](preview/admin-panel.gif)
+### Gestión de reservas
+Listado de reservas por turnos de comida y cena, ordenado por hora y con opción de cancelar.
+
+<video src="preview/demo-adminreservations.mp4" controls width="600"></video>
 
 ---
 
-### Modificar y eliminar productos
-Botones para acceder al formulario de modificación y a la eliminación de algún producto de la carta
-![Modificar y eliminar](preview/admin-options.gif)
+### Gestión de productos
+Carta con acciones de administrador: activar o desactivar, editar y eliminar productos.
+
+<video src="preview/demo-adminproducts.mp4" controls width="600"></video>
 
 ---
 
-### Activación de todos los productos
-Exclusivo para administradores, permite activar de forma sencilla todos aquellos productos que hayamos marcado como fuera de stock
-![Fuera de stock](preview/deactivate-product.gif)
+### Creación de productos
+Formulario para añadir un producto nuevo con foto, categoría y alérgenos, con validación de los datos.
+
+<video src="preview/demo-adminform.mp4" controls width="600"></video>
 
 ---
 
-### Sincronización con Uber Eats
-Actualizar toda la carta del restaurante en la aplicación de Uber con un simple click mediante peticiones a la API v2 de Uber Eats.
-![Uber Eats](preview/uber-sync.gif)
+### Footer y About
+Pie de página con secciones, contacto y enlaces legales, y página "Sobre nosotros" con animaciones.
+
+<video src="preview/demo-footer.mp4" controls width="600"></video>
 
 ---
 
+## Autor
 
+**Jose Manuel Vilchez Arenas [VILARE]**
+
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)]([TU_GITHUB])
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)]([TU_LINKEDIN])
