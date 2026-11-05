@@ -21,7 +21,7 @@ export default function PageMenu({
 }) {
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="fixed z-10 flex h-17 w-full items-center justify-between border-b border-white/10 bg-black/60 px-4 shadow-md backdrop-blur-md md:px-14">
+      <header className="fixed z-10 flex h-17 w-screen top-0 left-0 items-center justify-between border-b border-white/10 bg-black/60 px-4 shadow-md backdrop-blur-md md:px-14">
         <div className="flex-1">
           <Link href="/">
             <Image
