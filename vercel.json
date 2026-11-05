@@ -3,5 +3,18 @@
     "deploymentEnabled": {
       "main": true
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.michisushigranada.es"
+        }
+      ],
+      "destination": "https://michisushigranada.es/$1",
+      "permanent": true
+    }
+  ]
 }
