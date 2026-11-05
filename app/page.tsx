@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { montserrat, playfair, sigokae, centuryGothic } from "./fonts/font";
 import { HomeCarousel } from "@/common/components/ui/HomeCarousel";
+import { RevealOnScroll } from "@/common/components/ui/RevealOnScroll";
 import GoogleMaps from "@/common/components/ui/location/GoogleMaps";
 import { Button } from "@/shadcn/components/button";
 import { HOME_SECTIONS } from "@/common/utils/home-content";
@@ -115,11 +116,12 @@ export default function Home() {
         </section>
 
         <div className="flex flex-col gap-14 md:gap-20">
-          <section
-            id="seccion-lema"
-            aria-label="Lema del restaurante"
-            className="mx-auto -mt-2 w-full max-w-3xl bg-transparent text-center md:mt-0"
-          >
+          <RevealOnScroll>
+            <section
+              id="seccion-lema"
+              aria-label="Lema del restaurante"
+              className="mx-auto -mt-2 w-full max-w-3xl bg-transparent text-center md:mt-0"
+            >
             <div className="space-y-4">
               <span className="text-xs font-bold tracking-widest text-zinc-300 uppercase brightness-120">
                 Michi Café & Sushi Bar
@@ -133,13 +135,15 @@ export default function Home() {
                 &ldquo;{mottoSection.description}&rdquo;
               </p>
             </div>
-          </section>
+            </section>
+          </RevealOnScroll>
 
-          <section
-            id="seccion-carta"
-            aria-label="Carta de Michi Sushi"
-            className="mt-8 grid grid-cols-1 items-center gap-8 bg-transparent md:grid-cols-2"
-          >
+          <RevealOnScroll>
+            <section
+              id="seccion-carta"
+              aria-label="Carta de Michi Sushi"
+              className="mt-8 grid grid-cols-1 items-center gap-8 bg-transparent md:grid-cols-2"
+            >
             <div className="order-2 flex flex-col items-start gap-4 md:order-1">
               <h2
                 className={`${montserrat.className} text-4xl font-extrabold tracking-tight text-white uppercase md:text-5xl`}
@@ -153,7 +157,7 @@ export default function Home() {
                 asChild
                 variant="default"
                 size="lg"
-                className="rounded-full bg-black px-4 py-6 text-[15px] font-semibold shadow-lg"
+                className="rounded-full bg-black px-4 py-6 text-[15px] font-semibold shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-lg"
               >
                 <Link href={menuSection.actionHref || "/product"}>
                   {menuSection.actionLabel}
@@ -161,17 +165,17 @@ export default function Home() {
               </Button>
             </div>
 
-            <div className="relative order-1 aspect-video w-full overflow-hidden md:order-2">
+            <div className="relative order-1 aspect-video w-full overflow-hidden rounded-2xl md:order-2">
               {menuSection.image && (
                 <Image
                   src={menuSection.image}
                   alt={menuSection.imageAlt || "Carta de sushi"}
                   fill
-                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  className="object-cover transition-transform duration-700 ease-out hover:scale-105"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               )}
-              <span className="absolute right-4 bottom-4 flex size-24 flex-col items-center justify-center rounded-full bg-linear-to-br from-amber-400 via-orange-400 to-amber-600 p-2.5 text-center text-white shadow-lg ring-2 shadow-orange-950/20 ring-white/50 md:size-28">
+              <span className="animate-float-badge absolute right-4 bottom-4 flex size-24 flex-col items-center justify-center rounded-full bg-linear-to-br from-amber-400 via-orange-400 to-amber-600 p-2.5 text-center text-white shadow-lg ring-2 shadow-orange-950/20 ring-white/50 md:size-28">
                 <span className="text-[9px] font-bold tracking-widest text-amber-100 uppercase drop-shadow-sm">
                   Fusión Tropical
                 </span>
@@ -180,13 +184,15 @@ export default function Home() {
                 </span>
               </span>
             </div>
-          </section>
+            </section>
+          </RevealOnScroll>
 
-          <section
-            id="seccion-reservas"
-            aria-label="Reservas en Michi Sushi"
-            className="grid items-center gap-8 bg-transparent md:grid-cols-2"
-          >
+          <RevealOnScroll>
+            <section
+              id="seccion-reservas"
+              aria-label="Reservas en Michi Sushi"
+              className="grid items-center gap-8 bg-transparent md:grid-cols-2"
+            >
             <div className="order-2 flex flex-col items-start gap-4">
               <h2
                 className={`${montserrat.className} text-4xl font-extrabold tracking-tight text-white uppercase md:text-5xl`}
@@ -199,7 +205,7 @@ export default function Home() {
               <Button
                 asChild
                 size="lg"
-                className="rounded-full bg-black px-4 py-6 text-[15px] font-semibold shadow-lg"
+                className="rounded-full bg-black px-4 py-6 text-[15px] font-semibold shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-lg"
               >
                 <Link href={reservationsSection.actionHref || "/reservation"}>
                   {reservationsSection.actionLabel}
@@ -207,7 +213,7 @@ export default function Home() {
               </Button>
             </div>
 
-            <div className="relative order-1 aspect-video w-full overflow-hidden">
+            <div className="relative order-1 aspect-video w-full overflow-hidden rounded-2xl">
               {reservationsSection.image && (
                 <Image
                   src={reservationsSection.image}
@@ -215,19 +221,21 @@ export default function Home() {
                     reservationsSection.imageAlt || "Reservas en restaurante"
                   }
                   fill
-                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  className="object-cover transition-transform duration-700 ease-out hover:scale-105"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               )}
             </div>
-          </section>
+            </section>
+          </RevealOnScroll>
 
-          <section
-            id="seccion-pedido"
-            aria-label="Pedir a domicilio en Uber Eats"
-            className="grid items-center gap-8 bg-transparent md:grid-cols-2"
-          >
-            <div className="relative aspect-video w-full overflow-hidden md:order-2">
+          <RevealOnScroll>
+            <section
+              id="seccion-pedido"
+              aria-label="Pedir a domicilio en Uber Eats"
+              className="grid items-center gap-8 bg-transparent md:grid-cols-2"
+            >
+            <div className="relative aspect-video w-full overflow-hidden rounded-2xl md:order-2">
               {deliverySection.image && (
                 <Image
                   src={deliverySection.image}
@@ -236,7 +244,7 @@ export default function Home() {
                     "Sushi de Michi para pedir en Uber Eats"
                   }
                   fill
-                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  className="object-cover transition-transform duration-700 ease-out hover:scale-105"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               )}
@@ -267,14 +275,16 @@ export default function Home() {
                 <span className="sr-only"> (se abre en una pestaña nueva)</span>
               </a>
             </div>
-          </section>
+            </section>
+          </RevealOnScroll>
 
-          <section
-            id="seccion-ubicacion"
-            aria-label="Ubicación de Michi Sushi"
-            className="grid items-center gap-8 bg-transparent md:grid-cols-2"
-          >
-            <div className="relative aspect-video w-full overflow-hidden">
+          <RevealOnScroll>
+            <section
+              id="seccion-ubicacion"
+              aria-label="Ubicación de Michi Sushi"
+              className="grid items-center gap-8 bg-transparent md:grid-cols-2"
+            >
+            <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
               <GoogleMaps zoom={13} />
             </div>
 
@@ -290,14 +300,15 @@ export default function Home() {
               <Button
                 asChild
                 size="lg"
-                className="rounded-full bg-black px-4 py-6 text-[15px] font-semibold shadow-lg"
+                className="rounded-full bg-black px-4 py-6 text-[15px] font-semibold shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-lg"
               >
                 <Link href={locationSection.actionHref || "/location"}>
                   {locationSection.actionLabel}
                 </Link>
               </Button>
             </div>
-          </section>
+            </section>
+          </RevealOnScroll>
         </div>
       </div>
     </>

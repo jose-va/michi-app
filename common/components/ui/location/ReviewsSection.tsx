@@ -50,6 +50,7 @@ export default function ReviewsSection({
               <span
                 role="img"
                 aria-label={`Valoración: ${view.ratingValue} de 5 estrellas`}
+                className="inline-block animate-float"
               >
                 <span aria-hidden="true">
                   {"⭐".repeat(

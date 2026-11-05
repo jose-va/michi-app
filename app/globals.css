@@ -276,10 +276,48 @@
   }
 }
 
+/* Insignia flotante home: vaivén vertical suave. */
+@keyframes subtle-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-float {
+  animation: subtle-float 3s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Sello home: más dinamismo que las estrellas (traslación + giro + escala). */
+@keyframes subtle-float-strong {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg) scale(1.03);
+  }
+}
+
+.animate-float-badge {
+  animation: subtle-float-strong 2.2s ease-in-out infinite;
+  will-change: transform;
+}
+
 /* About fade-in: con movimiento reducido se muestra el texto final
    inmediato, sin aparición ni desplazamiento. */
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in-up {
+    animation: none;
+  }
+  .animate-float {
+    animation: none;
+  }
+  .animate-float-badge {
     animation: none;
   }
 }
