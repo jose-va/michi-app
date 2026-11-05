@@ -7,9 +7,30 @@ import { UserService } from "@/service/UserService";
 import { montserrat } from "./fonts/font";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.michisushigranada.es"),
   title: "Michi Sushi Granada",
   description:
     "Bienvenido a Michi Sushi, tu destino para disfrutar del auténtico sushi en el corazón de Granada.",
+  openGraph: {
+    title: "Michi Sushi Granada",
+    description:
+      "Gastronomía japonesa y tapeo en Granada. Consulta la carta y reserva tu mesa online.",
+    url: "/",
+    siteName: "Michi Sushi Granada",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Michi Sushi Granada",
+      },
+    ],
+    locale: "es_ES",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
   icons: {
     icon: [
       {
