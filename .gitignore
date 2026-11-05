@@ -45,11 +45,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-preview
-
 # agents
 .agents/
 .opencode/
 specs/
+MEMORY.md
+CLAUDE.md
 
 
