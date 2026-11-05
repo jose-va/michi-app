@@ -11,7 +11,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/shadcn/components/tabs";
-import { ReservationService } from "@/service/ReservationService";
+import { getReservationsWithAutoCancel } from "@/lib/admin-reservations";
 import { CalendarDays, Soup } from "lucide-react";
 import Link from "next/link";
 import { Fragment } from "react";
@@ -82,7 +82,7 @@ function TodayReservationRow({
 
 export default async function AdminProfileTabs({ user }: { user: User }) {
   const todayKey = getTodayKey(new Date(), "Europe/Madrid");
-  const reservations = await ReservationService.getReservations(todayKey);
+  const reservations = await getReservationsWithAutoCancel(todayKey);
   const active = (reservations ?? []).filter((r) => r.state !== "CANCELLED");
   const ordered = sortReservationsByTimeAndName(active);
   const visible = ordered.slice(0, 3);

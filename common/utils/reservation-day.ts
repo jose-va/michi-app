@@ -144,6 +144,145 @@ export function formatDayLabel(dateKey: string): string {
   return `${weekday}, ${day} de ${month}`;
 }
 
+export const NO_SHOW_GRACE_MINUTES = 30;
+
+export const NO_SHOW_CANCEL_BATCH_SIZE = 5;
+
+const START_TIME_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)$/;
+
+const NO_SHOW_TIME_ZONE = "Europe/Madrid";
+
+function madridWallToUtcMs(
+  year: number,
+  month: number,
+  day: number,
+  hour: number,
+  minute: number,
+): number | null {
+  const wallMs = Date.UTC(year, month - 1, day, hour, minute);
+  if (Number.isNaN(wallMs)) {
+    return null;
+  }
+  let guess = wallMs;
+  for (let i = 0; i < 3; i += 1) {
+    const parts = new Intl.DateTimeFormat("en-CA", {
+      timeZone: NO_SHOW_TIME_ZONE,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    }).formatToParts(new Date(guess));
+    const get = (type: string): string =>
+      parts.find((part) => part.type === type)?.value ?? "";
+    const wallOfGuess = Date.UTC(
+      Number(get("year")),
+      Number(get("month")) - 1,
+      Number(get("day")),
+      Number(get("hour")) % 24,
+      Number(get("minute")),
+    );
+    if (Number.isNaN(wallOfGuess)) {
+      return null;
+    }
+    const next = guess + (wallMs - wallOfGuess);
+    if (next === guess) {
+      return guess;
+    }
+    guess = next;
+  }
+  return guess;
+}
+
+export function isNoShowExpired(
+  date: string,
+  startTime: string,
+  now: Date = new Date(),
+): boolean {
+  const parts = parseDateKeyParts(date);
+  const time = START_TIME_PATTERN.exec(startTime);
+  if (parts === null || time === null) {
+    return false;
+  }
+  const startUtcMs = madridWallToUtcMs(
+    parts.year,
+    parts.month,
+    parts.day,
+    Number(time[1]),
+    Number(time[2]),
+  );
+  if (startUtcMs === null) {
+    return false;
+  }
+  return (
+    now.getTime() - startUtcMs >= NO_SHOW_GRACE_MINUTES * 60 * 1000
+  );
+}
+
+export type AutoCancelNoShowsResult = {
+  reservations: Reservation[];
+  attempted: number;
+  cancelled: number;
+  failed: number;
+};
+
+export async function autoCancelNoShows(
+  reservations: Reservation[],
+  cancel: (id: string) => Promise<unknown>,
+  now: Date = new Date(),
+  batchSize: number = NO_SHOW_CANCEL_BATCH_SIZE,
+): Promise<AutoCancelNoShowsResult> {
+  const candidateIndexes: number[] = [];
+  reservations.forEach((reservation, index) => {
+    if (
+      reservation.state !== "CANCELLED" &&
+      typeof reservation.id === "string" &&
+      reservation.id.length > 0 &&
+      isNoShowExpired(reservation.date, reservation.startTime, now)
+    ) {
+      candidateIndexes.push(index);
+    }
+  });
+  const attempted = candidateIndexes.length;
+  if (attempted === 0) {
+    return { reservations, attempted: 0, cancelled: 0, failed: 0 };
+  }
+  const size =
+    Number.isInteger(batchSize) && batchSize > 0
+      ? batchSize
+      : NO_SHOW_CANCEL_BATCH_SIZE;
+  const cancelledIds = new Set<string>();
+  for (let i = 0; i < candidateIndexes.length; i += size) {
+    const batch = candidateIndexes.slice(i, i + size);
+    const results = await Promise.allSettled(
+      batch.map((index) => {
+        const id = reservations[index]?.id;
+        return cancel(id as string);
+      }),
+    );
+    results.forEach((result, position) => {
+      if (result.status === "fulfilled" && result.value !== false) {
+        const id = reservations[batch[position] as number]?.id;
+        if (typeof id === "string") {
+          cancelledIds.add(id);
+        }
+      }
+    });
+  }
+  const cancelled = cancelledIds.size;
+  const failed = attempted - cancelled;
+  if (cancelled === 0) {
+    return { reservations, attempted, cancelled: 0, failed };
+  }
+  const updated = reservations.map((reservation) =>
+    typeof reservation.id === "string" && cancelledIds.has(reservation.id)
+      ? { ...reservation, state: "CANCELLED" }
+      : reservation,
+  );
+  return { reservations: updated, attempted, cancelled, failed };
+}
+
 export function sortReservationsByTimeAndName(items: Reservation[]): Reservation[] {
   return [...items].sort((a, b) => {
     const aCancelled = a.state === "CANCELLED" ? 1 : 0;

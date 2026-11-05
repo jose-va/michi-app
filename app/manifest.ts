@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Michi Sushi Granada",
     short_name: "Michi Sushi",
     description:
-      "Bienvenido a Michi Sushi, tu destino para disfrutar del auténtico sushi en el corazón de Granada.",
+      "Bienvenido a Michi Sushi, tu destino para disfrutar del auténtico sushi y tapeo en Granada.",
     lang: "es",
     background_color: "#100d0b",
     theme_color: "#100d0b",

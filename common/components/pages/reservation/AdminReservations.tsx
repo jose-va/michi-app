@@ -1,12 +1,12 @@
-import { ReservationService } from "@/service/ReservationService";
 import ReservationShiftTabs from "../../ui/reservation/ReservationShiftTabs";
 import {
   groupReservationsByShift,
   sortReservationsByTimeAndName,
 } from "@/common/utils/reservation-day";
+import { getReservationsWithAutoCancel } from "@/lib/admin-reservations";
 
 export default async function AdminReservations({ date }: { date: string }) {
-  const reservations = await ReservationService.getReservations(date);
+  const reservations = await getReservationsWithAutoCancel(date);
   if (reservations === null) {
     return (
       <section className="flex flex-col">
@@ -14,8 +14,7 @@ export default async function AdminReservations({ date }: { date: string }) {
           role="alert"
           className="black-glassmorphism my-5 w-full border border-destructive/60 px-4 py-6 text-destructive"
         >
-          No se han podido cargar las reservas de este día. Inténtalo de nuevo
-          más tarde.
+          No se han podido cargar las reservas de este día.
         </p>
       </section>
     );
