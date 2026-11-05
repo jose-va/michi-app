@@ -52,4 +52,9 @@ preview
 .opencode/
 specs/
 
+.vscode/
+
+MEMORY.md
+CLAUDE.md
+
 
