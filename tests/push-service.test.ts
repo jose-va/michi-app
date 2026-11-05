@@ -119,21 +119,33 @@ test("subscribe ante fallo de red informa sin estado falso ni secretos", async (
   assert.ok(!logged.includes(SUB.keys.auth));
 });
 
-test("unsubscribe pide la baja con el extremo codificado", async (t) => {
-  const { fetcher, urls, inits } = recorder(
-    () => new Response(null, { status: 200 }),
-  );
+test("unsubscribe pide la baja por la vía principal POST delete con el extremo", async (t) => {
+  for (const status of [200, 204]) {
+    const { fetcher, urls, inits } = recorder(
+      () => new Response(null, { status }),
+    );
+    stubError(t);
+    const result = await PushService.unsubscribe(SUB.endpoint, {
+      fetcher,
+      baseUrl: BASE,
+    });
+    assert.equal(urls[0], `${BASE}/api/push/subscriptions/delete`);
+    assert.equal(inits[0]?.method, "POST");
+    assert.deepEqual(JSON.parse(String(inits[0]?.body)), {
+      endpoint: SUB.endpoint,
+    });
+    assert.deepEqual(result, { ok: true, status });
+  }
+});
+
+test("unsubscribe no intenta la vía DELETE con query", async (t) => {
+  const { fetcher, urls } = recorder(() => new Response(null, { status: 200 }));
   stubError(t);
-  const result = await PushService.unsubscribe(SUB.endpoint, {
-    fetcher,
-    baseUrl: BASE,
-  });
-  assert.equal(
-    urls[0],
-    `${BASE}/api/push/subscriptions?endpoint=${encodeURIComponent(SUB.endpoint)}`,
+  await PushService.unsubscribe(SUB.endpoint, { fetcher, baseUrl: BASE });
+  assert.ok(
+    urls.every((url) => !url.includes("?endpoint=")),
+    "la baja directa no usa DELETE ?endpoint",
   );
-  assert.equal(inits[0]?.method, "DELETE");
-  assert.deepEqual(result, { ok: true, status: 200 });
 });
 
 test("unsubscribe propaga el 403 e informa el fallo de red sin el extremo", async (t) => {
@@ -535,53 +547,9 @@ test("proxy test informa el fallo de red en español", async (t) => {
   }
 });
 
-// --- T6 fallback de baja (RF-6/RF-7, CL-16): vía alternativa ante 502 ---
+// --- T6 baja directa (RF-6/RF-7, CL-16): vía principal POST delete ---
 
-test("unsubscribeFallback pide la baja alternativa con el mismo extremo", async (t) => {
-  for (const status of [200, 204]) {
-    const { fetcher, urls, inits } = recorder(
-      () => new Response(null, { status }),
-    );
-    stubError(t);
-    const result = await PushService.unsubscribeFallback(SUB.endpoint, {
-      fetcher,
-      baseUrl: BASE,
-    });
-    assert.equal(urls[0], `${BASE}/api/push/subscriptions/delete`);
-    assert.equal(inits[0]?.method, "POST");
-    assert.deepEqual(JSON.parse(String(inits[0]?.body)), {
-      endpoint: SUB.endpoint,
-    });
-    assert.deepEqual(result, { ok: true, status });
-  }
-});
-
-test("unsubscribeFallback propaga el 403 e informa el fallo de red sin el extremo", async (t) => {
-  const denied = recorder(() => new Response(null, { status: 403 }));
-  stubError(t);
-  assert.deepEqual(
-    await PushService.unsubscribeFallback(SUB.endpoint, {
-      fetcher: denied.fetcher,
-      baseUrl: BASE,
-    }),
-    { ok: false, status: 403 },
-  );
-  const down = recorder(() => {
-    throw new TypeError("fetch failed");
-  });
-  const err = stubError(t);
-  assert.deepEqual(
-    await PushService.unsubscribeFallback(SUB.endpoint, {
-      fetcher: down.fetcher,
-      baseUrl: BASE,
-    }),
-    { ok: false, status: 0 },
-  );
-  assert.equal(err.mock.callCount(), 1);
-  assert.ok(!loggedText(err).includes(SUB.endpoint));
-});
-
-test("proxy delete alternativo exige admin y reenvía al backend con Cookie y User-Role", async (t) => {
+test("proxy delete principal exige admin y reenvía al backend con Cookie y User-Role", async (t) => {
   const { POST } = await import(
     "../app/api/push/subscriptions/delete/route"
   );
@@ -633,7 +601,7 @@ test("proxy delete alternativo exige admin y reenvía al backend con Cookie y Us
   }
 });
 
-test("proxy delete alternativo con extremo ausente devuelve 400 sin backend", async (t) => {
+test("proxy delete principal con extremo ausente devuelve 400 sin backend", async (t) => {
   const { POST } = await import(
     "../app/api/push/subscriptions/delete/route"
   );
@@ -659,7 +627,7 @@ test("proxy delete alternativo con extremo ausente devuelve 400 sin backend", as
   }
 });
 
-test("proxy delete alternativo informa el fallo de red con 502 en español", async (t) => {
+test("proxy delete principal informa el fallo de red con 502 en español", async (t) => {
   const { POST } = await import(
     "../app/api/push/subscriptions/delete/route"
   );

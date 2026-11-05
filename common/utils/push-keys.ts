@@ -30,15 +30,24 @@ export function publicKeyToUint8Array(
   }
 }
 
-// Exporta una clave del dispositivo (`getKey("p256dh" | "auth")`) a base64
-// estándar para su envío autenticado al backend (RF-9). Solo transforma
-// bytes; nunca registra el contenido (RF-24).
+// Exporta una clave del dispositivo (`getKey("p256dh" | "auth")`) en base64url
+// (sin `+`, `/` ni relleno `=`) para su envío autenticado al backend (RF-2):
+// la librería push del backend decodifica estas claves como base64url y el
+// base64 estándar rompía el envío (`Illegal base64`). Solo transforma
+// bytes; nunca registra el contenido (RF-19). La decodificación de la
+// pública VAPID (`publicKeyToUint8Array`) queda intacta.
 export function bufferToBase64(buffer: ArrayBuffer): string {
   const bytes = new Uint8Array(buffer);
   let binary = "";
   for (let i = 0; i < bytes.length; i += 1) {
     binary += String.fromCharCode(bytes[i]);
   }
-  if (typeof globalThis.btoa === "function") return globalThis.btoa(binary);
-  return Buffer.from(binary, "binary").toString("base64");
+  const standard =
+    typeof globalThis.btoa === "function"
+      ? globalThis.btoa(binary)
+      : Buffer.from(binary, "binary").toString("base64");
+  return standard
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/g, "");
 }

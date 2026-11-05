@@ -5,13 +5,14 @@ import { NextResponse, type NextRequest } from "next/server";
 const ADMIN_ROLE = "ROLE_ADMIN";
 
 /**
- * Proxy mismo origen de la vía alternativa de baja push (RF-6, RF-7,
- * CL-16, RF-20, RNF-2, RNF-7). Se usa una única vez cuando la vía
- * principal DELETE devuelve 502. Reenvía a
- * `POST BACKEND_URL/reservations/push/subscriptions/delete` con cuerpo
- * `{ endpoint }`, `Cookie token` + `User-Role: ROLE_ADMIN`. Sin admin →
- * 403 sin llamar al backend. La vía principal DELETE queda intacta.
- * Éxito 2xx/204; la suscripción nunca se registra ni se expone.
+ * Proxy mismo origen de la baja push (RF-6, RF-7, CL-16, RF-20, RNF-2,
+ * RNF-7). Vía principal directa `POST .../subscriptions/delete` con cuerpo
+ * `{ endpoint }`. Reenvía a
+ * `POST BACKEND_URL/reservations/push/subscriptions/delete` con `Cookie
+ * token` + `User-Role: ROLE_ADMIN`. Sin admin → 403 sin llamar al backend.
+ * Éxito 2xx/204; la suscripción nunca se registra ni se expone. La vía
+ * DELETE `?endpoint` queda intacta en su ruta solo por compatibilidad (el
+ * frontend ya no la intenta).
  */
 export async function POST(request: NextRequest) {
   const profile = await UserService.getProfile();

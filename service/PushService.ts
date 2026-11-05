@@ -105,25 +105,6 @@ export class PushService {
     const fetcher = overrides?.fetcher ?? fetch;
     try {
       const response = await fetcher(
-        `${sameOriginUrl(overrides, "/api/push/subscriptions")}?endpoint=${encodeURIComponent(endpoint)}`,
-        { method: "DELETE" },
-      );
-      return { ok: response.ok, status: response.status };
-    } catch {
-      console.error(
-        "No se ha podido desactivar los avisos. La baja queda pendiente de reintento manual.",
-      );
-      return { ok: false, status: 0 };
-    }
-  }
-
-  static async unsubscribeFallback(
-    endpoint: string,
-    overrides?: PushServiceOverrides,
-  ): Promise<PushStatusResult> {
-    const fetcher = overrides?.fetcher ?? fetch;
-    try {
-      const response = await fetcher(
         sameOriginUrl(overrides, "/api/push/subscriptions/delete"),
         {
           method: "POST",

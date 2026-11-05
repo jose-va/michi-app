@@ -148,8 +148,6 @@ export default function PushSettings({
           };
         },
         deleteSubscription: (endpoint) => PushService.unsubscribe(endpoint),
-        deleteSubscriptionFallback: (endpoint) =>
-          PushService.unsubscribeFallback(endpoint),
       });
       if (result.removed) {
         const next = await readPushStatus().catch(

@@ -102,10 +102,24 @@ describe("clave pública VAPID (T6: RF-9, CL-19)", () => {
     assert.equal(publicKeyToUint8Array("¡no-base64!"), null);
   });
 
-  it("exporta claves del dispositivo a base64 sin perder bytes", () => {
-    const bytes = new Uint8Array([1, 2, 250, 0, 255]).buffer;
+  it("exporta claves del dispositivo en base64url sin +/= ni relleno (backend webpush)", () => {
+    const bytes = new Uint8Array([251, 255, 190, 1, 2, 250, 0, 255]).buffer;
     const text = bufferToBase64(bytes);
-    assert.deepEqual(Array.from(Buffer.from(text, "base64")), [1, 2, 250, 0, 255]);
+    assert.ok(!text.includes("+"), "sin + del base64 estándar");
+    assert.ok(!text.includes("/"), "sin / del base64 estándar");
+    assert.ok(!text.includes("="), "sin relleno");
+    const standard = text.replace(/-/g, "+").replace(/_/g, "/");
+    const padded = standard + "=".repeat((4 - (standard.length % 4)) % 4);
+    assert.deepEqual(
+      Array.from(Buffer.from(padded, "base64")),
+      [251, 255, 190, 1, 2, 250, 0, 255],
+    );
+  });
+
+  it("el formato exportado lo acepta la decodificación de la pública VAPID", () => {
+    const bytes = [4, 251, 255, 190, 1, 2, 3, 250];
+    const text = bufferToBase64(new Uint8Array(bytes).buffer);
+    assert.deepEqual(Array.from(publicKeyToUint8Array(text) ?? []), bytes);
   });
 });
 
@@ -279,6 +293,21 @@ describe("baja de suscripción (T6: RF-12, RF-13, RF-13b, RF-24)", () => {
     );
   });
 
+  it("la baja directa acepta 2xx/204 como éxito sin segunda vía (RF-6, CL-16)", async () => {
+    for (const status of [200, 204]) {
+      const deps = okDeactivateDeps({
+        deleteSubscription: async (endpoint: string) => {
+          deps.calls.push(`delete:${endpoint}`);
+          return { ok: true, status };
+        },
+      });
+      const result = await deactivatePushSubscription(deps);
+      assert.deepEqual(deps.calls, ["unsubscribe", `delete:${ENDPOINT}`]);
+      assert.equal(result.removed, true);
+      assert.equal(result.message, null);
+    }
+  });
+
   it("sin suscripción local no comunica baja y queda en estado inicial", async () => {
     const deps = okDeactivateDeps({
       getCurrentSubscription: async () => null,
@@ -316,31 +345,10 @@ describe("baja de suscripción (T6: RF-12, RF-13, RF-13b, RF-24)", () => {
     }
   });
 
-  it("ante 502 reintenta una única vez con la vía alternativa (CL-16)", async () => {
+  it("la baja directa no usa vía alternativa: un solo intento POST", async () => {
     const deps = okDeactivateDeps({
       deleteSubscription: async (endpoint: string) => {
         deps.calls.push(`delete:${endpoint}`);
-        return { ok: false, status: 502 };
-      },
-      deleteSubscriptionFallback: async (endpoint: string) => {
-        deps.calls.push(`fallback:${endpoint}`);
-        return { ok: true, status: 204 };
-      },
-    });
-    const result = await deactivatePushSubscription(deps);
-    assert.deepEqual(deps.calls, [
-      "unsubscribe",
-      `delete:${ENDPOINT}`,
-      `fallback:${ENDPOINT}`,
-    ]);
-    assert.equal(result.removed, true);
-    assert.equal(result.message, null);
-  });
-
-  it("sin 502 no llama a la vía alternativa", async () => {
-    const deps = okDeactivateDeps({
-      deleteSubscriptionFallback: async (endpoint: string) => {
-        deps.calls.push(`fallback:${endpoint}`);
         return { ok: true, status: 200 };
       },
     });
@@ -350,30 +358,9 @@ describe("baja de suscripción (T6: RF-12, RF-13, RF-13b, RF-24)", () => {
     assert.equal(result.message, null);
   });
 
-  it("si ambas vías fallan por red queda pendiente de reintento manual (RF-7)", async () => {
-    const calls: string[] = [];
-    const deps = okDeactivateDeps({
-      deleteSubscription: async () => {
-        calls.push("delete");
-        throw new TypeError("fetch failed");
-      },
-      deleteSubscriptionFallback: async () => {
-        calls.push("fallback");
-        throw new TypeError("fetch failed");
-      },
-    });
-    const result = await deactivatePushSubscription(deps);
-    assert.deepEqual(calls, ["delete", "fallback"]);
-    assert.equal(result.removed, true);
-    assert.ok(
-      result.message && result.message.includes("pendiente de reintento manual"),
-    );
-  });
-
-  it("502 con alternativa fallida mantiene la baja local y pide reintento", async () => {
+  it("502 en la baja directa mantiene la baja local y pide reintento (RF-7)", async () => {
     const deps = okDeactivateDeps({
       deleteSubscription: async () => ({ ok: false, status: 502 }),
-      deleteSubscriptionFallback: async () => ({ ok: false, status: 500 }),
     });
     const result = await deactivatePushSubscription(deps);
     assert.equal(result.removed, true);

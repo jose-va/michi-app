@@ -4,8 +4,8 @@ import type { PushUiStatus } from "@/common/utils/push-status";
 // Alta y baja de la suscripción push (T6: RF-9, RF-12, RF-13, RF-13b,
 // RF-24). Lógica pura fuera de la UI (constitución, punto 3): orquesta la
 // secuencia observable permiso → suscripción del navegador → POST mismo
-// origen (alta) y baja local primero → DELETE mismo origen (baja). Las
-// fronteras con el navegador y el backend se inyectan para probarlas sin
+// origen (alta) y baja local primero → POST mismo origen
+// `.../subscriptions/delete` (baja directa, sin fallback). Las fronteras con el navegador y el backend se inyectan para probarlas sin
 // depender de la UI. Solo la respuesta 2xx observable (`ok: true`) es
 // éxito; cualquier otro caso informa en español sin estado falso
 // («Avisos activados» solo con alta confirmada, RF-13b). Nunca registra la
@@ -39,9 +39,6 @@ export type PushDeviceSubscription = {
 export type PushDeactivateDeps = {
   getCurrentSubscription: () => Promise<PushDeviceSubscription | null>;
   deleteSubscription: (
-    endpoint: string,
-  ) => Promise<{ ok: boolean; status: number }>;
-  deleteSubscriptionFallback?: (
     endpoint: string,
   ) => Promise<{ ok: boolean; status: number }>;
 };
@@ -134,12 +131,12 @@ export async function activatePushSubscription(
 }
 
 // Secuencia de baja (RF-6, RF-7, CL-16): primero `unsubscribe()` en el
-// navegador y después DELETE `?endpoint=...`. Si la vía principal devuelve
-// 502 observable o falla por red, se reintenta una única vez con la vía
-// alternativa (`POST .../subscriptions/delete` con el mismo extremo). La
-// baja es éxito ante 2xx/204 de cualquiera de las dos vías; si ambas fallan
-// por red, la baja local se mantiene e informa «pendiente de reintento
-// manual». Nunca registra la suscripción (RF-19, RNF-2).
+// navegador y después POST `.../subscriptions/delete` con el extremo en el
+// cuerpo. La baja es éxito ante 2xx/204 (204 idempotente); si el POST falla
+// por red o devuelve no-2xx, la baja local se mantiene e informa «pendiente
+// de reintento manual». El frontend no intenta la vía DELETE `?endpoint`
+// (queda en el backend solo por compatibilidad). Nunca registra la
+// suscripción (RF-19, RNF-2).
 export async function deactivatePushSubscription(
   deps: PushDeactivateDeps,
 ): Promise<PushDeactivateResult> {
@@ -173,18 +170,6 @@ export async function deactivatePushSubscription(
     primary = { ok: false, status: 0 };
   }
   if (primary.ok) return { removed: true, status: "unknown", message: null };
-  const shouldRetry =
-    typeof deps.deleteSubscriptionFallback === "function" &&
-    (primary.status === 502 || primary.status === 0);
-  if (shouldRetry) {
-    try {
-      const fallback = await deps.deleteSubscriptionFallback!(endpoint);
-      if (fallback.ok)
-        return { removed: true, status: "unknown", message: null };
-    } catch {
-      // El fallo de red de la alternativa se informa abajo (RF-7).
-    }
-  }
   return {
     removed: true,
     status: "unknown",
