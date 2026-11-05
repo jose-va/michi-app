@@ -111,77 +111,112 @@ NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=tu_api_key
 ### Página principal
 Portada con carrusel de imágenes, secciones informativas y botones de acceso directo a la carta y a las reservas.
 
-<video src="preview/demo-home.mp4" controls width="600"></video>
+<table>
+   <tr>
+      <td>https://github.com/user-attachments/assets/f1aacc87-8a09-4ad8-a092-2bb5b4c2260d</td>
+   </tr>
+</table>
 
 ---
 
 ### Carta de productos
 Carta en cuadrícula con filtros por categoría y alérgenos, paginación y la opción de guardar platos favoritos.
 
-<video src="preview/demo-products.mp4" controls width="600"></video>
+<table>
+   <tr>
+      <td>https://github.com/user-attachments/assets/5a7afdc0-d6f8-4e2b-aec8-3e6a18818d59</td>
+   </tr>
+</table>
 
 ---
 
-### Reserva · Paso 1
+### Reserva 
 Elección de fecha en el calendario y número de comensales, con validación del formulario.
-
-<video src="preview/demo-reservation1.mp4" controls width="600"></video>
-
----
-
-### Reserva · Paso 2
 Consulta de la disponibilidad, datos de contacto y confirmación de la reserva con aviso en pantalla.
 
-<video src="preview/demo-reservation2.mp4" controls width="600"></video>
+<table>
+   <tr>
+      <td>https://github.com/user-attachments/assets/b8b5e1f0-2627-4908-9cfd-da435354a768</td>
+      <td>https://github.com/user-attachments/assets/435871a8-1625-40bc-a2fd-7e9ca7be803d</td>
+   </tr>
+</table>
 
 ---
 
 ### Ubicación
 Mapa interactivo con la localización del bar y sección de reseñas.
 
-<video src="preview/demo-location.mp4" controls width="600"></video>
+<table>
+   <tr>
+      <td>https://github.com/user-attachments/assets/be82bd28-695a-46fb-8f5b-cb7dd884b516</td>
+   </tr>
+</table>
 
 ---
 
 ### Perfil de usuario
 Panel lateral con las reservas organizadas por día y los productos favoritos.
 
-<video src="preview/demo-userprofile.mp4" controls width="600"></video>
+<table>
+   <tr>
+      <td>https://github.com/user-attachments/assets/c6c15817-cc22-4695-92d6-075f89dcbaae</td>
+   </tr>
+</table>
 
 ---
 
 ### Panel de administrador
 Panel lateral con el resumen de las reservas del día y accesos rápidos a la gestión.
 
-<video src="preview/demo-admin.mp4" controls width="600"></video>
+<table>
+   <tr>
+      <td>https://github.com/user-attachments/assets/fb2c297d-4c77-43f5-97b5-023374465123</td>
+   </tr>
+</table>
 
 ---
 
 ### Gestión de reservas
 Listado de reservas por turnos de comida y cena, ordenado por hora y con opción de cancelar.
 
-<video src="preview/demo-adminreservations.mp4" controls width="600"></video>
+<table>
+   <tr>
+      <td>https://github.com/user-attachments/assets/8503acf2-4331-4202-a1a7-5fd27968d971</td>
+   </tr>
+</table>
 
 ---
 
 ### Gestión de productos
 Carta con acciones de administrador: activar o desactivar, editar y eliminar productos.
 
-<video src="preview/demo-adminproducts.mp4" controls width="600"></video>
-
+<table>
+   <tr>
+      <td>https://github.com/user-attachments/assets/3b072223-856b-4c1f-84fb-b5af0ff5a02f</td>
+   </tr>
+</table>
+  
 ---
 
 ### Creación de productos
 Formulario para añadir un producto nuevo con foto, categoría y alérgenos, con validación de los datos.
 
-<video src="preview/demo-adminform.mp4" controls width="600"></video>
+<table>
+   <tr>
+      <td>https://github.com/user-attachments/assets/bbee9f56-0a91-4944-8c4c-df7abd454c9a</td>
+   </tr>
+</table>
 
 ---
 
 ### Footer y About
 Pie de página con secciones, contacto y enlaces legales, y página "Sobre nosotros" con animaciones.
 
-<video src="preview/demo-footer.mp4" controls width="600"></video>
+<table>
+   <tr>
+      <td>https://github.com/user-attachments/assets/655de3e8-ec7d-4af1-8d67-7b081c74eede</td>
+   </tr>
+</table>
 
 ---
 
