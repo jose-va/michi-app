@@ -15,7 +15,6 @@ export const metadata: Metadata = {
     title: "Michi Sushi Granada",
     description:
       "Gastronomía japonesa y tapeo en Granada. Consulta la carta y reserva tu mesa online.",
-    url: "/",
     siteName: "Michi Sushi Granada",
     images: [
       {
