@@ -1,6 +1,7 @@
 import type { Reservation } from "@/common/types/reservation.types";
 import type { User } from "@/common/types/user.types";
 import { ReservationCancel } from "@/common/components/ui/reservation/ReservationCancel";
+import PushSettings from "@/common/components/admin/PushSettings";
 import { getTodayKey } from "@/common/utils/profile-day";
 import { formatDayLabel, sortReservationsByTimeAndName } from "@/common/utils/reservation-day";
 import { Separator } from "@/shadcn/components/separator";
@@ -143,6 +144,8 @@ export default async function AdminProfileTabs({ user }: { user: User }) {
           </div>
 
           <Separator />
+
+          <PushSettings userRole={user.role} />
         </nav>
       </TabsContent>
     </Tabs>
