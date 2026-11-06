@@ -6,13 +6,13 @@ export type CancelFailure = {
 
 export function getCancelErrorMessage(result: CancelFailure): string {
   if (result.status === 403) return "El enlace de cancelación no es válido";
-  if (result.status === 404) return "No encontramos la reserva";
+  if (result.status === 404) return "No encontramos su reserva";
   if (result.status === 409) {
     return result.message && result.message.length > 0
       ? result.message
-      : "Ya no es posible cancelar online con menos de 2 horas de antelación. Llámenos al +34 673 82 11 48";
+      : "No se ha podido cancelar su reserva";
   }
-  return "Error inesperado, inténtalo de nuevo";
+  return "Error inesperado, inténtalo de nuevo por favor";
 }
 
 /**

@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { Button } from "@/shadcn/components/button";
 import { cancelReservation } from "@/lib/server-actions";
 import { getCancelErrorMessage } from "@/common/utils/cancel-error";
+import { buildCancelWhatsappUrl } from "@/common/utils/whatsapp-contact";
 
 export function CancelReservationPage({
   reservationId,
@@ -21,6 +22,7 @@ export function CancelReservationPage({
   const [isCancelling, setIsCancelling] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [retryable, setRetryable] = useState(false);
+  const [whatsappUrl, setWhatsappUrl] = useState<string | null>(null);
 
   if (!reservationId) {
     return (
@@ -59,6 +61,7 @@ export function CancelReservationPage({
     setIsCancelling(true);
     setError(null);
     setRetryable(false);
+    setWhatsappUrl(null);
     const loadingId = toast.loading("Cancelando reserva…");
     try {
       const result = await cancelReservation(reservationId, token);
@@ -68,11 +71,18 @@ export function CancelReservationPage({
         router.push("/");
         return;
       }
-      setError(getCancelErrorMessage(result));
-      setRetryable(result.status === 500);
+      if (result.status === 409) {
+        setError("No se ha podido cancelar su reserva");
+        setWhatsappUrl(buildCancelWhatsappUrl("", undefined));
+        setRetryable(false);
+      } else {
+        setError(getCancelErrorMessage(result));
+        setRetryable(result.status === 500);
+      }
     } catch {
       toast.dismiss(loadingId);
-      setError("Error inesperado, inténtalo de nuevo");
+      setError("Error inesperado, inténtalo de nuevo por favor");
+      setWhatsappUrl(null);
       setRetryable(true);
     } finally {
       setIsCancelling(false);
@@ -98,12 +108,34 @@ export function CancelReservationPage({
         </div>
 
         {error && (
-          <p
-            role="alert"
-            className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm font-medium text-destructive"
-          >
-            {error}
-          </p>
+          <div className="flex flex-col gap-3 rounded-md border border-destructive/40 bg-destructive/10 p-3">
+            <p
+              role="alert"
+              className="text-sm font-medium text-destructive"
+            >
+              {error}
+            </p>
+            {whatsappUrl && (
+              <>
+                <p className="text-sm text-zinc-300">
+                  Contáctenos por WhatsApp
+                </p>
+                <Button
+                  type="button"
+                  asChild
+                  className="bg-primary font-semibold hover:bg-primary! hover:brightness-110"
+                >
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Abrir Whatsapp
+                  </a>
+                </Button>
+              </>
+            )}
+          </div>
         )}
 
         <div className="flex flex-col gap-3">

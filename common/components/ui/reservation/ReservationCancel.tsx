@@ -77,7 +77,7 @@ export function ReservationCancel({
         });
       } else toast.error(getCancelErrorMessage(result));
     } catch {
-      toast.error("Error inesperado, inténtalo de nuevo");
+      toast.error("Error inesperado, inténtalo de nuevo por favor");
     } finally {
       setIsCancelling(false);
     }
