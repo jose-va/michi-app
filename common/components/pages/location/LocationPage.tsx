@@ -26,7 +26,7 @@ export default function LocationPage({
 }) {
   return (
     <>
-      <section className="mx-auto flex w-full max-w-6xl flex-col gap-6 pt-6 pb-6 md:py-8">
+      <section className="mx-auto flex w-full max-w-6xl flex-col gap-6 pb-6 md:pb-8">
         <header className="flex flex-col items-center gap-3 rounded-lg bg-linear-to-b from-black/60 via-black/40 via-80% to-transparent px-4 py-8 text-center md:py-10">
           <div className="flex w-full items-center justify-center gap-3">
             <span
@@ -51,7 +51,7 @@ export default function LocationPage({
           </p>
           <span
             aria-hidden="true"
-            className="bg-primary mt-1 h-1 w-24 rounded-lg"
+            className="bg-michi-aqua mt-1 h-1 w-24 rounded-lg"
           />
         </header>
 

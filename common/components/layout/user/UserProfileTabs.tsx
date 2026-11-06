@@ -104,6 +104,7 @@ export default async function UserProfileTabs({ user }: { user: User }) {
           </ul>
         )}
         <nav className="mt-4 flex flex-col gap-4">
+          <Separator />
           <div className="flex items-center gap-2 text-zinc-300 transition-colors hover:scale-101 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
             <Shrimp className="size-4" />
             <SheetClose asChild>
