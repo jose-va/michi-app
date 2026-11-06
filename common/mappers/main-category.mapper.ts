@@ -82,10 +82,9 @@ export function resolveCategoryFilter(raw?: string): ResolvedCategoryFilter {
 }
 
 export const MAIN_FILTER_OPTIONS: ReadonlyArray<{
-  value: "all" | "featured" | MainCategory;
+  value: "featured" | MainCategory;
   label: string;
 }> = [
-  { value: "all", label: "Todas" },
   { value: "featured", label: "Destacados" },
   ...MAIN_CATEGORIES.filter((main) => main !== "DESSERTS").map((main) => ({
     value: main,
