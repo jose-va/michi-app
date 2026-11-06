@@ -80,7 +80,10 @@ export default function Home() {
                 <span className="block">MICHI</span>
                 <span className="block">SUSHI</span>
               </h1>
-              <span className="mb-4 ml-1 text-3xl text-white/50" aria-hidden="true">
+              <span
+                className="mb-2 ml-1 text-2xl text-white/50 md:mb-4 md:text-3xl"
+                aria-hidden="true"
+              >
                 道
               </span>
             </div>
@@ -96,13 +99,13 @@ export default function Home() {
               <Button
                 asChild
                 size="lg"
-                className="bg-michi-sake hover:bg-michi-sake! min-h-11 font-semibold hover:brightness-110 text-stone-950"
+                className="bg-michi-sake hover:bg-michi-sake! min-h-11 font-semibold text-stone-950 hover:brightness-110"
               >
                 <Link href="/product">Explora la carta</Link>
               </Button>
               <Button
                 asChild
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className="min-h-11 bg-white/10 font-semibold text-white shadow-lg backdrop-blur"
               >
@@ -156,9 +159,8 @@ export default function Home() {
                 </p>
                 <Button
                   asChild
-                  variant="default"
                   size="lg"
-                  className="rounded-full bg-black px-4 py-6 text-[15px] font-semibold shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95"
+                  className="bg-michi-sake hover:bg-michi-sake! min-h-11 font-semibold text-stone-950 hover:brightness-110"
                 >
                   <Link href={menuSection.actionHref || "/product"}>
                     {menuSection.actionLabel}
@@ -206,7 +208,7 @@ export default function Home() {
                 <Button
                   asChild
                   size="lg"
-                  className="rounded-full bg-black px-4 py-6 text-[15px] font-semibold shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95"
+                  className="bg-michi-sake hover:bg-michi-sake! min-h-11 font-semibold text-stone-950 hover:brightness-110"
                 >
                   <Link href={reservationsSection.actionHref || "/reservation"}>
                     {reservationsSection.actionLabel}
@@ -304,7 +306,7 @@ export default function Home() {
                 <Button
                   asChild
                   size="lg"
-                  className="rounded-full bg-black px-4 py-6 text-[15px] font-semibold shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95"
+                  className="bg-michi-sake hover:bg-michi-sake! min-h-11 font-semibold text-stone-950 hover:brightness-110"
                 >
                   <Link href={locationSection.actionHref || "/location"}>
                     {locationSection.actionLabel}
