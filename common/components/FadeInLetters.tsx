@@ -1,6 +1,7 @@
 // Feature fade-in About letra a letra — envoltorio cliente mínimo.
-// La página `app/about/page.tsx` sigue en servidor y delega solo la
-// animación a este hijo con props serializables (ver guía
+// Actualmente solo lo usa el lema del home (`app/page.tsx`); la página
+// `app/about/page.tsx` usa fundido por bloque con `animate-fade-in`.
+// Recibe props serializables (ver guía
 // `node_modules/next/dist/docs/.../05-server-and-client-components.md`).
 // Reutiliza la aparición del tema global (fundido con leve desplazamiento
 // vertical) con retardo creciente por letra y base continua entre bloques;

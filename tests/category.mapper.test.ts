@@ -34,13 +34,20 @@ test("includes the TARTAR category after NIGIRI_SUSHI", () => {
   assert.notEqual(getCategoryDescription("TARTAR"), "");
 });
 
-test("DESSERTS no está en opciones ni tiene título propio (RF-9)", () => {
-  assert.equal(categories.includes("DESSERTS"), false);
-  assert.equal(filterCategories.includes("DESSERTS"), false);
-  assert.equal(filterCategories.includes("Postres"), false);
-  // Lectura tolerante: fallback al key sin romper (CL-7)
-  assert.equal(getCategoryTitle("DESSERTS"), "DESSERTS");
-  assert.equal(getCategoryDescription("DESSERTS"), "");
+test("DESSERTS dual: título «Postres» con descripción (RF-6, RF-7, RF-9)", () => {
+  assert.equal(categories.includes("DESSERTS"), true);
+  assert.equal(getCategoryTitle("DESSERTS"), "Postres");
+  assert.equal(
+    getCategoryDescription("DESSERTS"),
+    "Nuestra selección de postres.",
+  );
+});
+
+test("SPECIAL no es dual: sin título ni distintivo propios", () => {
+  // Solo existe como principal del filtro/listado; no hay entrada por sub.
+  assert.equal(categories.includes("SPECIAL"), false);
+  assert.equal(getCategoryTitle("SPECIAL"), "SPECIAL");
+  assert.equal(getCategoryDescription("SPECIAL"), "");
 });
 
 test("TARTAR y COMBOS conservan su texto (invariantes RF-7/RF-8)", () => {

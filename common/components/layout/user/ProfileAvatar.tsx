@@ -21,7 +21,7 @@ export default function ProfileAvatar({ user }: { user: User }) {
           aria-label="Administrador"
           className="size-3! bg-yellow-400 text-zinc-900 ring-2 ring-background"
         >
-          <Crown className="size-2!" strokeWidth={3} />
+          <Crown className="size-3!" strokeWidth={3} />
         </AvatarBadge>
       )}
     </Avatar>

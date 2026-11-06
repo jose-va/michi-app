@@ -4,7 +4,8 @@ export type MainCategory =
   | "SUSHI_CLASSIC"
   | "MAKIS_ROLLS"
   | "SPECIAL"
-  | "COMBOS";
+  | "COMBOS"
+  | "DESSERTS";
 
 export const MAIN_CATEGORIES: MainCategory[] = [
   "STARTERS",
@@ -13,6 +14,7 @@ export const MAIN_CATEGORIES: MainCategory[] = [
   "MAKIS_ROLLS",
   "SPECIAL",
   "COMBOS",
+  "DESSERTS",
 ];
 
 const mainCategoryInfo: Record<MainCategory, { title: string; description: string }> = {
@@ -39,6 +41,10 @@ const mainCategoryInfo: Record<MainCategory, { title: string; description: strin
   COMBOS: {
     title: "Combinados",
     description: "Selecciones para compartir y descubrir sin complicaciones.",
+  },
+  DESSERTS: {
+    title: "Postres",
+    description: "Nuestra selección de postres.",
   },
 };
 
@@ -81,7 +87,7 @@ export const MAIN_FILTER_OPTIONS: ReadonlyArray<{
 }> = [
   { value: "all", label: "Todas" },
   { value: "featured", label: "Destacados" },
-  ...MAIN_CATEGORIES.map((main) => ({
+  ...MAIN_CATEGORIES.filter((main) => main !== "DESSERTS").map((main) => ({
     value: main,
     label: mainCategoryInfo[main].title,
   })),

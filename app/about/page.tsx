@@ -1,10 +1,8 @@
 import Image from "next/image";
 import { montserrat, centuryGothic } from "@/app/fonts/font";
-import FadeInLetters from "@/common/components/FadeInLetters";
 import CatLottie from "@/common/components/CatLottie";
 import {
   ABOUT_KANJI,
-  ABOUT_SIGNATURE,
   ABOUT_SIGNATURE_IMAGE_ALT,
   ABOUT_SIGNATURE_IMAGE_HEIGHT,
   ABOUT_SIGNATURE_IMAGE_SRC,
@@ -14,14 +12,9 @@ import {
   getAboutParagraphs,
 } from "@/common/utils/about-content";
 
-export default function AboutPage() {
-  const paragraphBaseIndexes: number[] = [];
-  let runningChars = ABOUT_TITLE.length;
-  for (const paragraph of getAboutParagraphs()) {
-    paragraphBaseIndexes.push(runningChars);
-    runningChars += paragraph.length;
-  }
+const ABOUT_PARAGRAPH_STAGGER_MS = 120;
 
+export default function AboutPage() {
   return (
     <section className="relative px-0 pt-7 pb-4 md:py-10 lg:pb-28">
       <article
@@ -46,12 +39,13 @@ export default function AboutPage() {
             {getAboutParagraphs().map((paragraph, paragraphIndex) => (
               <p
                 key={paragraph}
-                className="text-justify text-sm leading-relaxed hyphens-auto text-zinc-200 md:text-base"
+                className="animate-fade-in text-justify text-sm leading-relaxed hyphens-auto text-zinc-200 opacity-0 motion-reduce:animate-none motion-reduce:opacity-100 md:text-base"
+                style={{
+                  animationDelay: `${paragraphIndex * ABOUT_PARAGRAPH_STAGGER_MS}ms`,
+                  animationFillMode: "both",
+                }}
               >
-                <FadeInLetters
-                  text={paragraph}
-                  baseIndex={paragraphBaseIndexes[paragraphIndex] ?? 0}
-                />
+                {paragraph}
               </p>
             ))}
           </div>

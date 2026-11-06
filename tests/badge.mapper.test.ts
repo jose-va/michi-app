@@ -29,9 +29,22 @@ test("HOT_STARTERS and HOT_MAKI badges are visually distinct", () => {
   assert.equal(getCategoryBadge("HOT_MAKI"), "bg-red-800 text-red-100");
 });
 
-test("DESSERTS no tiene distintivo propio, usa fallback (RF-9)", () => {
+test("DESSERTS dual tiene distintivo propio «Postres» (RF-6, RF-7, RF-9)", () => {
+  // Fucsia inédito en la paleta (-950/300 como el resto de distintivos oscuros).
   assert.equal(
     getCategoryBadge("DESSERTS"),
+    "bg-fuchsia-950 text-fuchsia-300",
+  );
+  assert.notEqual(
+    getCategoryBadge("DESSERTS"),
+    getCategoryBadge("UNKNOWN_CATEGORY"),
+  );
+  assert.notEqual(getCategoryBadge("DESSERTS"), getCategoryBadge("COMBOS"));
+});
+
+test("SPECIAL no es dual: sin distintivo propio, usa fallback", () => {
+  assert.equal(
+    getCategoryBadge("SPECIAL"),
     getCategoryBadge("UNKNOWN_CATEGORY"),
   );
 });

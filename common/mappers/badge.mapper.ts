@@ -15,6 +15,9 @@ const categoryBadges = new Map<string, string>([
   ["HOT_MAKI", "bg-red-800 text-red-100"],
   ["SPECIAL_MAKI", "bg-indigo-800 text-indigo-100"],
   ["COMBOS", "bg-cyan-800 text-cyan-100"],
+  // DESSERTS dual «Postres»: fucsia inédito en la paleta de distintivos,
+  // en patrón -950/300 como el resto de distintivos oscuros.
+  ["DESSERTS", "bg-fuchsia-950 text-fuchsia-300"],
 ]);
 
 export function getCategoryBadge(category: string): string {

@@ -106,7 +106,17 @@
 }
 
 @theme {
+  --animate-fade-in: fade-in 0.6s ease-out;
   --animate-fade-in-up: fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 
   @keyframes fade-in-up {
     0% {
@@ -311,6 +321,9 @@
 /* About fade-in: con movimiento reducido se muestra el texto final
    inmediato, sin aparición ni desplazamiento. */
 @media (prefers-reduced-motion: reduce) {
+  .animate-fade-in {
+    animation: none;
+  }
   .animate-fade-in-up {
     animation: none;
   }
