@@ -1,12 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { Button } from "@/shadcn/components/button";
-import { Badge } from "@/shadcn/components/badge";
 import { Alert, AlertDescription } from "@/shadcn/components/alert";
+import { Label } from "@/shadcn/components/label";
+import { Switch } from "@/shadcn/components/switch";
 import {
   canShowPushSettings,
-  pushStatusText,
   resolvePushStatus,
   type PushUiStatus,
 } from "@/common/utils/push-status";
@@ -19,7 +18,6 @@ import {
   activatePushSubscription,
   deactivatePushSubscription,
 } from "@/common/utils/push-subscription";
-import { requestPushTest } from "@/common/utils/push-test";
 import { PushService } from "@/service/PushService";
 
 // Entorno compatible con avisos push (RF-21, RNF-6): notificaciones y
@@ -88,12 +86,12 @@ async function subscribeBrowserDevice(applicationServerKey: Uint8Array) {
 }
 
 // Control de avisos de nueva reserva, solo administración (RF-1, RF-2,
-// RF-4, RF-6, RF-7, RF-18, RF-19, RF-21, RF-22, RNF-1, RNF-4): muestra un único
-// estado en español y los botones «Activar avisos», «Probar aviso» y
-// «Desactivar avisos».
-// Solo la respuesta 2xx observable deja «Avisos activados»; cualquier fallo
-// informa en español con reintento manual y sin estados falsos. Sin soporte
-// muestra «Avisos no soportados» y el resto de la web sigue operativa.
+// RF-4, RF-6, RF-7, RF-19, RF-21, RF-22, RNF-1, RNF-4): sección
+// plana sin recuadro con un Switch shadcn («Activar avisos», activado solo
+// con «Avisos activados»). Solo la respuesta 2xx observable deja «Avisos
+// activados»; cualquier fallo informa en español con reintento manual y sin
+// estados falsos. Sin Badge: en bloqueado/no soportado basta el switch
+// apagado y deshabilitado, y el resto de la web sigue operativa.
 export default function PushSettings({
   userRole,
 }: {
@@ -163,61 +161,38 @@ export default function PushSettings({
     }
   }, []);
 
-  const probe = useCallback(async () => {
-    setBusy(true);
-    setMessage(null);
-    try {
-      const result = await requestPushTest({
-        requestTest: () => PushService.requestTest(),
-      });
-      setMessage(result.message);
-    } finally {
-      setBusy(false);
-    }
-  }, []);
+  // El interruptor conserva los flujos existentes sin estados falsos:
+  // encender pide el alta real (activate) y apagar da de baja (deactivate).
+  const toggle = useCallback(
+    (next: boolean) => (next ? activate() : deactivate()),
+    [activate, deactivate],
+  );
 
   if (!canShowPushSettings(userRole)) return null;
 
-  const text = pushStatusText(status);
+  // Sin Badge: en bloqueado/no soportado basta el switch apagado y
+  // deshabilitado; el Alert destructivo informa de cada resultado.
+  const switchDisabled =
+    busy || status === "blocked" || status === "unsupported";
 
   return (
-    <section
-      aria-live="polite"
-      aria-label="Avisos de nueva reserva"
-      className="rounded-lg border bg-background p-4"
-    >
-      <p className="text-sm font-semibold">Avisos de nueva reserva</p>
-      {text ? (
-        <div className="mt-1">
-          <Badge variant="secondary">{text}</Badge>
-        </div>
-      ) : null}
+    <section aria-live="polite" aria-label="Activar avisos">
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <Label htmlFor="push-avisos-switch">Activar avisos</Label>
+        <Switch
+          id="push-avisos-switch"
+          checked={status === "active"}
+          onCheckedChange={(next) => {
+            void toggle(next);
+          }}
+          disabled={switchDisabled}
+        />
+      </div>
       {message ? (
-        <Alert className="mt-2">
+        <Alert variant="destructive" className="mt-2 w-full">
           <AlertDescription>{message}</AlertDescription>
         </Alert>
       ) : null}
-      <div className="mt-3 flex flex-wrap gap-2">
-        {status === "active" ? (
-          <>
-            <Button type="button" onClick={probe} disabled={busy}>
-              Probar aviso
-            </Button>
-            <Button
-              type="button"
-              onClick={deactivate}
-              disabled={busy}
-              variant="outline"
-            >
-              Desactivar avisos
-            </Button>
-          </>
-        ) : (
-          <Button type="button" onClick={activate} disabled={busy}>
-            Activar avisos
-          </Button>
-        )}
-      </div>
     </section>
   );
 }

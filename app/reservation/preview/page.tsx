@@ -1,5 +1,5 @@
-import AdminReservations from "@/common/components/pages/reservation/AdminReservations";
 import PushSettings from "@/common/components/admin/PushSettings";
+import AdminReservations from "@/common/components/pages/reservation/AdminReservations";
 import SkeletonCards from "@/common/components/skeletons/SkeletonCards";
 import {
   formatDayLabel,
@@ -29,12 +29,12 @@ export default async function ReservationPreview({
     const selected = resolveSelectedDateKey(raw, today);
     return (
       <>
+        <PushSettings userRole={user.role} />
         <ReservationDayNavigator
           date={selected}
           today={today}
           label={formatDayLabel(selected)}
         />
-        <PushSettings userRole={user.role} />
         <Suspense fallback={<SkeletonCards />} key={selected}>
           <AdminReservations date={selected} />
         </Suspense>

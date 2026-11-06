@@ -120,22 +120,4 @@ export class PushService {
       return { ok: false, status: 0 };
     }
   }
-
-  static async requestTest(
-    overrides?: PushServiceOverrides,
-  ): Promise<PushStatusResult> {
-    const fetcher = overrides?.fetcher ?? fetch;
-    try {
-      const response = await fetcher(
-        sameOriginUrl(overrides, "/api/push/test"),
-        { method: "POST" },
-      );
-      return { ok: response.ok, status: response.status };
-    } catch {
-      console.error(
-        "No se ha podido encargar el aviso de prueba. Comprueba tu conexión e inténtalo de nuevo.",
-      );
-      return { ok: false, status: 0 };
-    }
-  }
 }

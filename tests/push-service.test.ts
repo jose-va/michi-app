@@ -173,42 +173,12 @@ test("unsubscribe propaga el 403 e informa el fallo de red sin el extremo", asyn
   assert.ok(!loggedText(err).includes(SUB.endpoint));
 });
 
-test("requestTest pide la prueba de difusión al proxy", async (t) => {
-  const { fetcher, urls, inits } = recorder(
-    () => new Response(null, { status: 200 }),
-  );
-  stubError(t);
-  const result = await PushService.requestTest({ fetcher, baseUrl: BASE });
-  assert.equal(urls[0], `${BASE}/api/push/test`);
-  assert.equal(inits[0]?.method, "POST");
-  assert.deepEqual(result, { ok: true, status: 200 });
-});
-
-test("requestTest propaga el 403 e informa el fallo de red", async (t) => {
-  const denied = recorder(() => new Response(null, { status: 403 }));
-  stubError(t);
-  assert.deepEqual(
-    await PushService.requestTest({ fetcher: denied.fetcher, baseUrl: BASE }),
-    { ok: false, status: 403 },
-  );
-  const down = recorder(() => {
-    throw new TypeError("fetch failed");
-  });
-  const err = stubError(t);
-  assert.deepEqual(
-    await PushService.requestTest({ fetcher: down.fetcher, baseUrl: BASE }),
-    { ok: false, status: 0 },
-  );
-  assert.equal(err.mock.callCount(), 1);
-});
-
 // --- Proxy mismo origen (rutas app/api/push/*) ---
 
 async function loadRoutes() {
   const publicKey = await import("../app/api/push/public-key/route");
   const subscriptions = await import("../app/api/push/subscriptions/route");
-  const pushTest = await import("../app/api/push/test/route");
-  return { publicKey, subscriptions, pushTest };
+  return { publicKey, subscriptions };
 }
 
 function stubBackend(
@@ -479,68 +449,6 @@ test("proxy subscriptions informa el fallo de red sin exponer la suscripción", 
     assert.equal(res.status, 502);
     assert.equal(err.mock.callCount(), 1);
     assert.ok(!loggedText(err).includes(SUB.endpoint));
-  } finally {
-    backend.restore();
-    profile.mock.restore();
-  }
-});
-
-test("proxy test exige admin y difunde con Cookie y User-Role", async (t) => {
-  const { pushTest } = await loadRoutes();
-  const denied = mockProfile(t, null);
-  const idle = stubBackend(t, () => new Response(null, { status: 200 }));
-  stubError(t);
-  try {
-    const res = await pushTest.POST(
-      new Request(`${BASE}/api/push/test`, {
-        method: "POST",
-        headers: { cookie: "token=sesion-1" },
-      }) as never,
-    );
-    assert.equal(res.status, 403);
-    assert.equal(idle.urls.length, 0);
-  } finally {
-    idle.restore();
-    denied.mock.restore();
-  }
-  const profile = mockProfile(t, "ROLE_ADMIN");
-  const backend = stubBackend(t, () => new Response(null, { status: 200 }));
-  try {
-    const res = await pushTest.POST(
-      new Request(`${BASE}/api/push/test`, {
-        method: "POST",
-        headers: { cookie: "token=sesion-1" },
-      }) as never,
-    );
-    assert.equal(res.status, 200);
-    assert.equal(backend.urls[0], `${BACKEND}/reservations/push/test`);
-    const headers = new Headers(backend.inits[0]?.headers);
-    assert.equal(headers.get("cookie"), "token=sesion-1");
-    assert.equal(headers.get("user-role"), "ROLE_ADMIN");
-  } finally {
-    backend.restore();
-    profile.mock.restore();
-  }
-});
-
-test("proxy test informa el fallo de red en español", async (t) => {
-  const { pushTest } = await loadRoutes();
-  const profile = mockProfile(t, "ROLE_ADMIN");
-  const backend = stubBackend(t, () => {
-    throw new TypeError("fetch failed");
-  });
-  const err = stubError(t);
-  try {
-    const res = await pushTest.POST(
-      new Request(`${BASE}/api/push/test`, {
-        method: "POST",
-        headers: { cookie: "token=sesion-1" },
-      }) as never,
-    );
-    assert.equal(res.status, 502);
-    const body = await res.json();
-    assert.ok(typeof body.error === "string" && body.error.length > 0);
-    assert.equal(err.mock.callCount(), 1);
   } finally {
     backend.restore();
     profile.mock.restore();

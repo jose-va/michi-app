@@ -2,7 +2,6 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, it } from "node:test";
-import { PUSH_STATUS_TEXT } from "@/common/utils/push-status";
 import {
   PUSH_NOTIFICATION_ICON,
   PUSH_NOTIFICATION_TITLE,
@@ -17,15 +16,14 @@ function src(path: string): string {
 
 describe("T9 barrido de textos, privacidad y tema (RF-19, RF-21; RNF-1, RNF-2, RNF-3, RNF-4, RNF-6)", () => {
   it("lista cerrada de textos exactos en español (RNF-1)", () => {
+    // Sin Badge en la UI: los textos de estado (PUSH_STATUS_TEXT) son
+    // lógica pura cubierta en push-status.test.ts y ya no se exigen aquí.
     assert.equal(PUSH_NOTIFICATION_TITLE, "Nueva reserva");
-    assert.equal(PUSH_STATUS_TEXT.active, "Avisos activados");
-    assert.equal(PUSH_STATUS_TEXT.blocked, "Avisos bloqueados");
-    assert.equal(PUSH_STATUS_TEXT.unsupported, "Avisos no soportados");
     assert.equal(PUSH_NOTIFICATION_ICON, "/icons/manifest-icon-192.png");
     assert.equal(PUSH_NOTIFICATION_URL, "/reservation/preview");
     const settings = src("common/components/admin/PushSettings.tsx");
     assert.ok(settings.includes("Activar avisos"));
-    assert.ok(settings.includes("Probar aviso"));
+    assert.ok(!settings.includes("Probar aviso"));
   });
 
   it("cero secretos o suscripciones en cliente, consola o repo (RF-19, RNF-2)", () => {
@@ -33,10 +31,8 @@ describe("T9 barrido de textos, privacidad y tema (RF-19, RF-21; RNF-1, RNF-2, R
       "service/PushService.ts",
       "common/components/admin/PushSettings.tsx",
       "common/utils/push-subscription.ts",
-      "common/utils/push-test.ts",
       "app/api/push/public-key/route.ts",
       "app/api/push/subscriptions/route.ts",
-      "app/api/push/test/route.ts",
       "public/sw.js",
     ]) {
       const text = src(path);
@@ -68,13 +64,24 @@ describe("T9 barrido de textos, privacidad y tema (RF-19, RF-21; RNF-1, RNF-2, R
   it("tema visual existente respetado (RNF-4)", () => {
     for (const path of ["common/components/admin/PushSettings.tsx"]) {
       const text = src(path);
-      assert.ok(text.includes("rounded-lg"));
-      assert.ok(
-        text.includes("bg-primary") ||
-          text.includes("bg-background") ||
-          text.includes("bg-amber-500") ||
-          text.includes("hover:bg-accent"),
-      );
+      // Diseño plano aprobado: sección semántica sin recuadro oscuro
+      // y sin Badge (basta el switch apagado + Alert destructivo).
+      assert.ok(!text.includes("rounded-lg border bg-background"));
+      assert.ok(!text.includes("rounded-lg"));
+      assert.ok(!text.includes("@/shadcn/components/badge"));
+      assert.ok(!text.includes("<Badge"));
+      assert.ok(!text.includes("@/shadcn/components/button"));
+      assert.ok(!text.includes("<Button"));
+      // Tema shadcn respetado mediante el sistema de diseño existente
+      // (sección plana sin Button: solo Switch + Alert).
+      assert.ok(text.includes("@/shadcn/components/alert"));
+      assert.ok(text.includes("@/shadcn/components/switch"));
+      assert.ok(text.includes("<Alert"));
+      assert.ok(text.includes("<Switch"));
+      // Alert de error/aviso: variante destructiva (roja), debajo del
+      // switch y a ancho completo.
+      assert.ok(text.includes('variant="destructive"'));
+      assert.ok(text.includes("w-full"));
     }
   });
 
