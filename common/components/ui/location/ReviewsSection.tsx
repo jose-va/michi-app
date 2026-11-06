@@ -53,15 +53,7 @@ export default function ReviewsSection({
                 className="inline-block animate-float"
               >
                 <span aria-hidden="true">
-                  {"⭐".repeat(
-                    Math.min(5, Math.max(0, Math.round(view.ratingValue))),
-                  )}
-                  {"☆".repeat(
-                    Math.max(
-                      0,
-                      5 - Math.min(5, Math.max(0, Math.round(view.ratingValue))),
-                    ),
-                  )}
+                  {"⭐".repeat(5)}
                 </span>
               </span>
             )}

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { montserrat,  centuryGothic} from "@/app/fonts/font";
+import { montserrat, centuryGothic } from "@/app/fonts/font";
 import FadeInLetters from "@/common/components/FadeInLetters";
 import CatLottie from "@/common/components/CatLottie";
 import {
@@ -21,23 +21,23 @@ export default function AboutPage() {
     paragraphBaseIndexes.push(runningChars);
     runningChars += paragraph.length;
   }
-  
+
   return (
     <section className="relative px-0 pt-7 pb-4 md:py-10 lg:pb-28">
       <article
         lang="es"
-        className={`${montserrat.className} relative mx-auto w-full max-w-prose overflow-hidden rounded-lg border border-white/10 bg-black/80 text-zinc-100 shadow-lg backdrop-blur-md`}
+        className={`${montserrat.className} relative mx-auto w-full max-w-prose overflow-hidden rounded-lg border border-white/10 bg-black/90 text-zinc-100 shadow-lg backdrop-blur-md`}
       >
         <div className="relative p-5 md:p-8">
           <header className="mb-4 flex items-center justify-between gap-4 border-b border-white/20 pb-4">
             <h1
-              className={`${centuryGothic.className} text-xl font-normal tracking-[0.2em] uppercase md:text-3xl`}
+              className={`${centuryGothic.className} text-lg font-semibold tracking-widest uppercase md:text-2xl`}
             >
               <FadeInLetters text={ABOUT_TITLE} baseIndex={0} />
             </h1>
             <span
               aria-hidden="true"
-              className={`${centuryGothic.className} text-3xl md:text-4xl`}
+              className={`${centuryGothic.className} hover:shadow-6xl text-3xl shadow-3xl transition-transform duration-300 hover:scale-110 hover:brightness-150 md:text-4xl`}
             >
               {ABOUT_KANJI}
             </span>
@@ -46,7 +46,7 @@ export default function AboutPage() {
             {getAboutParagraphs().map((paragraph, paragraphIndex) => (
               <p
                 key={paragraph}
-                className="text-sm leading-relaxed text-justify hyphens-auto text-zinc-200 md:text-base"
+                className="text-justify text-sm leading-relaxed hyphens-auto text-zinc-200 md:text-base"
               >
                 <FadeInLetters
                   text={paragraph}
@@ -63,9 +63,7 @@ export default function AboutPage() {
               height={ABOUT_SIGNATURE_IMAGE_HEIGHT}
               className="mx-auto h-auto w-36"
             />
-            <p className="mt-2 text-sm tracking-wide text-zinc-100 italic md:text-base">
-
-            </p>
+            <p className="mt-2 text-sm tracking-wide text-zinc-100 italic md:text-base"></p>
           </footer>
         </div>
         <div

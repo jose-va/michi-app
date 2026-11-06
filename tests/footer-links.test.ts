@@ -13,10 +13,10 @@ describe("Enlaces del Bloque Secciones del footer (RF-3)", () => {
   it("tiene etiquetas y hrefs exactos en orden", () => {
     assert.deepEqual(FOOTER_SECTIONS, [
       { label: "Inicio", href: "/" },
-      { label: "Nosotros", href: "/about" },
       { label: "Carta", href: "/product" },
       { label: "Reservar", href: "/reservation" },
       { label: "Ubicación", href: "/location" },
+      { label: "Conócenos", href: "/about" },
     ]);
   });
 
@@ -35,9 +35,9 @@ describe("Enlaces del Bloque Información legal del footer (RF-5)", () => {
 
   it("tiene etiquetas y hrefs exactos en orden", () => {
     assert.deepEqual(FOOTER_LEGAL, [
-      { label: "Política de privacidad", href: "/privacidad" },
       { label: "Aviso legal", href: "/aviso-legal" },
-      { label: "Política de cookies", href: "/cookies" },
+      { label: "Privacidad", href: "/privacidad" },
+      { label: "Cookies", href: "/cookies" },
     ]);
   });
 

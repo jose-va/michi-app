@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 const BASE_URL = "https://michisushigranada.es";
-const LAST_MODIFIED = "2026-11-05";
+const LAST_MODIFIED = "2026-11-06";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -20,14 +20,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${BASE_URL}/reservation`,
       lastModified: LAST_MODIFIED,
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: `${BASE_URL}/location`,
       lastModified: LAST_MODIFIED,
       changeFrequency: "monthly",
-      priority: 0.8,
+      priority: 0.7,
     },
     {
       url: `${BASE_URL}/about`,
@@ -39,25 +39,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${BASE_URL}/cancelar`,
       lastModified: LAST_MODIFIED,
       changeFrequency: "monthly",
-      priority: 0.4,
+      priority: 0.2,
     },
     {
       url: `${BASE_URL}/aviso-legal`,
       lastModified: LAST_MODIFIED,
       changeFrequency: "yearly",
-      priority: 0.3,
+      priority: 0.2,
     },
     {
       url: `${BASE_URL}/cookies`,
       lastModified: LAST_MODIFIED,
       changeFrequency: "yearly",
-      priority: 0.3,
+      priority: 0.2,
     },
     {
       url: `${BASE_URL}/privacidad`,
       lastModified: LAST_MODIFIED,
       changeFrequency: "yearly",
-      priority: 0.3,
+      priority: 0.2,
     },
   ];
 }

@@ -24,8 +24,7 @@ import { normalizeUserKey } from "@/common/utils/profile-reservations";
 import { useUser } from "../../provider/UserProvider";
 import { Hours } from "@/common/types/hour.types";
 
-const SIDE_IMAGE_SRC =
-  "/images/2326ceaf-1ded-46d3-b174-c7c6cfe55ed6.webp";
+const SIDE_IMAGE_SRC = "/images/2326ceaf-1ded-46d3-b174-c7c6cfe55ed6.webp";
 const SIDE_IMAGE_ALT = "Local Michi Sushi Granada";
 
 const STEP_COPY = {
@@ -39,7 +38,7 @@ const STEP_COPY = {
   },
 } as const;
 
-// El local cierra los domingos: si hoy es domingo, se propone el lunes
+
 const getDefaultDate = () => {
   const today = new Date();
   return today.getDay() === 0 ? addDays(today, 1) : today;
@@ -77,7 +76,7 @@ export function ReservationPage({ hours }: { hours: Hours }) {
     // tal cual tras un trim y, solo si no hay hora, omite el tramo `a las ...`.
     const whatsappUrl = buildReservationWhatsappUrl(
       fecha,
-      data.startTime || form.getValues("startTime"),
+      data.startTime || form.getValues("startTime")
     );
     try {
       // Quitamos `user`: la identidad la resuelve el servidor con la sesión.

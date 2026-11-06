@@ -14,8 +14,8 @@ export const FOOTER_SECTIONS: FooterLink[] = [
 ];
 
 export const FOOTER_LEGAL: FooterLink[] = [
-  { label: "Política de privacidad", href: "/privacidad" },
   { label: "Aviso legal", href: "/aviso-legal" },
+  { label: "Privacidad", href: "/privacidad" },
   { label: "Cookies", href: "/cookies" },
 ];
 
@@ -24,30 +24,35 @@ export interface FooterContactItem {
   href: string;
   display?: string;
   external?: boolean;
+  icon: "phone" | "whatsapp" | "instagram" | "mail";
 }
 
 export const FOOTER_CONTACT_TITLE = "Contacto";
 
 export const FOOTER_CONTACT: FooterContactItem[] = [
   {
-    label: "Teléfono",
-    href: "tel:+34673821148",
-    display: "673 821 148",
+    label: "Instagram",
+    href: "https://www.instagram.com/michisushigranada",
+    external: true,
+    icon: "instagram",
   },
   {
     label: "WhatsApp",
     href: "https://api.whatsapp.com/send/?phone=34673821148",
     external: true,
+    icon: "whatsapp",
   },
   {
-    label: "Instagram",
-    href: "https://www.instagram.com/michisushigranada",
-    external: true,
+    label: "Teléfono",
+    href: "tel:+34673821148",
+    display: "673 821 148",
+    icon: "phone",
   },
   {
     label: "Correo",
     href: "mailto:michisushigranada@gmail.com",
     display: "michisushigranada@gmail.com",
+    icon: "mail",
   },
 ];
 

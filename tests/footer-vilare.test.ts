@@ -13,8 +13,8 @@ describe("Crédito Vilare en la línea de cierre (RF-23, T18)", () => {
     assert.ok(source.includes("Diseñado por"));
   });
 
-  it("usa la imagen Vilare con alt exacto y hueco 160×64 sin deformar", () => {
-    assert.ok(source.includes("/logos/LOGO-VILARE.webp"));
+  it("usa la imagen Vilare SVG con alt exacto y hueco 160×64 sin deformar", () => {
+    assert.ok(source.includes("/logos/VILARE.svg"));
     assert.ok(source.includes('alt="Desarrollado por Vilare"'));
     assert.ok(source.includes("h-[64px] w-[160px]"));
     assert.ok(source.includes("object-contain"));
@@ -25,13 +25,11 @@ describe("Crédito Vilare en la línea de cierre (RF-23, T18)", () => {
     assert.ok(!source.includes("md:grid-cols-5"));
   });
 
-  it("el logo Vilare no está envuelto en enlace", () => {
-    const vilareIndex = source.indexOf("/logos/LOGO-VILARE.webp");
-    assert.ok(vilareIndex > 0);
-    const before = source.slice(Math.max(0, vilareIndex - 500), vilareIndex);
-    const openAnchors = (before.match(/<a[\s>]/g) ?? []).length;
-    const closeAnchors = (before.match(/<\/a>/g) ?? []).length;
-    assert.equal(openAnchors, closeAnchors);
-    assert.ok(!before.slice(closeAnchors === 0 ? 0 : before.lastIndexOf("</a>")).includes("<a"));
+  it("el logo Vilare enlaza a su LinkedIn en pestaña nueva", () => {
+    assert.ok(source.includes("https://www.linkedin.com/in/vilare/"));
+    assert.ok(source.includes('target="_blank"'));
+    assert.ok(source.includes('rel="noopener noreferrer"'));
+    assert.ok(source.includes("group-hover:brightness-125"));
+    assert.ok(source.includes("cursor-pointer"));
   });
 });

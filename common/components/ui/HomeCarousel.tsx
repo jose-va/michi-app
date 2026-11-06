@@ -18,7 +18,7 @@ export interface HomeCarouselProps {
 }
 
 export function HomeCarousel({ images = DEFAULT_CAROUSEL_IMAGES }: HomeCarouselProps) {
-  const [autoplay] = useState(() => Autoplay());
+  const [autoplay] = useState(() => Autoplay({ delay: 3000, stopOnInteraction: false }));
 
   return (
     <Carousel
