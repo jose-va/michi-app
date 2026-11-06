@@ -1,6 +1,6 @@
 "use client";
 
-import { Utensils } from "lucide-react";
+import { PackageCheck } from "lucide-react";
 import { activateProducts } from "@/lib/server-actions";
 import { toast } from "sonner";
 
@@ -12,10 +12,9 @@ export default function ActivateAllButton() {
   };
 
   return (
-    <Utensils
-      className="size-7.5 text-white hover:scale-105 hover:cursor-pointer hover:text-white hover:animate-bounce"
+    <PackageCheck
+      className="size-8 text-zinc-200 hover:scale-105 hover:cursor-pointer hover:text-white"
       onClick={handleActivate}
     />
   );
 }
- 

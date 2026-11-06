@@ -1,4 +1,3 @@
-import CategoryTab from "@/common/components/layout/product/CategoryTab";
 import { CategorySelect } from "@/common/components/layout/product/CategorySelect";
 import ProductSearch from "@/common/components/layout/product/ProductSearch";
 import UberSync from "@/common/components/layout/product/UberSync";
@@ -17,22 +16,19 @@ export default async function ProductLayout({
 
   return (
     <>
-      {/* <CategoryTab /> */}
 
       <div className="relative flex w-full flex-wrap items-center gap-4">
         <ProductSearch />
         <div className="flex items-center gap-3">
           <AllergenSelect />
-          <CategorySelect />
-          {user?.role !== "ROLE_ADMIN" && <CartaDownloadButton />}
+          <CategorySelect /> 
+          
         </div>
 
-        {user?.role === "ROLE_ADMIN" && (
-          <div className="ml-auto flex gap-3">
-            <ActivateButton />
-            <UberSync />
-          </div>
-        )}
+        <div className="ml-auto flex gap-3">  
+          {user?.role === "ROLE_ADMIN" ? <ActivateButton /> : <CartaDownloadButton />}
+          <UberSync />
+        </div>
       </div>
       {children}
     </>

@@ -6,7 +6,7 @@ import {
   AvatarImage,
 } from "@/shadcn/components/avatar";
 
-import { Crown } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 
 export default function ProfileAvatar({ user }: { user: User }) {
   return (
@@ -19,9 +19,9 @@ export default function ProfileAvatar({ user }: { user: User }) {
         <AvatarBadge
           title="Administrador"
           aria-label="Administrador"
-          className="size-3! bg-yellow-400 text-zinc-900 ring-2 ring-background"
+          className="size-3.5! bg-yellow-400 text-zinc-900 ring-background ring-1"
         >
-          <Crown className="size-3!" strokeWidth={3} />
+          <ShieldCheck className="size-3!" strokeWidth={3.5} />
         </AvatarBadge>
       )}
     </Avatar>
