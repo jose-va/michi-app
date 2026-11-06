@@ -19,11 +19,13 @@ const LETTER_STAGGER_MS = 15;
 type FadeInLettersProps = {
   text: string;
   baseIndex?: number;
+  staggerMs?: number;
 };
 
 export default function FadeInLetters({
   text,
   baseIndex = 0,
+  staggerMs = LETTER_STAGGER_MS,
 }: FadeInLettersProps) {
   const letters = Array.from(text);
   return (
@@ -31,7 +33,7 @@ export default function FadeInLetters({
       <span aria-hidden="true">
         {letters.map((letter, letterIndex) => {
           const style: CSSProperties = {
-            animationDelay: `${(baseIndex + letterIndex) * LETTER_STAGGER_MS}ms`,
+            animationDelay: `${(baseIndex + letterIndex) * staggerMs}ms`,
             animationFillMode: "both",
           };
           return (

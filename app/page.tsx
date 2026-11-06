@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { montserrat, playfair, sigokae, centuryGothic } from "./fonts/font";
 import { HomeCarousel } from "@/common/components/ui/HomeCarousel";
+import FadeInLetters from "@/common/components/FadeInLetters";
 import { RevealOnScroll } from "@/common/components/ui/RevealOnScroll";
 import GoogleMaps from "@/common/components/ui/location/GoogleMaps";
 import { Button } from "@/shadcn/components/button";
@@ -116,8 +117,7 @@ export default function Home() {
         </section>
 
         <div className="flex flex-col gap-14 md:gap-20">
-          <RevealOnScroll>
-            <section
+          <section
               id="seccion-lema"
               aria-label="Lema del restaurante"
               className="mx-auto -mt-2 w-full max-w-3xl bg-transparent text-center md:mt-0"
@@ -132,11 +132,10 @@ export default function Home() {
               <p
                 className={`${centuryGothic.className} text-2xl leading-relaxed text-zinc-300 italic md:text-3xl`}
               >
-                &ldquo;{mottoSection.description}&rdquo;
+                &ldquo;<FadeInLetters text={mottoSection.description} />&rdquo;
               </p>
             </div>
             </section>
-          </RevealOnScroll>
 
           <RevealOnScroll>
             <section

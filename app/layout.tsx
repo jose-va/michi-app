@@ -37,8 +37,14 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/logos/logo_michi.webp",
-        type: "image/webp",
+        url: "/icon.png",
+        type: "image/png",
+        sizes: "192x192",
+      },
+      {
+        url: "/favicon.ico",
+        type: "image/x-icon",
+        sizes: "16x16 32x32 48x48",
       },
     ],
     apple: "/icons/apple-touch-icon-180.png",
