@@ -10,7 +10,7 @@ export function getCancelErrorMessage(result: CancelFailure): string {
   if (result.status === 409) {
     return result.message && result.message.length > 0
       ? result.message
-      : "No se ha podido cancelar su reserva";
+      : "No se ha podido cancelar su reserva, contáctenos por WhatsApp";
   }
   return "Error inesperado, inténtalo de nuevo por favor";
 }

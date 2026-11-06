@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CalendarX2, Loader2Icon } from "lucide-react";
@@ -72,7 +73,7 @@ export function CancelReservationPage({
         return;
       }
       if (result.status === 409) {
-        setError("No se ha podido cancelar su reserva");
+        setError("No se ha podido cancelar su reserva, contáctenos por WhatsApp");
         setWhatsappUrl(buildCancelWhatsappUrl("", undefined));
         setRetryable(false);
       } else {
@@ -108,34 +109,37 @@ export function CancelReservationPage({
         </div>
 
         {error && (
-          <div className="flex flex-col gap-3 rounded-md border border-destructive/40 bg-destructive/10 p-3">
-            <p
-              role="alert"
-              className="text-sm font-medium text-destructive"
+          <p
+            role="alert"
+            className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm font-medium text-destructive"
+          >
+            {error}
+          </p>
+        )}
+
+        {whatsappUrl && (
+          <Button
+            type="button"
+            variant="secondary"
+            asChild
+            className="bg-white font-semibold text-zinc-900 hover:bg-zinc-100"
+          >
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              {error}
-            </p>
-            {whatsappUrl && (
-              <>
-                <p className="text-sm text-zinc-300">
-                  Contáctenos por WhatsApp
-                </p>
-                <Button
-                  type="button"
-                  asChild
-                  className="bg-primary font-semibold hover:bg-primary! hover:brightness-110"
-                >
-                  <a
-                    href={whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Abrir Whatsapp
-                  </a>
-                </Button>
-              </>
-            )}
-          </div>
+              <Image
+                src="/icons/Digital_Glyph_Green_RGB_2026.svg"
+                alt=""
+                width={18}
+                height={18}
+                className="h-[18px] w-[18px] shrink-0"
+                loading="lazy"
+              />
+              Abrir Whatsapp
+            </a>
+          </Button>
         )}
 
         <div className="flex flex-col gap-3">

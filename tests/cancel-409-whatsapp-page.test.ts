@@ -29,7 +29,7 @@ test("el mensaje generico de cancelar sigue siendo el aprobado", () => {
   );
 });
 
-test("la pagina deriva el 409 a WhatsApp con titulo fijo", () => {
+test("la pagina deriva el 409 a WhatsApp con texto combinado", () => {
   assert.ok(
     pageSource.includes("result.status === 409"),
     "solo el 409 (menos de 2 horas) lleva WhatsApp",
@@ -39,12 +39,14 @@ test("la pagina deriva el 409 a WhatsApp con titulo fijo", () => {
     "debe componer la URL con el builder existente",
   );
   assert.ok(
-    pageSource.includes("No se ha podido cancelar su reserva"),
-    "titulo fijo en español, como en ReservationCancel",
+    pageSource.includes(
+      "No se ha podido cancelar su reserva, contáctenos por WhatsApp",
+    ),
+    "texto combinado en español dentro del bloque de error",
   );
   assert.ok(
-    pageSource.includes("Contáctenos por WhatsApp"),
-    "debe mantener la descripción existente",
+    !pageSource.includes(">Contáctenos por WhatsApp<"),
+    "el contacto ya no va por separado",
   );
   assert.ok(
     pageSource.includes("Abrir Whatsapp"),
@@ -57,6 +59,18 @@ test("la pagina deriva el 409 a WhatsApp con titulo fijo", () => {
   assert.ok(
     pageSource.includes("noopener"),
     "el enlace debe llevar noopener",
+  );
+  assert.ok(
+    pageSource.includes('variant="secondary"'),
+    "el botón WhatsApp usa shadcn con un formato distinto al primario de Sí, cancelar reserva",
+  );
+  assert.ok(
+    pageSource.includes("bg-white"),
+    "formato blanco sólido parecido a la acción del toast",
+  );
+  assert.ok(
+    pageSource.includes("Digital_Glyph_Green_RGB_2026.svg"),
+    "iconito oficial de WhatsApp reutilizado del footer",
   );
 });
 
@@ -79,6 +93,6 @@ test("el resto de errores mantiene el mensaje plano", () => {
   );
   assert.equal(
     getCancelErrorMessage({ ok: false, status: 404 }),
-    "No encontramos la reserva",
+    "No encontramos su reserva",
   );
 });
