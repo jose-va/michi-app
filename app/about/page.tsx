@@ -11,15 +11,21 @@ import {
   buildAboutImageUrl,
   getAboutParagraphs,
 } from "@/common/utils/about-content";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Sobre nosotros",
+  alternates: { canonical: "/about" },
+};
 
 const ABOUT_PARAGRAPH_STAGGER_MS = 120;
 
 export default function AboutPage() {
   return (
-    <section className="relative px-0 pt-7 pb-4 md:py-10 lg:pb-28">
+    <section className="relative px-0 pt-0 pb-4 md:pb-10 lg:pb-28">
       <article
         lang="es"
-        className={`${montserrat.className} relative mx-auto w-full max-w-prose overflow-hidden rounded-lg border border-white/10 bg-black/90 text-zinc-100 shadow-lg backdrop-blur-md`}
+        className={`${montserrat.className} relative mx-auto w-full max-w-prose overflow-hidden rounded-lg border border-white/10 bg-black/90 text-white shadow-lg backdrop-blur-md`}
       >
         <div className="relative p-5 md:p-8">
           <header className="mb-4 flex items-center justify-between gap-4 border-b border-white/20 pb-4">
@@ -30,7 +36,7 @@ export default function AboutPage() {
             </h1>
             <span
               aria-hidden="true"
-              className={`${centuryGothic.className} hover:shadow-6xl text-3xl shadow-3xl transition-transform duration-300 hover:scale-110 hover:brightness-150 md:text-4xl`}
+              className={`${centuryGothic.className} hover:shadow-6xl shadow-3xl text-3xl transition-transform duration-300 hover:scale-110 hover:brightness-150 md:text-4xl`}
             >
               {ABOUT_KANJI}
             </span>
@@ -39,7 +45,7 @@ export default function AboutPage() {
             {getAboutParagraphs().map((paragraph, paragraphIndex) => (
               <p
                 key={paragraph}
-                className="animate-fade-in text-justify text-sm leading-relaxed hyphens-auto text-zinc-200 opacity-0 motion-reduce:animate-none motion-reduce:opacity-100 md:text-base"
+                className="animate-fade-in text-justify text-sm leading-relaxed hyphens-auto text-zinc-100 opacity-0 motion-reduce:animate-none motion-reduce:opacity-100 md:text-base"
                 style={{
                   animationDelay: `${paragraphIndex * ABOUT_PARAGRAPH_STAGGER_MS}ms`,
                   animationFillMode: "both",
@@ -57,7 +63,6 @@ export default function AboutPage() {
               height={ABOUT_SIGNATURE_IMAGE_HEIGHT}
               className="mx-auto h-auto w-36"
             />
-            <p className="mt-2 text-sm tracking-wide text-zinc-100 italic md:text-base"></p>
           </footer>
         </div>
         <div
@@ -70,7 +75,7 @@ export default function AboutPage() {
             fill
             priority
             sizes="(min-width: 768px) 65ch, 100vw"
-            className="object-cover object-top opacity-30 brightness-80"
+            className="object-cover object-top opacity-30 brightness-75"
           />
         </div>
       </article>

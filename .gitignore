@@ -52,6 +52,8 @@ specs/
 MEMORY.md
 CLAUDE.md
 
+tests/**/*.ts
+
 
 
 

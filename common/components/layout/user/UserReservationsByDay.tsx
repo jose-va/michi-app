@@ -269,7 +269,7 @@ export default function UserReservationsByDay({
         )}
       </nav>
       <div aria-live="polite" className="flex min-w-0 flex-col gap-3">
-        {isPending ? <p className="text-zinc-300">Cargando…</p> : null}
+        {isPending ? <p className="text-white/80">Cargando…</p> : null}
         {!isPending && reservations === null ? (
           <p className="text-michi-aqua">No tienes ninguna reserva</p>
         ) : null}

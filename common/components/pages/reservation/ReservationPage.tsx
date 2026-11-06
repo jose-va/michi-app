@@ -156,7 +156,7 @@ export function ReservationPage({ hours }: { hours: Hours }) {
     .join(" · ");
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl justify-center py-6 md:py-8">
+    <div className="mx-auto flex w-full max-w-6xl justify-center pb-6 md:pb-8">
       {/* Un único bloque: imagen + formulario pegados, con el mismo borde rounded-lg del resto de la web */}
       <section className="black-glassmorphism grid w-full max-w-6xl grid-cols-1 overflow-hidden rounded-lg border border-white/10 md:grid-cols-[2fr_3fr]">
         {/* Imagen */}
