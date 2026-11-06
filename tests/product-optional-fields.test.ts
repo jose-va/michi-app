@@ -10,6 +10,7 @@ const valid = {
   japaneseName: "",
   description: "",
   price: 5,
+  mainCategory: "MAKIS_ROLLS",
   category: "MAKI",
   allergens: [] as string[],
   pieces: 0,

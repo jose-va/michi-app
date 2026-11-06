@@ -1,6 +1,7 @@
 import { ProductService } from "@/service/ProductService";
 import { centuryGothic } from "@/app/fonts/font";
-import { getCategoryDescription, getCategoryTitle, isFeaturedCategory } from "@/common/mappers/category.mapper";
+import { FEATURED_CATEGORY, getCategoryDescription, getCategoryTitle } from "@/common/mappers/category.mapper";
+import { getMainCategoryDescription, getMainCategoryTitle, resolveCategoryFilter } from "@/common/mappers/main-category.mapper";
 import { paginateProducts } from "@/common/utils/product-pagination";
 import ProductCard from "../../ui/product/ProductCard";
 import { ProductPagination } from "../../ui/product/ProductPagination";
@@ -22,25 +23,23 @@ export default async function ProductPage({
   favorites?: string[];
 }) {
   const allergensList = allergens ? (Array.isArray(allergens) ? allergens : [allergens]) : undefined;
-  const hasFilters = category || name || allergensList?.length;
+  const resolved = resolveCategoryFilter(category);
 
-  if (hasFilters) {
-    const products = isFeaturedCategory(category)
-      ? await ProductService.getFeaturedProducts({ name, allergens: allergensList })
-      : await ProductService.searchProducts({ name, category, allergens: allergensList });
+  if (resolved.kind === "invalid") return <ProductEmpty />;
+
+  if (resolved.kind === "featured") {
+    const products = await ProductService.getFeaturedProducts({ name, allergens: allergensList });
     if (!products.length) return <ProductEmpty />;
 
     const filteredPage = paginateProducts(products, page, size);
+    const title = getCategoryTitle(FEATURED_CATEGORY);
+    const description = getCategoryDescription(FEATURED_CATEGORY);
 
     return (
       <>
-        {category ? (
-          <>
-            <h2 className={`${centuryGothic.className} mt-8 mb-1 text-2xl text-white md:text-3xl font-medium`}>{getCategoryTitle(category)}</h2>
-            {getCategoryDescription(category) ? (
-              <p className="mb-2 text-base text-zinc-300">{getCategoryDescription(category)}</p>
-            ) : null}
-          </>
+        <h2 className={`${centuryGothic.className} mt-8 mb-1 text-2xl text-white md:text-3xl font-medium`}>{title}</h2>
+        {description ? (
+          <p className="mb-2 text-base text-zinc-300">{description}</p>
         ) : null}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           {filteredPage.content.map((product, index) => (
@@ -52,18 +51,61 @@ export default async function ProductPage({
     );
   }
 
-  const data = await ProductService.getProducts(page);
-  if (!data) return <ProductEmpty />
+  if (resolved.kind === "main") {
+    const products = await ProductService.searchProducts({ category: resolved.main, name, allergens: allergensList });
+    if (!products.length) return <ProductEmpty />;
 
-  return (
-    <>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {data.content.map((product, index) => (
-          <ProductCard key={product.id} product= {{...product}} index={index}/>
-        ))}
-      </div>
-      <ProductPagination currentPage={data.number} totalPages={data.totalPages} />
-    </>
-  );
+    const filteredPage = paginateProducts(products, page, size);
+    const title = getMainCategoryTitle(resolved.main);
+    const description = getMainCategoryDescription(resolved.main);
+
+    return (
+      <>
+        <h2 className={`${centuryGothic.className} mt-8 mb-1 text-2xl text-white md:text-3xl font-medium`}>{title}</h2>
+        {description ? (
+          <p className="mb-2 text-base text-zinc-300">{description}</p>
+        ) : null}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {filteredPage.content.map((product, index) => (
+            <ProductCard key={product.id} product= {{...product}} index={index}/>
+          ))}
+        </div>
+        <ProductPagination currentPage={filteredPage.number} totalPages={filteredPage.totalPages} />
+      </>
+    );
+  }
+
+  if (resolved.kind === "all") {
+    if (name || allergensList?.length) {
+      const products = await ProductService.searchProducts({ name, allergens: allergensList });
+      if (!products.length) return <ProductEmpty />;
+
+      const filteredPage = paginateProducts(products, page, size);
+
+      return (
+        <>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {filteredPage.content.map((product, index) => (
+              <ProductCard key={product.id} product= {{...product}} index={index}/>
+            ))}
+          </div>
+          <ProductPagination currentPage={filteredPage.number} totalPages={filteredPage.totalPages} />
+        </>
+      );
+    }
+
+    const data = await ProductService.getProducts(page);
+    if (!data) return <ProductEmpty />
+
+    return (
+      <>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {data.content.map((product, index) => (
+            <ProductCard key={product.id} product= {{...product}} index={index}/>
+          ))}
+        </div>
+        <ProductPagination currentPage={data.number} totalPages={data.totalPages} />
+      </>
+    );
+  }
 }
-

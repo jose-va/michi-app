@@ -33,5 +33,7 @@ test("título y descripción de Destacados", () => {
     assert.equal(getCategoryTitle(v), "Destacados");
     assert.equal(getCategoryDescription(v), "Recomendaciones de la casa y platos más vendidos.");
   }
-  assert.equal(getCategoryTitle("DESSERTS"), "Postres");
+  // RF-9: DESSERTS sin título propio, lectura tolerante (fallback al key)
+  assert.equal(getCategoryTitle("DESSERTS"), "DESSERTS");
+  assert.equal(getCategoryDescription("DESSERTS"), "");
 });

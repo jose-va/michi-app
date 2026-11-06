@@ -31,7 +31,7 @@ export function buildCancelWhatsappUrl(
 ): string {
   const fechaLimpia = typeof fecha === "string" ? fecha.trim() : "";
   if (!fechaLimpia) {
-    return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent("Hola, necesito cancelar una reserva con menos de 2 horas de antelación. ¿Pueden ayudarme?")}`;
+    return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent("Hola, necesito cancelar una reserva. ¿Pueden ayudarme?")}`;
   }
   const hora = typeof startTime === "string" ? startTime.trim() : "";
   const mensaje = hora
@@ -48,7 +48,7 @@ export function buildCancelWhatsappUrl(
 export function buildEditWhatsappUrl(fecha: string, startTime: unknown): string {
   const fechaLimpia = typeof fecha === "string" ? fecha.trim() : "";
   if (!fechaLimpia) {
-    return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent("Hola, necesito modificar una reserva con menos de 2 horas de antelación. ¿Pueden ayudarme?")}`;
+    return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent("Hola, necesito modificar una reserva. ¿Pueden ayudarme?")}`;
   }
   const hora = typeof startTime === "string" ? startTime.trim() : "";
   const mensaje = hora

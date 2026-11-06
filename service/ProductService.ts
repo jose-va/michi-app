@@ -59,11 +59,16 @@ export class ProductService {
     }
   }
 
-  static async searchProducts(params?: {
-    name?: string;
-    category?: string;
-    allergens?: string[];
-  }): Promise<Product[]> {
+  static async searchProducts(
+    params?: {
+      name?: string;
+      category?: string;
+      allergens?: string[];
+    },
+    overrides?: { fetcher?: typeof fetch; baseUrl?: string },
+  ): Promise<Product[]> {
+    const fetcher = overrides?.fetcher ?? fetch;
+    const baseUrl = overrides?.baseUrl ?? this.baseUrl;
     try {
       const searchParams = new URLSearchParams();
 
@@ -73,9 +78,9 @@ export class ProductService {
         params.allergens.forEach((a) => searchParams.append("allergens", a));
       }
 
-      const url = `${this.baseUrl}/products/search?${searchParams.toString()}`;
+      const url = `${baseUrl}/products/search?${searchParams.toString()}`;
 
-      const response = await fetch(url, {
+      const response = await fetcher(url, {
         method: "GET",
       });
 
@@ -111,10 +116,19 @@ export class ProductService {
     }
   }
 
-  static async create(data: ProductFormValues): Promise<Product> {
-    const response = await fetch(`${this.baseUrl}/products`, {
+  static async create(
+    data: ProductFormValues,
+    overrides?: {
+      fetcher?: typeof fetch;
+      baseUrl?: string;
+      headers?: HeadersInit;
+    },
+  ): Promise<Product> {
+    const fetcher = overrides?.fetcher ?? fetch;
+    const baseUrl = overrides?.baseUrl ?? this.baseUrl;
+    const response = await fetcher(`${baseUrl}/products`, {
       method: "POST",
-      headers: await this.authHeader(),
+      headers: overrides?.headers ?? (await this.authHeader()),
       body: JSON.stringify(data),
     });
 
@@ -122,10 +136,20 @@ export class ProductService {
     return await response.json();
   }
 
-  static async update(id: string, product: Product): Promise<Product> {
-    const response = await fetch(`${this.baseUrl}/products/${id}`, {
+  static async update(
+    id: string,
+    product: Product,
+    overrides?: {
+      fetcher?: typeof fetch;
+      baseUrl?: string;
+      headers?: HeadersInit;
+    },
+  ): Promise<Product> {
+    const fetcher = overrides?.fetcher ?? fetch;
+    const baseUrl = overrides?.baseUrl ?? this.baseUrl;
+    const response = await fetcher(`${baseUrl}/products/${id}`, {
       method: "PUT",
-      headers: await this.authHeader(),
+      headers: overrides?.headers ?? (await this.authHeader()),
       body: JSON.stringify(product),
     });
 

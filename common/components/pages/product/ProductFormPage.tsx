@@ -47,6 +47,7 @@ export default function ProducFormPage({ product }: { product?: Product }) {
       japaneseName: product?.japaneseName ?? "",
       description: product?.description ?? "",
       price: product?.price ?? 0,
+      mainCategory: product?.mainCategory ?? "",
       category: product?.category ?? "",
       allergens: product?.allergens ?? [],
       pieces: product?.pieces ?? 0,

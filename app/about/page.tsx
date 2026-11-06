@@ -33,7 +33,7 @@ export default function AboutPage() {
             <h1
               className={`${centuryGothic.className} text-lg font-semibold tracking-widest uppercase md:text-2xl`}
             >
-              <FadeInLetters text={ABOUT_TITLE} baseIndex={0} />
+              {ABOUT_TITLE}
             </h1>
             <span
               aria-hidden="true"

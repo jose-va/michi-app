@@ -14,6 +14,7 @@ const valid = {
   japaneseName: "",
   description: "",
   price: 5,
+  mainCategory: "MAKIS_ROLLS",
   category: "Rolls",
   allergens: [],
   pieces: 8,

@@ -3,6 +3,7 @@ export type Product = {
   name: string;
   japaneseName: string;
   description: string;
+  mainCategory: string;
   category: string;
   allergens: string[];
   position?: number;

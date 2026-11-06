@@ -13,6 +13,7 @@ const base = {
   japaneseName: "",
   description: "",
   price: 3,
+  mainCategory: "SUSHI_CLASSIC",
   category: "NIGIRI_SUSHI",
   allergens: [],
   pieces: 0,

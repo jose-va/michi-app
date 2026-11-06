@@ -18,29 +18,32 @@ test("product page imports getCategoryDescription from the category mapper", () 
   );
 });
 
-test("filtered-by-category branch renders getCategoryDescription(category) in a p after the h2 and before the grid", () => {
-  const filtersStart = pageSource.indexOf("if (hasFilters)");
-  assert.ok(filtersStart >= 0, "ProductPage must keep the hasFilters branch");
-  const filtersBlock = pageSource.slice(filtersStart);
+test("main and featured branches render the resolved description in a p after the h2 and before the grid", () => {
+  const mainStart = pageSource.indexOf('resolved.kind === "main"');
+  assert.ok(mainStart >= 0, "ProductPage must keep the main branch");
 
   assert.ok(
-    filtersBlock.includes("getCategoryDescription(category)"),
-    "Filtered branch must render getCategoryDescription(category)"
+    pageSource.includes("getMainCategoryDescription(resolved.main)"),
+    "Main branch must resolve its description with getMainCategoryDescription"
   );
-  const description = filtersBlock.match(
-    /<p[^>]*>\s*\{getCategoryDescription\(category\)\}\s*<\/p>/
+  assert.ok(
+    pageSource.includes("getCategoryDescription(FEATURED_CATEGORY)"),
+    "Featured branch must resolve its description with getCategoryDescription"
+  );
+  const description = pageSource.match(
+    /<p[^>]*>\s*\{description\}\s*<\/p>/
   )?.[0];
   assert.ok(
     description,
-    "Filtered branch must render getCategoryDescription(category) inside a p"
+    "Branches must render the resolved description inside a p"
   );
 
-  const headingIndex = filtersBlock.indexOf("<h2");
-  const descriptionIndex = filtersBlock.indexOf("<p");
-  const gridIndex = filtersBlock.indexOf("grid grid-cols-1");
-  assert.ok(headingIndex >= 0, "Filtered branch must include an h2");
-  assert.ok(descriptionIndex >= 0, "Filtered branch must include a p");
-  assert.ok(gridIndex >= 0, "Filtered branch must keep the product grid");
+  const headingIndex = pageSource.indexOf("<h2");
+  const descriptionIndex = pageSource.indexOf("<p");
+  const gridIndex = pageSource.indexOf("grid grid-cols-1");
+  assert.ok(headingIndex >= 0, "ProductPage must include an h2");
+  assert.ok(descriptionIndex >= 0, "ProductPage must include a p");
+  assert.ok(gridIndex >= 0, "ProductPage must keep the product grid");
   assert.ok(
     headingIndex < descriptionIndex,
     "Category description must render after the h2"

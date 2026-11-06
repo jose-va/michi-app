@@ -1,6 +1,9 @@
 "use client";
 
-import { getCategoryTitle } from "@/common/mappers/category.mapper";
+import {
+  MAIN_FILTER_OPTIONS,
+  resolveCategoryFilter,
+} from "@/common/mappers/main-category.mapper";
 import {
   Select,
   SelectContent,
@@ -12,21 +15,22 @@ import {
 } from "@/shadcn/components/select";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { resetPageParam } from "@/common/utils/product-filters";
-import {
-  FEATURED_CATEGORY,
-  filterCategories,
-  isFeaturedCategory,
-} from "@/common/mappers/category.mapper";
 
 export const CategorySelect = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
 
-  const rawCategory = searchParams.get("category") ?? "";
-  const currentCategory = isFeaturedCategory(rawCategory)
-    ? FEATURED_CATEGORY
-    : rawCategory;
+  const rawCategory = searchParams.get("category");
+  const resolved = resolveCategoryFilter(rawCategory ?? undefined);
+  const currentCategory =
+    resolved.kind === "all"
+      ? "all"
+      : resolved.kind === "featured"
+        ? "featured"
+        : resolved.kind === "main"
+          ? resolved.main
+          : (rawCategory ?? "");
 
   function handleCategory(value: string) {
     const params = resetPageParam(searchParams);
@@ -43,10 +47,9 @@ export const CategorySelect = () => {
       <SelectContent position="popper" sideOffset={4} className="max-h-80">
         <SelectGroup >
           <SelectLabel>Categorías</SelectLabel>
-          <SelectItem value="all">Todas</SelectItem>
-          {filterCategories.map((category) => (
-            <SelectItem key={category} value={category}>
-              {getCategoryTitle(category)}
+          {MAIN_FILTER_OPTIONS.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
             </SelectItem>
           ))}
         </SelectGroup>

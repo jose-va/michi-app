@@ -29,38 +29,40 @@ test("product page imports centuryGothic font for the category title", () => {
   );
 });
 
-test("filtered-by-category branch renders getCategoryTitle(category) in an h2 before the grid", () => {
-  const filtersStart = pageSource.indexOf("if (hasFilters)");
-  assert.ok(filtersStart >= 0, "ProductPage must keep the hasFilters branch");
-  const filtersBlock = pageSource.slice(filtersStart);
+test("main and featured branches render the resolved title in an h2 before the grid", () => {
+  const mainStart = pageSource.indexOf('resolved.kind === "main"');
+  assert.ok(mainStart >= 0, "ProductPage must keep the main branch");
+  const mainBlock = pageSource.slice(mainStart);
 
   assert.ok(
-    filtersBlock.includes("getCategoryTitle(category)"),
-    "Filtered branch must render getCategoryTitle(category)",
+    mainBlock.includes("getMainCategoryTitle(resolved.main)"),
+    "Main branch must resolve its title with getMainCategoryTitle",
   );
-  const heading = filtersBlock.match(/<h2[^>]*>\s*\{getCategoryTitle\(category\)\}\s*<\/h2>/)?.[0];
-  assert.ok(heading, "Filtered branch must render getCategoryTitle(category) inside an h2");
+  assert.ok(
+    pageSource.includes("getCategoryTitle(FEATURED_CATEGORY)"),
+    "Featured branch must resolve its title with getCategoryTitle",
+  );
+  const heading = pageSource.match(/<h2[^>]*>\s*\{title\}\s*<\/h2>/)?.[0];
+  assert.ok(heading, "Branches must render the resolved title inside an h2");
   assert.ok(
     heading.includes("centuryGothic.className"),
     "Category h2 must use the centuryGothic font",
   );
-  for (const token of ["text-3xl", "md:text-4xl", "mt-8", "mb-2", "text-white"]) {
+  for (const token of ["text-2xl", "md:text-3xl", "mt-8", "mb-1", "text-white"]) {
     assert.ok(heading.includes(token), `Category h2 must include «${token}»`);
   }
 
-  const headingIndex = filtersBlock.indexOf("<h2");
-  const gridIndex = filtersBlock.indexOf("grid grid-cols-1");
-  assert.ok(headingIndex >= 0, "Filtered branch must include an h2");
-  assert.ok(gridIndex >= 0, "Filtered branch must keep the product grid");
+  const headingIndex = pageSource.indexOf("<h2");
+  const gridIndex = pageSource.indexOf("grid grid-cols-1");
+  assert.ok(headingIndex >= 0, "ProductPage must include an h2");
+  assert.ok(gridIndex >= 0, "ProductPage must keep the product grid");
   assert.ok(headingIndex < gridIndex, "Category h2 must render before the grid");
 });
 
-test("category heading only renders when filtering by category", () => {
-  const filtersStart = pageSource.indexOf("if (hasFilters)");
-  assert.ok(filtersStart >= 0, "ProductPage must keep the hasFilters branch");
-  const filtersBlock = pageSource.slice(filtersStart);
-  assert.ok(
-    filtersBlock.includes("{category ? (") || filtersBlock.includes("{category &&"),
-    "Category h2 must be conditional on the category filter",
-  );
+test("category heading only renders for main or featured, never for all", () => {
+  const allStart = pageSource.indexOf('resolved.kind === "all"');
+  assert.ok(allStart >= 0, "ProductPage must keep the all branch");
+  const allBlock = pageSource.slice(allStart);
+  assert.ok(!allBlock.includes("<h2"), "All branch must not render a title");
+  assert.ok(pageSource.includes("<h2"), "Main/featured branches must render an h2");
 });

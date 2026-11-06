@@ -80,13 +80,13 @@ export default function Home() {
                 <span className="block">MICHI</span>
                 <span className="block">SUSHI</span>
               </h1>
-              <span className="mb-2 text-2xl text-white/40" aria-hidden="true">
+              <span className="mb-4 ml-1 text-3xl text-white/50" aria-hidden="true">
                 道
               </span>
             </div>
             <span
               aria-hidden="true"
-              className="bg-primary h-1 w-20 rounded-full"
+              className="bg-michi-sake h-1 w-20 rounded-full"
             />
             <p className="max-w-md text-base text-zinc-100 drop-shadow-sm md:text-lg">
               Gastronomía japonesa y tapeo. Ven a visitar tu nuevo sushi bar en
@@ -96,9 +96,9 @@ export default function Home() {
               <Button
                 asChild
                 size="lg"
-                className="bg-primary hover:bg-primary! min-h-11 font-semibold hover:brightness-110"
+                className="bg-michi-sake hover:bg-michi-sake! min-h-11 font-semibold hover:brightness-110 text-stone-950"
               >
-                <Link href="/reservation">Reservar</Link>
+                <Link href="/product">Explora la carta</Link>
               </Button>
               <Button
                 asChild
@@ -126,7 +126,7 @@ export default function Home() {
               <span className="text-xs font-bold tracking-widest text-zinc-200 uppercase brightness-120">
                 Michi Café & Sushi Bar
               </span>
-              <span className="text-michi-aqua text-xs font-bold tracking-widest uppercase">
+              <span className="text-michi-sake text-xs font-bold tracking-widest uppercase">
                 {mottoSection.title}
               </span>
               <p
@@ -267,7 +267,7 @@ export default function Home() {
                   className="inline-flex items-center rounded-lg transition-transform hover:scale-105 hover:cursor-pointer hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
                   <Image
-                    src="/logos/Eats_pill_rgb_green.svg"
+                    src="/logos/Eats_Pill_RGB.svg"
                     alt={deliverySection.actionLabel || "Pedir en Uber Eats"}
                     width={110}
                     height={42}

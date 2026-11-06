@@ -20,11 +20,11 @@ export default function CategoryInput({
   return (
     <Select onValueChange={field.onChange} defaultValue={field.value}>
       <SelectTrigger className="w-full max-w-56">
-        <SelectValue placeholder="Seleccionar categoría" />
+        <SelectValue placeholder="Seleccionar subcategoría" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>Seleccionar categoría</SelectLabel>
+          <SelectLabel>Seleccionar subcategoría</SelectLabel>
           {categories.map((category) => (
             <SelectItem key={category} value={category}>
               {getCategoryTitle(category)}

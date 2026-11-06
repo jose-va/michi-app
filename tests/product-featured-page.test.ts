@@ -7,14 +7,15 @@ const selectSource = readFileSync(
   "utf8",
 );
 
-test("CategorySelect itera filterCategories y no categories", () => {
-  assert.match(selectSource, /filterCategories\.map\(/);
+test("CategorySelect itera MAIN_FILTER_OPTIONS y no filterCategories", () => {
+  assert.match(selectSource, /MAIN_FILTER_OPTIONS\.map\(/);
+  assert.doesNotMatch(selectSource, /filterCategories/);
   assert.doesNotMatch(selectSource, /\bcategories\.map\(/);
 });
 
-test("CategorySelect normaliza featured/Featured/FEATURED con isFeaturedCategory", () => {
-  assert.match(selectSource, /isFeaturedCategory\(/);
-  assert.match(selectSource, /FEATURED_CATEGORY/);
+test("CategorySelect normaliza con resolveCategoryFilter del nuevo mapper", () => {
+  assert.match(selectSource, /resolveCategoryFilter\(/);
+  assert.match(selectSource, /main-category\.mapper/);
 });
 
 const pageSource = readFileSync(
@@ -22,28 +23,32 @@ const pageSource = readFileSync(
   "utf8",
 );
 
-test("ProductPage usa getFeaturedProducts con name y allergens si isFeaturedCategory", () => {
-  assert.match(pageSource, /isFeaturedCategory\(category\)/);
+test("ProductPage resuelve con resolveCategoryFilter y la rama featured usa getFeaturedProducts", () => {
+  assert.match(pageSource, /resolveCategoryFilter\(category\)/);
+  assert.match(pageSource, /resolved\.kind === "featured"/);
+  assert.match(pageSource, /resolved\.kind === "invalid"/);
   assert.match(
     pageSource,
     /ProductService\.getFeaturedProducts\(\{ name, allergens: allergensList \}\)/,
   );
 });
 
-test("ProductPage conserva searchProducts, getProducts, paginación, ProductEmpty y mapper", () => {
-  assert.match(pageSource, /ProductService\.searchProducts\(\{ name, category, allergens: allergensList \}\)/);
+test("ProductPage conserva searchProducts por principal, getProducts, paginación, ProductEmpty y mappers", () => {
+  assert.match(pageSource, /ProductService\.searchProducts\(\{ category: resolved\.main, name, allergens: allergensList \}\)/);
+  assert.match(pageSource, /ProductService\.searchProducts\(\{ name, allergens: allergensList \}\)/);
   assert.match(pageSource, /ProductService\.getProducts\(page\)/);
   assert.match(pageSource, /paginateProducts\(products, page, size\)/);
   assert.match(pageSource, /<ProductEmpty \/>/);
-  assert.match(pageSource, /getCategoryTitle\(category\)/);
-  assert.match(pageSource, /getCategoryDescription\(category\)/);
+  assert.match(pageSource, /getMainCategoryTitle\(resolved\.main\)/);
+  assert.match(pageSource, /getCategoryTitle\(FEATURED_CATEGORY\)/);
 });
 
 test("ProductPage no filtra por estado la lista de destacados", () => {
   assert.doesNotMatch(pageSource, /\.filter\(/);
 });
 
-test("CategorySelect conserva «Todas» y el valor vacío sin category", () => {
-  assert.match(selectSource, /<SelectItem value="all">Todas<\/SelectItem>/);
-  assert.match(selectSource, /searchParams\.get\("category"\) \?\? ""/);
+test("CategorySelect ofrece «Todas» vía MAIN_FILTER_OPTIONS y all sin category", () => {
+  assert.match(selectSource, /MAIN_FILTER_OPTIONS/);
+  assert.match(selectSource, /resolved\.kind === "all"/);
+  assert.match(selectSource, /searchParams\.get\("category"\)/);
 });

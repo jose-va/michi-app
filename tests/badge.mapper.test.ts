@@ -28,3 +28,14 @@ test("HOT_STARTERS and HOT_MAKI badges are visually distinct", () => {
   );
   assert.equal(getCategoryBadge("HOT_MAKI"), "bg-red-800 text-red-100");
 });
+
+test("DESSERTS no tiene distintivo propio, usa fallback (RF-9)", () => {
+  assert.equal(
+    getCategoryBadge("DESSERTS"),
+    getCategoryBadge("UNKNOWN_CATEGORY"),
+  );
+});
+
+test("COMBOS conserva su color (invariante RF-7)", () => {
+  assert.equal(getCategoryBadge("COMBOS"), "bg-cyan-800 text-cyan-100");
+});

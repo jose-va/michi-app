@@ -15,7 +15,6 @@ const categoryInfo = new Map<string, { title: string; description: string }>([
   ["HOT_MAKI", { title: "Maki caliente", description: "Selección de rollos de sushi rebozados en panko y fritos." }],
   ["SPECIAL_MAKI", { title: "Maki especial", description: "Rollos de sushi nacidos de la creatividad del chef, algunos con esencia nipona y corazón venezolano." }],
   ["COMBOS", { title: "Combinados", description: "Una selección de nuestras piezas más representativas, pensada para compartir, descubrir y disfrutar sin complicaciones." }],
-  ["DESSERTS", { title: "Postres", description: "Nuestra selección de postres." }],
 ]);
 
 export const FEATURED_CATEGORY = "featured";

@@ -13,6 +13,7 @@ import { Input } from "@/shadcn/components/input";
 import { Separator } from "@/shadcn/components/separator";
 import { Textarea } from "@/shadcn/components/textarea";
 import CategoryInput from "./CategoryInput";
+import MainCategoryInput from "./MainCategoryInput";
 import AllergenInput from "./AllergenInput";
 import ProductPhotoInput from "./ProductPhotoInput";
 
@@ -143,10 +144,25 @@ export default function ProductForm({
 
       <FormField
         control={form.control}
-        name="category"
+        name="mainCategory"
         render={({ field }) => (
           <FormItem>
             <FormLabel>Categoría</FormLabel>
+            <FormControl>
+              <MainCategoryInput field={field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <Separator />
+
+      <FormField
+        control={form.control}
+        name="category"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Subcategoría</FormLabel>
             <FormControl>
               <CategoryInput field={field} />
             </FormControl>

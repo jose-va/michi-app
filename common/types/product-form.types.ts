@@ -8,6 +8,7 @@ export const productFormSchema = z.object({
   japaneseName: z.string(),
   description: z.string().trim(),
   price: z.number().positive("El precio debe ser mayor que 0"),
+  mainCategory: z.string().min(1, "Por favor, seleccione una categoría"),
   category: z.string().min(1, "Por favor, seleccione una categoría"),
   allergens: z.array(z.string()),
   pieces: z.number().int().min(0),
