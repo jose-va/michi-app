@@ -27,8 +27,8 @@ export default function PageMenu({
             <Image
               src="/logos/logo_michi.webp"
               alt="Logo Michi"
-              width={80}
-              height={80}
+              width={70}
+              height={70}
               className="mt-2 cursor-pointer transition-all duration-500 hover:scale-110"
               loading="eager"
             />
@@ -39,7 +39,7 @@ export default function PageMenu({
           <NavLinks />
         </NavigationMenu>
 
-        <div className="flex flex-1 justify-end">
+        <div className="flex flex-1 justify-end mr-2">
           <ProfileAuth
             profileTabs={
               user === null ? null : user.role === "ROLE_USER" ? (

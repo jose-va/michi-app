@@ -23,7 +23,7 @@ export default function NavLinks() {
         >
           <NavigationMenuLink
             href={item.href}
-            className={`${navigationMenuTriggerStyle()} text-[14.5px] font-bold text-white/90 hover:text-white md:text-[15px]`}
+            className={`${navigationMenuTriggerStyle()} text-[14px] font-bold text-white/90 hover:text-white md:text-[15px]`}
           >
             {item.label}
           </NavigationMenuLink>
