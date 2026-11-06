@@ -14,7 +14,7 @@
 
 import type { CSSProperties } from "react";
 
-const LETTER_STAGGER_MS = 25;
+const LETTER_STAGGER_MS = 15;
 
 type FadeInLettersProps = {
   text: string;
