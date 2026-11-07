@@ -14,7 +14,7 @@ export const CAROUSEL_IMAGE_ALTS: Record<string, string> = {
 };
 
 export interface HomeSection {
-  id: "motto" | "menu" | "reservations" | "location" | "delivery";
+  id: "motto" | "about" | "menu" | "reservations" | "location" | "delivery";
   title: string;
   description: string;
   image?: string;
@@ -34,15 +34,45 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
       "Donde el arte del sushi se une al encanto de las tapas, creando una experiencia única que combina tradición japonesa con calidez granaína.",
   },
   {
+    id: "about",
+    title: "SOBRE NOSOTROS",
+    description:
+      "Fusionamos técnica nipona y alma atlántica en un espacio de libertad creativa donde cada plato es un lienzo.",
+    image:
+      "/images/2326ceaf-1ded-46d3-b174-c7c6cfe55ed6.webp",
+    imageAlt: "Exterior de Michi Sushi",
+    actionLabel: "Conócenos",
+    actionHref: "/about",
+  },
+  {
+    id: "location",
+    title: "Dónde estamos",
+    description:
+      "Visítenos en: C/ Gutierre Tibón, Santiago Lozano, 8, local 2. Consulta cómo llegar y nuestros horarios de apertura.",
+    actionLabel: "Ver ubicación",
+    actionHref: "/location",
+  },
+  {
     id: "menu",
     title: "NUESTRA CARTA",
     description:
-      "Todos nuestros platos se preparan al momento con ingredientes de alta calidad.",
+      "Entrantes, platos calientes, sushi, makis especiales y combinados. Todos los platos se preparan con ingredientes de calidad.",
     image:
       "/images/Ebi Pasión.webp",
     imageAlt: "Ebi Pasión",
     actionLabel: "Ver carta",
     actionHref: "/product",
+  },
+  {
+    id: "reservations",
+    title: "Reserva mesa",
+    description:
+      "Disfruta de una experiencia gastronómica japonesa auténtica y cercana. Reserva ya tu mesa online.",
+    image:
+      "/images/IMG_1231.webp",
+    imageAlt: "Reserva tu mesa en Michi Sushi",
+    actionLabel: "Reservar",
+    actionHref: "/reservation",
   },
   {
     id: "delivery",
@@ -52,25 +82,6 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
     imageAlt: "Sushi de Michi para pedir en Uber Eats",
     actionLabel: "Pedir en Uber Eats",
     actionHref: UBER_EATS_URL,
-  },
-  {
-    id: "reservations",
-    title: "Reserva mesa",
-    description:
-      "Disfruta de una experiencia gastronómica japonesa cercana y auténtica.",
-    image:
-      "/images/2326ceaf-1ded-46d3-b174-c7c6cfe55ed6.webp",
-    imageAlt: "Reserva tu mesa en Michi Sushi",
-    actionLabel: "Reservar",
-    actionHref: "/reservation",
-  },
-  {
-    id: "location",
-    title: "Dónde estamos",
-    description:
-      "Te esperamos en C/ Gutierre Tibón, Santiago Lozano, 8, Local 2, Granada.",
-    actionLabel: "Ver ubicación",
-    actionHref: "/location",
   },
 ] as const;
 

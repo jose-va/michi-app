@@ -24,16 +24,43 @@ test("carousel configuration contains exactly the three selected WebP images wit
   }
 });
 
-test("home sections contain exactly four descriptive sections in strict order", () => {
-  assert.equal(HOME_SECTIONS.length, 4, "Must have exactly four descriptive sections");
+test("home sections contain exactly six sections in strict order with about", () => {
+  assert.equal(HOME_SECTIONS.length, 6, "Must have exactly six sections");
 
-  const [motto, menu, reservations, location] = HOME_SECTIONS;
+  const [motto, about, location, menu, reservations, delivery] = HOME_SECTIONS;
 
   // Section 1: Lema del bar
   assert.equal(motto.id, "motto");
   assert.ok(motto.description.includes("Donde el arte del sushi se une al encanto de las tapas"));
 
-  // Section 2: Carta
+  // Section 2: Sobre nosotros
+  assert.equal(about.id, "about");
+  assert.equal(about.title, "SOBRE NOSOTROS");
+  assert.equal(
+    about.description,
+    "En japonés, Michi significa camino. Fusionamos técnica nipona y alma atlántica en un espacio de libertad creativa donde el plato es el lienzo.",
+  );
+  assert.equal(
+    about.image,
+    "/images/2326ceaf-1ded-46d3-b174-c7c6cfe55ed6.webp",
+  );
+  assert.ok(about.image && about.image.endsWith(".webp"));
+  assert.equal(about.imageAlt, "Exterior de Michi Sushi");
+  assert.equal(about.actionLabel, "Conócenos");
+  assert.equal(about.actionHref, "/about");
+
+  // Section 3: Ubicación (shows the shared map, so it exposes no photo)
+  assert.equal(location.id, "location");
+  assert.ok(location.description.length > 0);
+  assert.equal(
+    location.image,
+    undefined,
+    "Location section must not expose an image",
+  );
+  assert.equal(location.actionHref, "/location");
+  assert.ok(location.actionLabel && location.actionLabel.length > 0);
+
+  // Section 4: Carta
   assert.equal(menu.id, "menu");
   assert.ok(menu.description.length > 0);
   assert.equal(
@@ -44,27 +71,22 @@ test("home sections contain exactly four descriptive sections in strict order", 
   assert.equal(menu.actionHref, "/product");
   assert.ok(menu.actionLabel && menu.actionLabel.length > 0);
 
-  // Section 3: Reservas
+  // Section 5: Reservas
   assert.equal(reservations.id, "reservations");
   assert.ok(reservations.description.length > 0);
   assert.equal(
     reservations.image,
-    "/images/Dish Composition [5_4-2304x2880-watermarked] d88.webp",
+    "/images/IMG_1231.webp",
   );
   assert.ok(reservations.image && reservations.image.endsWith(".webp"));
   assert.equal(reservations.actionHref, "/reservation");
   assert.ok(reservations.actionLabel && reservations.actionLabel.length > 0);
 
-  // Section 4: Ubicación (shows the shared map, so it exposes no photo)
-  assert.equal(location.id, "location");
-  assert.ok(location.description.length > 0);
-  assert.equal(
-    location.image,
-    undefined,
-    "Location section must not expose an image",
-  );
-  assert.equal(location.actionHref, "/location");
-  assert.ok(location.actionLabel && location.actionLabel.length > 0);
+  // Section 6: Pide a domicilio
+  assert.equal(delivery.id, "delivery");
+  assert.ok(delivery.description.length > 0);
+  assert.ok(delivery.image && delivery.image.endsWith(".webp"));
+  assert.ok(delivery.actionLabel && delivery.actionLabel.length > 0);
 });
 
 test("confirmed schedule matches the confirmed opening hours", () => {

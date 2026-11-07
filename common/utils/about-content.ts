@@ -14,7 +14,7 @@ export const ABOUT_SIGNATURE = "Milo Márquez / Chef y creador de Michi.";
 
 export const ABOUT_IMAGE_SRC = "/images/Foto Milo.webp";
 
-export const ABOUT_SIGNATURE_IMAGE_SRC = "/images/firma-milo.webp";
+export const ABOUT_SIGNATURE_IMAGE_SRC = "/logos/firma-milo.webp";
 
 export const ABOUT_SIGNATURE_IMAGE_ALT = ABOUT_SIGNATURE;
 

@@ -35,7 +35,7 @@ export default function Home() {
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: 37.197459, 
+      latitude: 37.197459,
       longitude: -3.601981,
     },
     openingHoursSpecification: [
@@ -78,10 +78,11 @@ export default function Home() {
 
   const [
     mottoSection,
-    menuSection,
-    deliverySection,
-    reservationsSection,
+    aboutSection,
     locationSection,
+    menuSection,
+    reservationsSection,
+    deliverySection,
   ] = HOME_SECTIONS;
 
   return (
@@ -167,6 +168,78 @@ export default function Home() {
 
           <RevealOnScroll>
             <section
+              id="seccion-sobre-nosotros"
+              aria-label="Sobre nosotros"
+              className="mt-8 grid grid-cols-1 items-center gap-8 bg-transparent md:grid-cols-2"
+            >
+              <div className="order-2 flex flex-col items-start gap-4 md:order-1">
+                <h2
+                  className={`${montserrat.className} text-4xl font-extrabold tracking-tight text-white uppercase md:text-5xl`}
+                >
+                  {aboutSection.title}
+                </h2>
+                <p className="text-base text-zinc-300 md:text-lg">
+                  {aboutSection.description}
+                </p>
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-michi-sake hover:bg-michi-sake! min-h-11 font-semibold text-stone-950 hover:brightness-110"
+                >
+                  <Link href={aboutSection.actionHref || "/about"}>
+                    {aboutSection.actionLabel}
+                  </Link>
+                </Button>
+              </div>
+
+              <div className="relative order-1 aspect-video w-full overflow-hidden rounded-2xl md:order-2">
+                {aboutSection.image && (
+                  <Image
+                    src={aboutSection.image}
+                    alt={aboutSection.imageAlt || "Sobre nosotros"}
+                    fill
+                    className="object-cover transition-transform duration-700 ease-out hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                )}
+              </div>
+            </section>
+          </RevealOnScroll>
+
+          <RevealOnScroll>
+            <section
+              id="seccion-ubicacion"
+              aria-label="Ubicación de Michi Sushi"
+              className="grid items-center gap-8 bg-transparent md:grid-cols-2"
+            >
+              <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
+                <GoogleMaps zoom={13} />
+              </div>
+
+              <div className="flex flex-col items-start gap-4">
+                <h2
+                  className={`${montserrat.className} text-4xl font-extrabold tracking-tight text-white uppercase md:text-5xl`}
+                >
+                  {locationSection.title}
+                </h2>
+                <p className="text-base text-zinc-300 md:text-lg">
+                  {locationSection.description}
+                </p>
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-michi-sake hover:bg-michi-sake! min-h-11 font-semibold text-stone-950 hover:brightness-110"
+                >
+                  <Link href={locationSection.actionHref || "/location"}>
+                    {locationSection.actionLabel}
+                  </Link>
+                </Button>
+              </div>
+            </section>
+          </RevealOnScroll>
+
+          <RevealOnScroll>
+            <section
               id="seccion-carta"
               aria-label="Carta de Michi Sushi"
               className="mt-8 grid grid-cols-1 items-center gap-8 bg-transparent md:grid-cols-2"
@@ -219,6 +292,20 @@ export default function Home() {
               aria-label="Reservas en Michi Sushi"
               className="grid items-center gap-8 bg-transparent md:grid-cols-2"
             >
+              <div className="relative order-1 aspect-video w-full overflow-hidden rounded-2xl">
+                {reservationsSection.image && (
+                  <Image
+                    src={reservationsSection.image}
+                    alt={
+                      reservationsSection.imageAlt || "Reservas en restaurante"
+                    }
+                    fill
+                    className="scale-105 object-cover object-bottom transition-transform duration-700 ease-out hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                )}
+              </div>
+
               <div className="order-2 flex flex-col items-start gap-4">
                 <h2
                   className={`${montserrat.className} text-4xl font-extrabold tracking-tight text-white uppercase md:text-5xl`}
@@ -238,20 +325,6 @@ export default function Home() {
                   </Link>
                 </Button>
               </div>
-
-              <div className="relative order-1 aspect-video w-full overflow-hidden rounded-2xl">
-                {reservationsSection.image && (
-                  <Image
-                    src={reservationsSection.image}
-                    alt={
-                      reservationsSection.imageAlt || "Reservas en restaurante"
-                    }
-                    fill
-                    className="object-cover transition-transform duration-700 ease-out hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                )}
-              </div>
             </section>
           </RevealOnScroll>
 
@@ -261,22 +334,7 @@ export default function Home() {
               aria-label="Pedir a domicilio en Uber Eats"
               className="grid items-center gap-8 bg-transparent md:grid-cols-2"
             >
-              <div className="relative aspect-video w-full overflow-hidden rounded-2xl md:order-2">
-                {deliverySection.image && (
-                  <Image
-                    src={deliverySection.image}
-                    alt={
-                      deliverySection.imageAlt ||
-                      "Sushi de Michi para pedir en Uber Eats"
-                    }
-                    fill
-                    className="object-cover transition-transform duration-700 ease-out hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                )}
-              </div>
-
-              <div className="flex flex-col items-start gap-4 md:order-1">
+              <div className="order-2 flex flex-col items-start gap-4 md:order-1">
                 <h2
                   className={`${montserrat.className} text-4xl font-extrabold tracking-tight text-white uppercase md:text-5xl`}
                 >
@@ -304,37 +362,20 @@ export default function Home() {
                   </span>
                 </a>
               </div>
-            </section>
-          </RevealOnScroll>
 
-          <RevealOnScroll>
-            <section
-              id="seccion-ubicacion"
-              aria-label="Ubicación de Michi Sushi"
-              className="grid items-center gap-8 bg-transparent md:grid-cols-2"
-            >
-              <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
-                <GoogleMaps zoom={13} />
-              </div>
-
-              <div className="flex flex-col items-start gap-4">
-                <h2
-                  className={`${montserrat.className} text-4xl font-extrabold tracking-tight text-white uppercase md:text-5xl`}
-                >
-                  {locationSection.title}
-                </h2>
-                <p className="text-base text-zinc-300 md:text-lg">
-                  {locationSection.description}
-                </p>
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-michi-sake hover:bg-michi-sake! min-h-11 font-semibold text-stone-950 hover:brightness-110"
-                >
-                  <Link href={locationSection.actionHref || "/location"}>
-                    {locationSection.actionLabel}
-                  </Link>
-                </Button>
+              <div className="relative order-1 aspect-video w-full overflow-hidden rounded-2xl md:order-2">
+                {deliverySection.image && (
+                  <Image
+                    src={deliverySection.image}
+                    alt={
+                      deliverySection.imageAlt ||
+                      "Sushi de Michi para pedir en Uber Eats"
+                    }
+                    fill
+                    className="object-cover transition-transform duration-700 ease-out hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                )}
               </div>
             </section>
           </RevealOnScroll>

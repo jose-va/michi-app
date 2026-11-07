@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 const BASE_URL = "https://michisushigranada.es";
-const LAST_MODIFIED = "2026-11-06";
+const LAST_MODIFIED = "2026-11-07";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

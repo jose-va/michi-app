@@ -8,7 +8,9 @@ const pageSource = readFileSync(new URL("../app/page.tsx", import.meta.url), "ut
 const cartaStart = pageSource.indexOf('id="seccion-carta"');
 const reservasStart = pageSource.indexOf('id="seccion-reservas"');
 assert.ok(cartaStart >= 0 && reservasStart > cartaStart, "Carta section must exist before reservas section");
-const cartaBlock = pageSource.slice(cartaStart, reservasStart);
+const cartaEnd = pageSource.indexOf("</section>", cartaStart);
+assert.ok(cartaEnd > cartaStart, "Carta section must close");
+const cartaBlock = pageSource.slice(cartaStart, cartaEnd);
 
 test("RNF-4: carta data exposes exact title, action label and destination", () => {
   const menu = HOME_SECTIONS.find((section) => section.id === "menu");
@@ -175,14 +177,16 @@ test("Home RF-19 (005-footer): sin bloque de horario fuera del pie", () => {
   );
 });
 
-test("RNF-4: four sections in order and RF-19 (sin horario en el home)", () => {
-  for (const id of ["seccion-lema", "seccion-carta", "seccion-reservas", "seccion-ubicacion"]) {
+test("RNF-4: six sections in order and RF-19 (sin horario en el home)", () => {
+  for (const id of ["seccion-lema", "seccion-sobre-nosotros", "seccion-ubicacion", "seccion-carta", "seccion-reservas", "seccion-pedido"]) {
     assert.ok(pageSource.includes(`id="${id}"`), `Home must keep section ${id}`);
   }
   assert.ok(
-    pageSource.indexOf('id="seccion-lema"') < pageSource.indexOf('id="seccion-carta"') &&
+    pageSource.indexOf('id="seccion-lema"') < pageSource.indexOf('id="seccion-sobre-nosotros"') &&
+      pageSource.indexOf('id="seccion-sobre-nosotros"') < pageSource.indexOf('id="seccion-ubicacion"') &&
+      pageSource.indexOf('id="seccion-ubicacion"') < pageSource.indexOf('id="seccion-carta"') &&
       pageSource.indexOf('id="seccion-carta"') < pageSource.indexOf('id="seccion-reservas"') &&
-      pageSource.indexOf('id="seccion-reservas"') < pageSource.indexOf('id="seccion-ubicacion"'),
+      pageSource.indexOf('id="seccion-reservas"') < pageSource.indexOf('id="seccion-pedido"'),
     "Sections must keep the approved order",
   );
   assert.ok(!pageSource.includes('id="bloque-horarios"'), "RF-19: home must not render a schedule block outside the footer");

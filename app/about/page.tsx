@@ -15,6 +15,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Sobre nosotros",
+  description:
+    "En japonés, Michi significa camino. Fusionamos técnica nipona y alma atlántica en un espacio de libertad creativa donde cada plato es un lienzo.",
   alternates: { canonical: "/about" },
 };
 
