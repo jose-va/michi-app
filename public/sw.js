@@ -39,6 +39,7 @@ self.addEventListener("push", (event) => {
     self.registration.showNotification(title, {
       body,
       icon: PUSH_ICON,
+      vibrate: [200, 100, 200],
       data: { url },
     }),
   );
