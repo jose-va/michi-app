@@ -1,7 +1,7 @@
 import { Download } from "lucide-react";
 
 const CARTA_URL =
-  "https://drive.google.com/file/d/1QdWtr490JNchaeqt4NpXElYDW_xKYeHa/view";
+  "https://michisushigranada.es/carta_michi_sushi_granada.pdf";
 
 export default function CartaDownloadButton() {
   return (
