@@ -35,29 +35,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.6,
     },
-    {
-      url: `${BASE_URL}/cancelar`,
-      lastModified: LAST_MODIFIED,
-      changeFrequency: "monthly",
-      priority: 0.2,
-    },
-    {
-      url: `${BASE_URL}/aviso-legal`,
-      lastModified: LAST_MODIFIED,
-      changeFrequency: "yearly",
-      priority: 0.2,
-    },
-    {
-      url: `${BASE_URL}/cookies`,
-      lastModified: LAST_MODIFIED,
-      changeFrequency: "yearly",
-      priority: 0.2,
-    },
-    {
-      url: `${BASE_URL}/privacidad`,
-      lastModified: LAST_MODIFIED,
-      changeFrequency: "yearly",
-      priority: 0.2,
-    },
   ];
 }

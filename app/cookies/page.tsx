@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Cookies | Michi Sushi Granada",
-  description:
-    "Información sobre las cookies utilizadas en Michi Sushi Granada.",
+  title: "Política de Cookies",
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function CookiesPage() {

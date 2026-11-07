@@ -13,7 +13,8 @@ export default function robots(): MetadataRoute.Robots {
         "/product/create",
         "/product/update",
         "/api/",
-        "/auth",
+        "/auth/",
+        "/auth"
       ],
     },
     sitemap: `${BASE_URL}/sitemap.xml`,

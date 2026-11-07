@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Política de privacidad | Michi Sushi Granada",
-  description:
-    "Información sobre los datos tratados al iniciar sesión con Google en Michi Sushi Granada.",
+  title: "Política de Privacidad",
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function PrivacidadPage() {

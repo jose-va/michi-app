@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Aviso legal | Michi Sushi Granada",
-  description:
-    "Información sobre la titularidad y el contacto de Michi Sushi Granada.",
+  title: "Aviso Legal",
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function AvisoLegalPage() {

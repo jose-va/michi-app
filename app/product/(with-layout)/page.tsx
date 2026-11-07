@@ -5,7 +5,11 @@ import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Carta",
-  alternates: { canonical: "/product" },
+  description:
+    "Explora la carta de Michi Sushi: entrantes, platos calientes, sushi clásico, makis especiales y combinados. Consulta platos y precios online.",
+  alternates: {
+    canonical: "/product",
+  },
 };
 
 export default async function ProductDashboard({

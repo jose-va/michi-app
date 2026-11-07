@@ -1,10 +1,14 @@
 import { CancelReservationPage } from "@/common/components/pages/reservation/CancelReservationPage";
+import { Metadata } from "next";
 
-export const metadata = {
-  title: "Cancelar reserva",
-  referrer: "no-referrer" as const,
+export const metadata: Metadata = {
+  title: "Cancelar reserva | Panel",
+  referrer: "no-referrer",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
-
 export default async function CancelarPage({
   searchParams,
 }: {

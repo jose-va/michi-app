@@ -4,7 +4,6 @@ import UberSync from "@/common/components/layout/product/UberSync";
 import AllergenSelect from "@/common/components/layout/product/AllergenSelect";
 import CartaDownloadButton from "@/common/components/layout/product/CartaDownloadButton";
 import { UserService } from "@/service/UserService";
-import { ProductService } from "@/service/ProductService";
 import ActivateButton from "@/common/components/layout/product/ActivateButton";
 
 export default async function ProductLayout({

@@ -6,8 +6,17 @@ import {
   resolveSelectedDateKey,
 } from "@/common/utils/reservation-day";
 import { UserService } from "@/service/UserService";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Gestión de reservas | Panel",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default async function ReservationPreview({
   searchParams,

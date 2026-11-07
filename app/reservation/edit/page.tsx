@@ -14,9 +14,14 @@ import type { GetReservationForEditResult } from "@/lib/server-actions";
 import { UserService } from "@/service/UserService";
 import { ReservationService } from "@/service/ReservationService";
 import { EditReservationPage } from "@/common/components/pages/reservation/EditReservationPage";
+import { Metadata } from "next";
 
-export const metadata = {
-  title: "Modificar reserva",
+export const metadata: Metadata = {
+  title: "Modificar reserva | Panel",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 // Aviso en español que bloquea la modificación (RF-9, RF-12, RF-13, RF-22,

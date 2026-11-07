@@ -17,12 +17,14 @@ export default function Home() {
   const restaurantJsonLd = {
     "@context": "https://schema.org",
     "@type": "Restaurant",
+    "@id": "https://michisushigranada.es/#restaurant",
     name: "Michi Sushi Granada",
     url: "https://michisushigranada.es",
     image: "https://michisushigranada.es/og-image.jpg",
     telephone: "+34673821148",
+    priceRange: "10€ - 20€",
     servesCuisine: ["Japonesa", "Sushi", "Tapas"],
-    acceptsReservations: true,
+    acceptsReservations: "True",
     menu: "https://michisushigranada.es/product",
     address: {
       "@type": "PostalAddress",
@@ -31,10 +33,15 @@ export default function Home() {
       postalCode: "18011",
       addressCountry: "ES",
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 37.197459, 
+      longitude: -3.601981,
+    },
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Monday",
+        dayOfWeek: ["Monday"],
         opens: "20:00",
         closes: "23:00",
       },
@@ -51,6 +58,22 @@ export default function Home() {
         closes: "23:00",
       },
     ],
+    potentialAction: {
+      "@type": "ReserveAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: "https://michisushigranada.es/reservar",
+        inLanguage: "es-ES",
+        actionPlatform: [
+          "http://schema.org/DesktopWebPlatform",
+          "http://schema.org/MobileWebPlatform",
+        ],
+      },
+      result: {
+        "@type": "FoodEstablishmentReservation",
+        name: "Reserva de mesa",
+      },
+    },
   };
 
   const [
@@ -92,7 +115,7 @@ export default function Home() {
               className="bg-michi-sake h-1 w-20 rounded-full"
             />
             <p className="max-w-md text-base text-zinc-100 drop-shadow-sm md:text-lg">
-              Gastronomía japonesa y tapeo. Ven a visitar tu nuevo sushi bar en
+              Gastronomía japonesa y cultura de tapeo. Tu punto de encuentro en
               Granada.
             </p>
             <div className="flex flex-row items-center gap-3 pt-2">
@@ -101,7 +124,7 @@ export default function Home() {
                 size="lg"
                 className="bg-michi-sake hover:bg-michi-sake! min-h-11 font-semibold text-stone-950 hover:brightness-110"
               >
-                <Link href="/product">Explora la carta</Link>
+                <Link href="/reservation">Reserva mesa</Link>
               </Button>
               <Button
                 asChild
@@ -109,7 +132,7 @@ export default function Home() {
                 size="lg"
                 className="min-h-11 bg-white/10 font-semibold text-white shadow-lg backdrop-blur"
               >
-                <Link href="/about">Sobre nosotros</Link>
+                <Link href="/product">Explora la carta</Link>
               </Button>
             </div>
           </div>

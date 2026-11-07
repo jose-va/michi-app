@@ -7,6 +7,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Ubicación",
+  description: "Encuentranos en Granada: C/ Gutierre Tibón 8, local 2. Consulta cómo llegar, nuestros horarios de apertura y ven a disfrutar del mejor sushi bar.",
   alternates: { canonical: "/location" },
 };
 

@@ -4,6 +4,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Reservar",
+  description: "Disfruta de una experiencia gastronómica japonesa auténtica y cercana en Granada. Reserva ya tu mesa online en Michi Sushi.",
   alternates: { canonical: "/reservation" },
 };
 
