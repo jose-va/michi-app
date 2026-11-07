@@ -8,7 +8,7 @@
 // se ejecuta una vez al cargar, sin observador de intersección.
 // Cada letra va en su propia marca en línea para no alterar el flujo del
 // texto ni la justificación; el lector de pantalla recibe el texto completo
-// una sola vez (letras ocultas, etiqueta en el contenedor) en lugar de
+// una sola vez (letras ocultas + copia `sr-only`) en lugar de
 // deletrearlo. El contenido va en el HTML servido y termina visible sin JS;
 // con movimiento reducido la animación se desactiva en `app/globals.css`.
 "use client";
@@ -30,7 +30,7 @@ export default function FadeInLetters({
 }: FadeInLettersProps) {
   const letters = Array.from(text);
   return (
-    <span aria-label={text}>
+    <span>
       <span aria-hidden="true">
         {letters.map((letter, letterIndex) => {
           const style: CSSProperties = {
@@ -48,6 +48,7 @@ export default function FadeInLetters({
           );
         })}
       </span>
+      <span className="sr-only">{text}</span>
     </span>
   );
 }
