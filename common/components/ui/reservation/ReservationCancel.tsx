@@ -22,6 +22,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/shadcn/components/alert-dialog";
+import { Button } from "@/shadcn/components/button";
 
 function formatCancelDate(date: string | undefined): string {
   const limpia = typeof date === "string" ? date.trim() : "";
@@ -87,22 +88,24 @@ export function ReservationCancel({
     <AlertDialog>
       <AlertDialogTrigger asChild>
         {trigger === "text" ? (
-          <button
+          <Button
             type="button"
+            variant="outline"
+            size="sm"
             disabled={isCancelling}
             aria-label={`Cancelar reserva de ${name}`}
             title="Cancelar reserva"
-            className="inline-flex h-5 w-fit items-center justify-center rounded-4xl border border-destructive/30 px-2 text-xs font-medium text-destructive hover:bg-red-900 hover:text-zinc-300"
+            className="border-destructive/30 text-destructive hover:bg-destructive/10 hover:text-destructive"
           >
             Cancelar reserva
-          </button>
+          </Button>
         ) : (
           <button
             type="button"
             disabled={isCancelling}
             aria-label={`Cancelar reserva de ${name}`}
             title="Cancelar reserva"
-            className={`inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-sm p-1 transition-colors duration-200 group hover:bg-destructive/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${triggerButtonClassName}`}
+            className={`inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm p-1 transition-colors duration-200 group hover:bg-destructive/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${triggerButtonClassName}`}
           >
             <Trash2 className={triggerIconClassName} />
           </button>
