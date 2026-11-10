@@ -17,7 +17,7 @@ test("la badge de precio es amarilla y destaca como precio", () => {
 
 test("un separador vertical sutil une el precio con las piezas solo si hay precio", () => {
   assert.ok(
-    /<span\s+className=\{cn\(\s*"text-sm font-extralight",\s*formatted && "border-l border-white\/30 pl-3"/.test(source),
+    /<span\s+className=\{cn\(\s*"text-sm font-medium",\s*formatted && "border-l border-white\/30 pl-3"/.test(source),
     "las piezas llevan border-l border-white/30 pl-3 solo cuando hay precio",
   );
 });

@@ -38,21 +38,21 @@ function UserReservationDetail({
   return (
     <div className="relative flex min-w-0 flex-col gap-1 pr-24">
       <p>
-        <span className="font-medium">Hora:</span> <span className="font-extralight">{reservation.startTime}</span> 
+        <span className="font-medium">Hora:</span> <span className="font-normal">{reservation.startTime}</span> 
       </p>
       <p>
-        <span className="font-medium">Comensales:</span> <span className="font-extralight">{reservation.guests}</span> 
+        <span className="font-medium">Comensales:</span> <span className="font-normal">{reservation.guests}</span> 
       </p>
       <p>
-        <span className="font-medium">Nombre:</span> <span className="font-extralight">{reservation.name}</span> 
+        <span className="font-medium">Nombre:</span> <span className="font-normal">{reservation.name}</span> 
       </p>
       <p>
-        <span className="font-medium">Teléfono:</span> <span className="font-extralight">{reservation.phone}</span> 
+        <span className="font-medium">Teléfono:</span> <span className="font-normal">{reservation.phone}</span> 
       </p>
       {reservation.observations ? (
         <p>
           <span className="font-medium">Observaciones:</span>{" "}
-          <span className="font-extralight">{reservation.observations}</span> 
+          <span className="font-normal">{reservation.observations}</span> 
         </p>
       ) : null}
       {reservation.location ? (

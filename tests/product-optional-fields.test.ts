@@ -60,7 +60,7 @@ test("«Foto del producto» lleva «(opcional)» atenuado", () => {
 test("ProductCard pinta la descripción solo si tiene contenido y conserva flex-1", () => {
   const src = read("common/components/ui/product/ProductCard.tsx");
   assert.ok(/product\.description\?\.trim\(\)\s*&&/.test(src));
-  assert.ok(/<CardContent className="flex-1 font-extralight">/.test(src));
+  assert.ok(/<CardContent className="flex-1 font-normal">/.test(src));
   assert.ok(!/<CardContent[^>]*>\s*<p className="text-pretty">/.test(src));
 });
 

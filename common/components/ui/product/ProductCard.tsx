@@ -124,7 +124,7 @@ export default function ProductCard({
               {product.pieces > 0 && (
                 <span
                   className={cn(
-                    "text-sm font-extralight",
+                    "text-sm font-medium",
                     formatted && "border-l border-white/30 pl-3"
                   )}
                 >
@@ -146,7 +146,7 @@ export default function ProductCard({
             )}
           </CardAction>
         </CardHeader>
-        <CardContent className="flex-1 font-extralight">
+        <CardContent className="flex-1 font-normal">
           {product.description?.trim() && (
             <p className="text-pretty">{product.description}</p>
           )}

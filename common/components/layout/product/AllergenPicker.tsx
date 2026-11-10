@@ -60,7 +60,7 @@ export default function AllergenPicker({
                   height={24}
                   className="shrink-0"
                 />
-                <span className="text-xs font-light leading-tight">
+                <span className="text-xs font-medium leading-tight">
                   {getAllergenTitle(allergen)}
                 </span>
               </ToggleGroupItem>

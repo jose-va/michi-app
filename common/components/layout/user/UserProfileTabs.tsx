@@ -29,7 +29,7 @@ function FavoriteDetail({ product, user }: { product: Product; user: User }) {
       <div className="flex min-w-0 flex-1 flex-col">
         <div className="flex min-w-0 items-baseline gap-1.5">
           <p className="truncate font-medium">{product.name}</p>
-          <span className="shrink-0 text-xs font-extralight">
+          <span className="shrink-0 text-xs font-medium">
             {product.pieces == 1 && `${product.pieces.toString()} pieza`}
             {product.pieces > 1 && `${product.pieces.toString()} piezas`}
           </span>

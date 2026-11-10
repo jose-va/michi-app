@@ -5,6 +5,7 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/shadcn/components/navigation-menu";
+import { geistSans } from "@/app/fonts/font";
 
 export const navItems = [
   { label: "Carta", href: "/product" },
@@ -23,7 +24,7 @@ export default function NavLinks() {
         >
           <NavigationMenuLink
             href={item.href}
-            className={`${navigationMenuTriggerStyle()} text-[14px] font-bold text-white/90 hover:text-white md:text-[15px]`}
+            className={`${geistSans.className} ${navigationMenuTriggerStyle()} text-[14px] font-bold text-white/90 hover:text-white md:text-[15px]`}
           >
             {item.label}
           </NavigationMenuLink>

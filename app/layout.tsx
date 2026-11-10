@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     siteName: "Michi Sushi Granada",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/portada.jpg",
         width: 1200,
         height: 630,
         alt: "Michi Sushi Granada",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     title: "Michi Sushi Granada | Sushi y tapeo japonés",
     description:
       "Donde el arte del sushi se une al encanto de las tapas, creando una experiencia única que combina tradición japonesa con calidez granaína.",
-    images: ["/og-image.jpg"],
+    images: ["/portada.jpg"],
   },
   icons: {
     icon: [

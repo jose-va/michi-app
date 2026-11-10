@@ -36,6 +36,7 @@ Las pruebas TypeScript usan el runner integrado de Node mediante `tsx`: ejecuta 
 - Conserva en español los textos visibles al usuario, como en las rutas y componentes existentes.
 - Sigue los patrones cercanos: componentes React en `.tsx`, imports internos con `@/` y clases Tailwind para estilos.
 - Reutiliza los tipos de `common/types/` y los servicios existentes para llamadas al backend; evita duplicar lógica de API en componentes.
+- Tipografías en `app/fonts/font.ts` (Montserrat global, Geist en nav, Sigokae/Century Gothic editoriales); textos sobre fondo oscuro: `font-normal` (400) en cuerpo base, `font-medium` (500) en `text-xs/sm` atenuados; nunca `font-light`/`font-extralight` en texto funcional (lema italic y decorativos exentos).
 
 ## Reglas de dominio / trampas conocidas
 

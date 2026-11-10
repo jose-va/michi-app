@@ -66,7 +66,7 @@ export default function ReservationCard({
             </div>
           </div>
         </CardHeader>
-        <CardContent className="flex-1 font-extralight">
+        <CardContent className="flex-1 font-normal">
           <div className="mb-4 flex items-center gap-2">
             <Badge>
               {reservation.location === "OUTSIDE" ? "Terraza" : "Interior"}
@@ -84,7 +84,7 @@ export default function ReservationCard({
           {/* TODO: sustituye este href temporal por el enlace definitivo del teléfono */}
           <Link
             href={`tel:${reservation.phone}`}
-            className="flex items-center gap-2 font-extralight hover:scale-101 text-white/90 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            className="flex items-center gap-2 font-normal hover:scale-101 text-white/90 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             <Phone className="size-4" /> {reservation.phone}
           </Link>

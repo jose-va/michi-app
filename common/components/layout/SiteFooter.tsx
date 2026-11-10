@@ -24,7 +24,7 @@ export default function SiteFooter() {
         <div className="flex flex-col items-start">
           <div className="h-20">
             <Image
-              src="/logos/LOGO-HOR-WHITE_1.webp"
+              src="/logos/LOGO-HOR-WHITE.webp"
               alt="Logo Michi Sushi Granada"
               width={220}
               height={80}

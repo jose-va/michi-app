@@ -15,12 +15,12 @@ export default function PrivacidadPage() {
         <h1 className="text-3xl font-extrabold text-white">
           Política de privacidad
         </h1>
-        <div className="mt-8 flex flex-col gap-10 text-zinc-100">
+        <div className="mt-8 flex flex-col gap-10 text-zinc-300">
           <section aria-labelledby="responsable">
             <h2 id="responsable" className="text-xl font-bold text-white">
               Responsable del tratamiento
             </h2>
-            <p className="mt-3 leading-relaxed font-extralight">
+            <p className="mt-3 leading-relaxed font-normal">
               El responsable del tratamiento es Michi Sushi Bar, con NIF
               J23882848, domicilio en C. Gutierre Tibón, Santiago Lozano, 8,
               Local 2, 18011 Granada y correo electrónico
@@ -31,7 +31,7 @@ export default function PrivacidadPage() {
             <h2 id="datos" className="text-xl font-bold text-white">
               Datos que se tratan
             </h2>
-            <p className="mt-3 leading-relaxed font-extralight">
+            <p className="mt-3 leading-relaxed font-normal">
               Al iniciar sesión con Google tratamos únicamente tu nombre, tu
               correo electrónico y tu imagen de avatar.
             </p>
@@ -40,7 +40,7 @@ export default function PrivacidadPage() {
             <h2 id="finalidades" className="text-xl font-bold text-white">
               Finalidades
             </h2>
-            <p className="mt-3 leading-relaxed font-extralight">
+            <p className="mt-3 leading-relaxed font-normal">
               Usamos estos datos solo para mantener tu sesión, mostrar tu perfil
               y gestionar tus reservas. No usamos estos datos para ninguna otra
               finalidad.
@@ -50,7 +50,7 @@ export default function PrivacidadPage() {
             <h2 id="base-juridica" className="text-xl font-bold text-white">
               Base jurídica
             </h2>
-            <p className="mt-3 leading-relaxed font-extralight">
+            <p className="mt-3 leading-relaxed font-normal">
               La base jurídica del tratamiento es la ejecución del servicio que
               solicitas al usar la cuenta y tu consentimiento al iniciar sesión
               con Google.
@@ -60,7 +60,7 @@ export default function PrivacidadPage() {
             <h2 id="conservacion" className="text-xl font-bold text-white">
               Conservación
             </h2>
-            <p className="mt-3 leading-relaxed font-extralight">
+            <p className="mt-3 leading-relaxed font-normal">
               Conservamos los datos solo durante el tiempo necesario para
               cumplir las finalidades descritas en esta página.
             </p>
@@ -69,11 +69,11 @@ export default function PrivacidadPage() {
             <h2 id="derechos" className="text-xl font-bold text-white">
               Derechos
             </h2>
-            <p className="mt-3 leading-relaxed font-extralight">
+            <p className="mt-3 leading-relaxed font-normal">
               Tienes derecho de acceso, rectificación, supresión, oposición,
               limitación y portabilidad sobre tus datos.
             </p>
-            <p className="mt-3 leading-relaxed font-extralight">
+            <p className="mt-3 leading-relaxed font-normal">
               Puedes ejercer tus derechos escribiendo a
               michisushigranada@gmail.com.
             </p>
@@ -82,11 +82,11 @@ export default function PrivacidadPage() {
             <h2 id="cesiones" className="text-xl font-bold text-white">
               Cesiones y encargados
             </h2>
-            <p className="mt-3 leading-relaxed font-extralight">
+            <p className="mt-3 leading-relaxed font-normal">
               Google actúa como proveedor del servicio de autenticación cuando
               inicias sesión con tu cuenta de Google.
             </p>
-            <p className="mt-3 leading-relaxed font-extralight">
+            <p className="mt-3 leading-relaxed font-normal">
               Con Uber Eats solo compartimos datos de la carta y del catálogo
               (productos y precios) para mantener actualizada su aplicación. No
               cedemos datos personales de los usuarios a Uber Eats, salvo que
@@ -98,7 +98,7 @@ export default function PrivacidadPage() {
             <h2 id="seguridad" className="text-xl font-bold text-white">
               Seguridad
             </h2>
-            <p className="mt-3 leading-relaxed font-extralight">
+            <p className="mt-3 leading-relaxed font-normal">
               Aplicamos medidas básicas de protección para evitar la pérdida, el
               uso indebido o el acceso no autorizado a tus datos.
             </p>

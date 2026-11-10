@@ -26,6 +26,9 @@ export interface HomeSection {
 export const UBER_EATS_URL =
   "https://www.ubereats.com/store/michi-sushi-bar/C4prIh1gVIahmQgwtrvDTA/?analyticsUuid=1ad41473-1403-4d26-a8f3-5ae0165030bb&qrCodeScan=true&diningMode=DINE_IN" as const;
 
+export const GLOVO_URL =
+  "https://glovoapp.com/es/es/granada/stores/michi-cafe-sushi-bar-granada" as const;
+
 export const HOME_SECTIONS: readonly HomeSection[] = [
   {
     id: "motto",
@@ -49,7 +52,7 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
     title: "Dónde estamos",
     description:
       "Visítenos en: C/ Gutierre Tibón, Santiago Lozano, 8, local 2. Consulta cómo llegar y nuestros horarios de apertura.",
-    actionLabel: "Ver ubicación",
+    actionLabel: "Cómo llegar",
     actionHref: "/location",
   },
   {
@@ -77,9 +80,9 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
   {
     id: "delivery",
     title: "PIDE A DOMICILIO",
-    description: "Tu sushi favorito en casa con Uber Eats. Pide desde la aplicación.",
+    description: "Tu sushi favorito en casa con Uber Eats o Glovo. Pide desde su aplicación.",
     image: "/images/Dish Composition [5_4-2304x2880-watermarked] d88.webp",
-    imageAlt: "Sushi de Michi para pedir en Uber Eats",
+    imageAlt: "Sushi de Michi para pedir a domicilio",
     actionLabel: "Pedir en Uber Eats",
     actionHref: UBER_EATS_URL,
   },

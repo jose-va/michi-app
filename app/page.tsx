@@ -1,12 +1,12 @@
 ﻿import Image from "next/image";
 import Link from "next/link";
-import { montserrat, playfair, sigokae, centuryGothic } from "./fonts/font";
+import { montserrat, sigokae, centuryGothic } from "./fonts/font";
 import { HomeCarousel } from "@/common/components/ui/HomeCarousel";
 import FadeInLetters from "@/common/components/FadeInLetters";
 import { RevealOnScroll } from "@/common/components/ui/RevealOnScroll";
 import GoogleMaps from "@/common/components/ui/location/GoogleMaps";
 import { Button } from "@/shadcn/components/button";
-import { HOME_SECTIONS } from "@/common/utils/home-content";
+import { GLOVO_URL, HOME_SECTIONS, UBER_EATS_URL } from "@/common/utils/home-content";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function Home() {
     "@id": "https://michisushigranada.es/#restaurant",
     name: "Michi Sushi Granada",
     url: "https://michisushigranada.es",
-    image: "https://michisushigranada.es/og-image.jpg",
+    image: "https://michisushigranada.es/portada.jpg",
     telephone: "+34673821148",
     priceRange: "10€ - 20€",
     servesCuisine: ["Japonesa", "Sushi", "Tapas"],
@@ -331,7 +331,7 @@ export default function Home() {
           <RevealOnScroll>
             <section
               id="seccion-pedido"
-              aria-label="Pedir a domicilio en Uber Eats"
+              aria-label="Pedir a domicilio en Uber Eats y Glovo"
               className="grid items-center gap-8 bg-transparent md:grid-cols-2"
             >
               <div className="order-2 flex flex-col items-start gap-4 md:order-1">
@@ -343,24 +343,46 @@ export default function Home() {
                 <p className="text-base text-zinc-300 md:text-lg">
                   {deliverySection.description}
                 </p>
-                <a
-                  href={deliverySection.actionHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center rounded-lg transition-transform hover:scale-105 hover:cursor-pointer hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                >
-                  <Image
-                    src="/logos/Eats_Pill_RGB.svg"
-                    alt={deliverySection.actionLabel || "Pedir en Uber Eats"}
-                    width={110}
-                    height={42}
-                    className="h-auto w-27.5"
-                  />
-                  <span className="sr-only">
-                    {" "}
-                    (se abre en una pestaña nueva)
-                  </span>
-                </a>
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <a
+                    href={UBER_EATS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center rounded-lg transition-transform hover:scale-105 hover:cursor-pointer hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >
+                    <Image
+                      src="/logos/pedir_uber.webp"
+                      alt="Pedir en Uber Eats"
+                      width={1053}
+                      height={466}
+                      className="h-14 w-auto rounded-lg"
+                      sizes="126px"
+                    />
+                    <span className="sr-only">
+                      {" "}
+                      (se abre en una pestaña nueva)
+                    </span>
+                  </a>
+                  <a
+                    href={GLOVO_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center rounded-lg transition-transform hover:scale-105 hover:cursor-pointer hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >
+                    <Image
+                      src="/logos/pedir_glovo.webp"
+                      alt="Pedir en Glovo"
+                      width={1053}
+                      height={527}
+                      className="h-14 w-auto rounded-lg"
+                      sizes="112px"
+                    />
+                    <span className="sr-only">
+                      {" "}
+                      (se abre en una pestaña nueva)
+                    </span>
+                  </a>
+                </div>
               </div>
 
               <div className="relative order-1 aspect-video w-full overflow-hidden rounded-2xl md:order-2">
@@ -369,7 +391,7 @@ export default function Home() {
                     src={deliverySection.image}
                     alt={
                       deliverySection.imageAlt ||
-                      "Sushi de Michi para pedir en Uber Eats"
+                      "Sushi de Michi para pedir a domicilio"
                     }
                     fill
                     className="object-cover transition-transform duration-700 ease-out hover:scale-105"
