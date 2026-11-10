@@ -37,9 +37,9 @@ export default function ProfileAuth({
         <SheetTrigger asChild>
           <button
             aria-label="Abrir panel de usuario"
-            className="flex size-7 items-center justify-center rounded-full bg-white/85 text-black duration-300 hover:cursor-pointer hover:bg-white lg:size-8"
+            className="group -mr-2 flex size-11 items-center justify-center rounded-full focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:outline-none"
           >
-            <User className="size-5.5 lg:size-6.5" />
+            <User className="size-6 text-white/90 transition-colors duration-300 group-hover:text-white lg:size-7" />
           </button>
         </SheetTrigger>
         <SheetContent>
