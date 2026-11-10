@@ -45,8 +45,8 @@ export default function ProfileAuth({
         <SheetContent>
           <SheetHeader>
             <SheetTitle>¡Te damos la bienvenida!</SheetTitle>
-            <SheetDescription>
-              Accede a tu cuenta para consultar tus reservas y guardar tus preferencias.
+            <SheetDescription className="mt-1 text-balance">
+              Accede a tu cuenta para consultar tus reservas.
             </SheetDescription>
           </SheetHeader>
 
