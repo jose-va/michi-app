@@ -101,23 +101,25 @@ export default function Home() {
               <h1
                 className={`${sigokae.className} text-6xl font-normal text-white md:text-7xl lg:text-8xl`}
               >
+                <span className="block">MICHI</span>
                 <span className="flex items-baseline gap-2">
-                  <span>MICHI</span>
-                  <span
-                    className={`${sigokae.className} text-xl font-normal text-white/50 md:text-2xl`}
-                    aria-hidden="true"
+                  <span className="block">SUSHI</span>
+                  <Link
+                    href="/about"
+                    aria-label="Conócenos"
+                    title="Conócenos"
+                    className={`${sigokae.className} text-lg text-white/60 transition-colors hover:text-white md:text-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white`}
                   >
                     道
-                  </span>
+                  </Link>
                 </span>
-                <span className="block">SUSHI</span>
               </h1>
               <span
                 aria-hidden="true"
                 className="bg-linear-to-r from-michi-sake to-transparent mt-4 block h-0.5 w-28 rounded-full"
               />
             </div>
-            <p className="max-w-sm text-base text-balance text-zinc-200 drop-shadow-sm md:text-lg">
+            <p className="max-w-md text-base text-balance text-zinc-300 drop-shadow-sm md:text-xl">
               Gastronomía japonesa y cultura de tapeo. Tu punto de encuentro en
               Granada.
             </p>

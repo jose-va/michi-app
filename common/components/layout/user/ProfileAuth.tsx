@@ -37,7 +37,7 @@ export default function ProfileAuth({
         <SheetTrigger asChild>
           <button
             aria-label="Abrir panel de usuario"
-            className="flex size-7 items-center justify-center rounded-full bg-white/85 text-black duration-300 hover:scale-105 hover:cursor-pointer hover:bg-white lg:size-8"
+            className="flex size-7 items-center justify-center rounded-full bg-white/85 text-black duration-300 hover:cursor-pointer hover:bg-white lg:size-8"
           >
             <User className="size-5.5 lg:size-6.5" />
           </button>
