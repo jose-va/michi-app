@@ -2,9 +2,9 @@
 
 # Michi Sushi Granada 🍣
 
-Plataforma web para gestionar las reservas y la carta de un bar de sushi en Granada.
+Plataforma web para gestionar las reservas y la carta de un sushi bar de Granada.
 
-🌐 **[www.michisushigranada.es](https://www.michisushigranada.es)**
+🌐 **[michisushigranada.es](https://michisushigranada.es)**
 
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
