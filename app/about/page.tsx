@@ -38,7 +38,7 @@ export default function AboutPage() {
             </h1>
             <span
               aria-hidden="true"
-              className={`${centuryGothic.className} hover:shadow-6xl shadow-3xl text-3xl transition-transform duration-300 hover:scale-110 hover:brightness-150 md:text-4xl`}
+              className={`${centuryGothic.className} shadow-4xl text-2xl md:text-4xl`}
             >
               {ABOUT_KANJI}
             </span>

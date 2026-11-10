@@ -51,7 +51,7 @@ export default function LocationPage({
           </p>
           <span
             aria-hidden="true"
-            className="bg-michi-aqua mt-1 h-1 w-24 rounded-lg"
+            className="bg-linear-to-r from-transparent via-michi-aqua to-transparent mx-auto mt-4 block h-0.5 w-28 rounded-full"
           />
         </header>
 

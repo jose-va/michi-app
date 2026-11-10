@@ -99,12 +99,12 @@ export default function Home() {
           <div className="ml-4 flex flex-col justify-center space-y-3">
             <div>
               <h1
-                className={`${sigokae.className} text-6xl font-bold text-white md:text-7xl lg:text-8xl`}
+                className={`${sigokae.className} text-6xl font-normal text-white md:text-7xl lg:text-8xl`}
               >
                 <span className="flex items-baseline gap-2">
                   <span>MICHI</span>
                   <span
-                    className={`${montserrat.className} text-xl font-normal text-white/50 md:text-2xl`}
+                    className={`${sigokae.className} text-xl font-normal text-white/50 md:text-2xl`}
                     aria-hidden="true"
                   >
                     道
@@ -112,12 +112,12 @@ export default function Home() {
                 </span>
                 <span className="block">SUSHI</span>
               </h1>
+              <span
+                aria-hidden="true"
+                className="bg-linear-to-r from-michi-sake to-transparent mt-4 block h-0.5 w-28 rounded-full"
+              />
             </div>
-            <span
-              aria-hidden="true"
-              className="bg-michi-sake h-1 w-20 rounded-full"
-            />
-            <p className="max-w-md text-base text-zinc-200 drop-shadow-sm md:text-lg">
+            <p className="max-w-sm text-base text-balance text-zinc-200 drop-shadow-sm md:text-lg">
               Gastronomía japonesa y cultura de tapeo. Tu punto de encuentro en
               Granada.
             </p>
@@ -125,7 +125,7 @@ export default function Home() {
               <Button
                 asChild
                 size="lg"
-                className="bg-michi-sake hover:bg-michi-sake! min-h-11 font-semibold text-stone-950 hover:brightness-110"
+                className="bg-michi-sake hover:bg-michi-sake! min-h-11 font-semibold text-black hover:brightness-110"
               >
                 <Link href="/reservation">Reserva mesa</Link>
               </Button>
@@ -133,7 +133,7 @@ export default function Home() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="min-h-11 bg-white/10 font-semibold text-white shadow-lg backdrop-blur border-"
+                className="min-h-11 bg-white/10 font-semibold text-white shadow-lg backdrop-blur"
               >
                 <Link href="/product">Explora la carta</Link>
               </Button>

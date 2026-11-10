@@ -27,7 +27,7 @@ export default function PageMenu({
               alt="Logo Michi"
               width={70}
               height={70}
-              className="mt-2 cursor-pointer transition-all duration-500 hover:scale-110"
+              className="mt-2 cursor-pointer"
               loading="eager"
             />
           </Link>
@@ -37,7 +37,7 @@ export default function PageMenu({
           <NavLinks />
         </NavigationMenu>
 
-        <div className="mr-2 flex flex-1 justify-end">
+        <div className="mr-2 ml-3 flex flex-none justify-end sm:ml-0 sm:flex-1">
           <ProfileAuth
             profileTabs={
               user === null ? null : user.role === "ROLE_USER" ? (

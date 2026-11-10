@@ -14,3 +14,18 @@ export const centuryGothic = localFont({
   src: "./centurygothic.ttf",
 });
 
+export const cabinetGrotesk = localFont({
+  src: [
+    {
+      path: "./cabinet-grotesk-medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "./cabinet-grotesk-bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+});
+

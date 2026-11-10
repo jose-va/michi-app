@@ -284,6 +284,36 @@
   .animate-accordion-up {
     animation: accordion-up 0.2s ease-out;
   }
+
+  /* Subrayado sake: línea con degradado simétrico que nace del centro.
+     Reutilizable en enlaces; el estado fijo va con .sake-underline-on. */
+  .sake-underline {
+    position: relative;
+  }
+
+  .sake-underline::after {
+    content: "";
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.125rem;
+    left: 0.5rem;
+    height: 0.125rem;
+    transform: scaleX(0);
+    border-radius: 9999px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--color-michi-sake),
+      transparent
+    );
+    transition: transform 0.3s;
+  }
+
+  .sake-underline:hover::after,
+  .sake-underline:focus-visible::after,
+  .sake-underline-on::after {
+    transform: scaleX(1);
+  }
 }
 
 /* Insignia flotante home: vaivén vertical suave. */
@@ -332,6 +362,9 @@
   }
   .animate-float-badge {
     animation: none;
+  }
+  .sake-underline::after {
+    transition: none;
   }
 }
 
