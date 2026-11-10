@@ -97,25 +97,27 @@ export default function Home() {
           className="-mt-1 grid items-center gap-10 py-13 md:-mt-2 md:grid-cols-2 md:py-8"
         >
           <div className="ml-4 flex flex-col justify-center space-y-3">
-            <div className="flex items-end gap-2">
+            <div>
               <h1
-                className={`${sigokae.className} text-6xl font-extrabold tracking-tight text-white md:text-7xl lg:text-8xl`}
+                className={`${sigokae.className} text-6xl font-bold text-white md:text-7xl lg:text-8xl`}
               >
-                <span className="block">MICHI</span>
+                <span className="flex items-baseline gap-2">
+                  <span>MICHI</span>
+                  <span
+                    className={`${montserrat.className} text-xl font-normal text-white/50 md:text-2xl`}
+                    aria-hidden="true"
+                  >
+                    道
+                  </span>
+                </span>
                 <span className="block">SUSHI</span>
               </h1>
-              <span
-                className="mb-2 ml-1 text-2xl text-white/50 md:mb-4 md:text-3xl"
-                aria-hidden="true"
-              >
-                道
-              </span>
             </div>
             <span
               aria-hidden="true"
               className="bg-michi-sake h-1 w-20 rounded-full"
             />
-            <p className="max-w-md text-base text-zinc-100 drop-shadow-sm md:text-lg">
+            <p className="max-w-md text-base text-zinc-200 drop-shadow-sm md:text-lg">
               Gastronomía japonesa y cultura de tapeo. Tu punto de encuentro en
               Granada.
             </p>
@@ -131,7 +133,7 @@ export default function Home() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="min-h-11 bg-white/10 font-semibold text-white shadow-lg backdrop-blur"
+                className="min-h-11 bg-white/10 font-semibold text-white shadow-lg backdrop-blur border-"
               >
                 <Link href="/product">Explora la carta</Link>
               </Button>

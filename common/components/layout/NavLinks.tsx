@@ -10,13 +10,13 @@ import { geistSans } from "@/app/fonts/font";
 export const navItems = [
   { label: "Carta", href: "/product" },
   { label: "Reservar", href: "/reservation" },
-  { label: "Ubicacion", href: "/location" },
+  { label: "Ubicación", href: "/location" },
   { label: "Conócenos", href: "/about" },
 ];
 
 export default function NavLinks() {
   return (
-    <NavigationMenuList className="ml-1 flex justify-center md:gap-4">
+    <NavigationMenuList className="flex justify-center md:gap-6">
       {navItems.map((item) => (
         <NavigationMenuItem
           key={item.href}
@@ -24,7 +24,7 @@ export default function NavLinks() {
         >
           <NavigationMenuLink
             href={item.href}
-            className={`${geistSans.className} ${navigationMenuTriggerStyle()} text-[14px] font-bold text-white/90 hover:text-white md:text-[15px]`}
+            className={`${geistSans.className} ${navigationMenuTriggerStyle()} text-sm font-medium uppercase tracking-wide text-white/90 hover:text-white`}
           >
             {item.label}
           </NavigationMenuLink>

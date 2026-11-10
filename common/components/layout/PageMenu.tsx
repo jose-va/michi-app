@@ -1,9 +1,7 @@
 import { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  NavigationMenu,
-} from "@/shadcn/components/navigation-menu";
+import { NavigationMenu } from "@/shadcn/components/navigation-menu";
 import { TooltipProvider } from "@/shadcn/components/tooltip";
 import ProfileAuth from "./user/ProfileAuth";
 import AdminProfileTabs from "./user/AdminProfileTabs";
@@ -21,7 +19,7 @@ export default function PageMenu({
 }) {
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="fixed z-10 flex h-17 w-screen top-0 left-0 items-center justify-between border-b border-white/10 bg-black/60 px-4 shadow-md backdrop-blur-md md:px-14">
+      <header className="fixed top-0 left-0 z-10 flex h-17 w-screen items-center justify-between bg-black/60 px-4 shadow-xl backdrop-blur-lg md:px-14">
         <div className="flex-1">
           <Link href="/">
             <Image
@@ -39,7 +37,7 @@ export default function PageMenu({
           <NavLinks />
         </NavigationMenu>
 
-        <div className="flex flex-1 justify-end mr-2">
+        <div className="mr-2 flex flex-1 justify-end">
           <ProfileAuth
             profileTabs={
               user === null ? null : user.role === "ROLE_USER" ? (
