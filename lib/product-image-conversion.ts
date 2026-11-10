@@ -3,7 +3,7 @@ import { needsHeicConversion } from "@/common/utils/product-image";
 
 export async function convertToWebpBuffer(
   input: Buffer,
-  fileName: string,
+  fileName: string
 ): Promise<Buffer> {
   const { default: sharp } = await import("sharp");
 

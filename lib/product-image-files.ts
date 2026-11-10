@@ -21,7 +21,7 @@ async function fileExists(path: string): Promise<boolean> {
 export async function moveImageFile(
   dir: string,
   oldFile: string,
-  newFile: string,
+  newFile: string
 ): Promise<MoveImageResult> {
   const from = join(dir, oldFile);
   const to = join(dir, newFile);

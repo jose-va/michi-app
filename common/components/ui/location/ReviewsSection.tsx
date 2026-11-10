@@ -34,7 +34,7 @@ export default function ReviewsSection({
   return (
     <section
       aria-labelledby="reviews-heading"
-      className="mx-auto mb-6 flex w-full max-w-6xl flex-col gap-5 rounded-lg border border-white/10 border-b-0 bg-gradient-to-b from-black/60 via-black/40 via-80% to-transparent px-4 py-8 backdrop-blur-md md:mb-8 md:px-6"
+      className="mx-auto mb-6 flex w-full max-w-6xl flex-col gap-5 rounded-lg border border-white/10 border-b-0 bg-linear-to-b from-black/60 via-black/40 via-80% to-transparent px-4 py-8 backdrop-blur-md md:mb-8 md:px-6"
     >
       <div className="flex flex-col gap-2">
         <h2
@@ -67,7 +67,7 @@ export default function ReviewsSection({
             {view.summary}
           </blockquote>
           {view.summaryAttribution !== null && (
-            <figcaption className="text-sm break-words text-zinc-400">
+            <figcaption className="text-sm wrap-break-word text-zinc-400">
               Resumen de {view.summaryAttribution}
             </figcaption>
           )}
@@ -80,7 +80,7 @@ export default function ReviewsSection({
             key={`${review.author}-${index}`}
             className="flex flex-col gap-1 rounded-lg border border-white/10 bg-black/40 p-4"
           >
-            <p className="flex flex-wrap items-center gap-2 text-sm font-semibold break-words text-white">
+            <p className="flex flex-wrap items-center gap-2 text-sm font-semibold wrap-break-word text-white">
               {review.authorAvatarUrl !== null && (
                 <ReviewsAuthorAvatar
                   src={review.authorAvatarUrl}
@@ -99,7 +99,7 @@ export default function ReviewsSection({
               {review.relativeTime !== "" && <span>{review.relativeTime}</span>}
             </p>
             {review.text !== "" && (
-              <p className="text-sm break-words text-zinc-200">{review.text}</p>
+              <p className="text-sm wrap-break-word text-zinc-200">{review.text}</p>
             )}
             {review.reviewPhotos.length > 0 && (
               <ReviewsReviewPhotos
@@ -118,18 +118,18 @@ export default function ReviewsSection({
         <div className="flex flex-col gap-1">
           
           {view.contrastName !== null && (
-            <p className="text-sm break-words text-zinc-300">
+            <p className="text-sm wrap-break-word text-zinc-300">
               {view.contrastName}
             </p>
           )}
   
           {view.contactPhone !== null && (
-            <p className="text-sm break-words text-zinc-300">
+            <p className="text-sm wrap-break-word text-zinc-300">
               Teléfono: {view.contactPhone}
             </p>
           )}
           {view.editorialSummary !== null && (
-            <p className="text-sm break-words text-zinc-300">
+            <p className="text-sm wrap-break-word text-zinc-300">
               {view.editorialSummary}
             </p>
           )}
@@ -147,7 +147,7 @@ export default function ReviewsSection({
         href={view.reviewsUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-base font-semibold text-white underline underline-offset-4 hover:text-zinc-200 focus-visible:text-zinc-200 focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        className="text-base font-semibold text-white/90 no-underline transition-colors hover:text-white hover:brightness-110 focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-michi-aqua"
       >
         Ver reseñas en Google Maps
         <span className="sr-only"> (se abre en una pestaña nueva)</span>

@@ -6,76 +6,19 @@ import FadeInLetters from "@/common/components/FadeInLetters";
 import { RevealOnScroll } from "@/common/components/ui/RevealOnScroll";
 import GoogleMaps from "@/common/components/ui/location/GoogleMaps";
 import { Button } from "@/shadcn/components/button";
-import { GLOVO_URL, HOME_SECTIONS, UBER_EATS_URL } from "@/common/utils/home-content";
+import {
+  GLOVO_URL,
+  HOME_SECTIONS,
+  UBER_EATS_URL,
+} from "@/common/utils/home-content";
 import { Metadata } from "next";
+import { restaurantJsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
 export default function Home() {
-  const restaurantJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Restaurant",
-    "@id": "https://michisushigranada.es/#restaurant",
-    name: "Michi Sushi Granada",
-    url: "https://michisushigranada.es",
-    image: "https://michisushigranada.es/portada.jpg",
-    telephone: "+34673821148",
-    priceRange: "10€ - 20€",
-    servesCuisine: ["Japonesa", "Sushi", "Tapas"],
-    acceptsReservations: "True",
-    menu: "https://michisushigranada.es/product",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "C/ Gutierre Tibón, Santiago Lozano, 8, Local 2",
-      addressLocality: "Granada",
-      postalCode: "18011",
-      addressCountry: "ES",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 37.197459,
-      longitude: -3.601981,
-    },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday"],
-        opens: "20:00",
-        closes: "23:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        opens: "08:00",
-        closes: "16:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        opens: "20:00",
-        closes: "23:00",
-      },
-    ],
-    potentialAction: {
-      "@type": "ReserveAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: "https://michisushigranada.es/reservar",
-        inLanguage: "es-ES",
-        actionPlatform: [
-          "http://schema.org/DesktopWebPlatform",
-          "http://schema.org/MobileWebPlatform",
-        ],
-      },
-      result: {
-        "@type": "FoodEstablishmentReservation",
-        name: "Reserva de mesa",
-      },
-    },
-  };
-
   const [
     mottoSection,
     aboutSection,
@@ -108,7 +51,7 @@ export default function Home() {
                     href="/about"
                     aria-label="Conócenos"
                     title="Conócenos"
-                    className={`${sigokae.className} text-lg text-white/60 transition-colors hover:text-white md:text-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white`}
+                    className={`${sigokae.className} text-lg text-white/60 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:text-xl`}
                   >
                     道
                   </Link>
@@ -116,7 +59,7 @@ export default function Home() {
               </h1>
               <span
                 aria-hidden="true"
-                className="bg-linear-to-r from-michi-sake to-transparent mt-4 block h-0.5 w-28 rounded-full"
+                className="from-michi-sake mt-4 block h-0.5 w-28 rounded-full bg-linear-to-r to-transparent"
               />
             </div>
             <p className="max-w-md text-base text-balance text-zinc-300 drop-shadow-sm md:text-xl">

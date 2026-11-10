@@ -44,16 +44,14 @@ export type ReservationEditActionOverrides = ReservationEditOverrides & {
 function hasSessionOverride(overrides?: ReservationEditOverrides): boolean {
   return (
     !!overrides &&
-    ("token" in overrides ||
-      "userId" in overrides ||
-      "userRole" in overrides)
+    ("token" in overrides || "userId" in overrides || "userRole" in overrides)
   );
 }
 
 export async function createReservation(
   data: Omit<ReservationFormValues, "user">
 ): Promise<CreateReservationResult> {
-  const profile = await UserService.getProfile(); 
+  const profile = await UserService.getProfile();
 
   const guests = Number(data.guests);
   if (!Number.isInteger(guests) || guests < 1) {
@@ -94,7 +92,7 @@ export async function cancelReservation(
 
 export async function getReservationForEdit(
   id: string,
-  overrides?: ReservationEditActionOverrides,
+  overrides?: ReservationEditActionOverrides
 ): Promise<GetReservationForEditResult> {
   if (!id || id.trim().length === 0) {
     return { ok: false, kind: "NOT_FOUND" };
@@ -118,7 +116,7 @@ export async function getReservationForEdit(
 export async function updateReservation(
   id: string,
   payload: Reservation,
-  overrides?: ReservationEditActionOverrides,
+  overrides?: ReservationEditActionOverrides
 ): Promise<UpdateReservationResult> {
   if (!id || id.trim().length === 0) {
     return { ok: false, status: 404, code: null, backendMessage: null };
@@ -133,7 +131,7 @@ export async function updateReservation(
     const result = await ReservationService.updateReservationById(
       id,
       payload,
-      overrides,
+      overrides
     );
     if (result.ok) {
       const revalidate = overrides?.revalidate ?? revalidatePath;
