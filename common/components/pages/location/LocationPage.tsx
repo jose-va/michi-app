@@ -103,7 +103,7 @@ export default function LocationPage({
                       services.map(({ label, time }) => (
                         <span key={label} className="text-michi-aqua font-medium text-sm">
                           <span className="font-medium text-white">
-                            {label}:{" "}
+                            {label}{" "}
                           </span>
                           {time}
                         </span>

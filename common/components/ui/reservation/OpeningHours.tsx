@@ -14,7 +14,7 @@ export default function OpeningHours() {
               .map(({ label, time }) => (
                 <dd key={label} className="text-michi-aqua font-semibold">
                   <span className="font-normal text-white">
-                    {label}:{" "}
+                    {label}{" "}
                   </span>
                   {time}
                 </dd>
