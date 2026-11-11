@@ -63,7 +63,7 @@ export default function SiteFooter() {
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-6 py-4 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col gap-2">
             <nav aria-label="Información legal" className="flex justify-start">
-              <ul className="-ml-1.5 flex flex-wrap items-center justify-start gap-y-0.5">
+              <ul className="-ml-1 flex flex-wrap items-center justify-start mb-2">
                 {FOOTER_LEGAL.map((item, index) => (
                   <li key={item.href} className="flex items-center leading-none">
                     <FooterNavLink
@@ -81,10 +81,10 @@ export default function SiteFooter() {
               </ul>
             </nav>
             <p className="text-sm text-zinc-400">
-              © {year} Michi Sushi Granada. Todos los derechos reservados.
+              © {year} Michi Sushi Granada.
             </p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center">
             <span className="text-sm text-zinc-400">Desarrollador</span>
             <a
               href="https://www.linkedin.com/in/vilare/"
