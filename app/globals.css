@@ -93,6 +93,15 @@
     @apply rounded-lg border border-white/10 bg-black/60 shadow-lg backdrop-blur-md;
   }
 
+  /* CTA primario sake (molde del botón "Conócenos" de home):
+     pill con elevación hover, focus visible y movimiento reducido.
+     Uso: <Button asChild size="lg" className="btn-michi-primary"> (+ "group"
+     si el enlace interior lleva flecha con group-hover). No usar en el hero
+     ni en variantes outline/secondary/destructive. */
+  .btn-michi-primary {
+    @apply bg-michi-sake min-h-12 gap-2 rounded-full px-7 text-base font-semibold text-stone-950 shadow-lg shadow-michi-sake/20 transition-all duration-300 ease-out hover:bg-michi-sake! hover:-translate-y-0.5 hover:shadow-xl hover:shadow-michi-sake/40 hover:brightness-110 focus-visible:ring-2 focus-visible:ring-michi-sake focus-visible:ring-offset-2 focus-visible:ring-offset-stone-950 active:translate-y-0 active:scale-95 motion-reduce:transition-none motion-reduce:hover:translate-y-0;
+  }
+
   .filter-input {
     @apply text-muted-foreground flex h-9 items-center rounded-lg border border-white/10 bg-black/60 px-2.5 text-sm shadow-lg backdrop-blur-md transition-colors hover:bg-gray-500/20 hover:text-white;
   }

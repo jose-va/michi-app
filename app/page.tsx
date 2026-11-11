@@ -13,6 +13,8 @@ import {
 } from "@/common/utils/home-content";
 import { Metadata } from "next";
 import { restaurantJsonLd } from "@/lib/schema";
+import { MichiCta } from "@/common/components/MichiCta";
+import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -51,7 +53,7 @@ export default function Home() {
                     href="/about"
                     aria-label="Conócenos"
                     title="Conócenos"
-                    className={`${sigokae.className} text-lg text-white/60 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:text-xl`}
+                    className={`${sigokae.className} text-lg text-white/80 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:text-xl`}
                   >
                     道
                   </Link>
@@ -66,22 +68,14 @@ export default function Home() {
               Gastronomía japonesa y cultura de tapeo. Tu punto de encuentro en
               Granada.
             </p>
-            <div className="flex flex-row items-center gap-3 pt-2">
-              <Button
-                asChild
-                size="lg"
-                className="bg-michi-sake hover:bg-michi-sake! min-h-11 font-semibold text-black hover:brightness-110"
-              >
-                <Link href="/reservation">Reserva mesa</Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="min-h-11 bg-white/10 font-semibold text-white shadow-lg backdrop-blur"
-              >
-                <Link href="/product">Explora la carta</Link>
-              </Button>
+
+            <div className="pt-4">
+              <MichiCta
+                href="/reservation"
+                label="Reserva tu mesa"
+                variant="hero"
+                arrow
+              />
             </div>
           </div>
 
@@ -128,13 +122,13 @@ export default function Home() {
                 <p className="text-base text-zinc-300 md:text-lg">
                   {aboutSection.description}
                 </p>
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-michi-sake hover:bg-michi-sake! min-h-11 font-semibold text-stone-950 hover:brightness-110"
-                >
+                <Button asChild size="lg" className="group btn-michi-primary">
                   <Link href={aboutSection.actionHref || "/about"}>
                     {aboutSection.actionLabel}
+                    <ArrowRight
+                      aria-hidden
+                      className="size-4 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
+                    />
                   </Link>
                 </Button>
               </div>
@@ -172,13 +166,13 @@ export default function Home() {
                 <p className="text-base text-zinc-300 md:text-lg">
                   {locationSection.description}
                 </p>
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-michi-sake hover:bg-michi-sake! min-h-11 font-semibold text-stone-950 hover:brightness-110"
-                >
+                <Button asChild size="lg" className="group btn-michi-primary">
                   <Link href={locationSection.actionHref || "/location"}>
                     {locationSection.actionLabel}
+                    <ArrowRight
+                      aria-hidden
+                      className="size-4 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
+                    />
                   </Link>
                 </Button>
               </div>
@@ -200,13 +194,13 @@ export default function Home() {
                 <p className="text-base text-zinc-300 md:text-lg">
                   {menuSection.description}
                 </p>
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-michi-sake hover:bg-michi-sake! min-h-11 font-semibold text-stone-950 hover:brightness-110"
-                >
+                <Button asChild size="lg" className="group btn-michi-primary">
                   <Link href={menuSection.actionHref || "/product"}>
                     {menuSection.actionLabel}
+                    <ArrowRight
+                      aria-hidden
+                      className="size-4 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
+                    />
                   </Link>
                 </Button>
               </div>
@@ -262,13 +256,13 @@ export default function Home() {
                 <p className="text-base text-zinc-300 md:text-lg">
                   {reservationsSection.description}
                 </p>
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-michi-sake hover:bg-michi-sake! min-h-11 font-semibold text-stone-950 hover:brightness-110"
-                >
+                <Button asChild size="lg" className="group btn-michi-primary">
                   <Link href={reservationsSection.actionHref || "/reservation"}>
                     {reservationsSection.actionLabel}
+                    <ArrowRight
+                      aria-hidden
+                      className="size-4 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
+                    />
                   </Link>
                 </Button>
               </div>
