@@ -12,7 +12,7 @@ import {
   UBER_EATS_URL,
 } from "@/common/utils/home-content";
 import { Metadata } from "next";
-import { restaurantJsonLd } from "@/lib/schema";
+import { homeJsonLd } from "@/lib/schema";
 import { MichiCta } from "@/common/components/MichiCta";
 import { ArrowRight } from "lucide-react";
 
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  
   const [
     mottoSection,
     aboutSection,
@@ -34,7 +35,7 @@ export default function Home() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
       />
       <div className="flex flex-col gap-16 bg-transparent pb-20 md:gap-26">
         <section

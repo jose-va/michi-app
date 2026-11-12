@@ -78,3 +78,24 @@ export const restaurantJsonLd = {
     },
   },
 };
+
+export const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://michisushigranada.es/#website",
+  url: "https://michisushigranada.es/",
+  name: "Michi Sushi Granada",
+  alternateName: ["Michi Sushi", "michisushigranada.es"],
+  inLanguage: "es-ES",
+  publisher: {
+    "@id": "https://michisushigranada.es/#restaurant",
+  },
+};
+
+const { "@context": _websiteContext, ...websiteNode } = websiteJsonLd;
+const { "@context": _restaurantContext, ...restaurantNode } = restaurantJsonLd;
+
+export const homeJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [websiteNode, restaurantNode],
+};
