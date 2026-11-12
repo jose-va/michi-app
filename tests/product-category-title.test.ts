@@ -48,7 +48,7 @@ test("main and featured branches render the resolved title in an h2 before the g
     heading.includes("centuryGothic.className"),
     "Category h2 must use the centuryGothic font",
   );
-  for (const token of ["text-2xl", "md:text-3xl", "mt-8", "mb-1", "text-white"]) {
+  for (const token of ["text-2xl", "md:text-3xl", "mt-12", "mb-1", "text-white"]) {
     assert.ok(heading.includes(token), `Category h2 must include «${token}»`);
   }
 

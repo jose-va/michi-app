@@ -10,7 +10,7 @@ import { Hours } from "@/common/types/hour.types";
 import HourPreview from "./HourPreview";
 import { ReservationFormValues } from "@/common/types/reservation-form.types";
 import { UseFormReturn } from "react-hook-form";
-import { MessageSquareWarning } from "lucide-react";
+import { TimerOff } from "lucide-react";
 
 export default function AvailabilityTab({
   form,
@@ -38,7 +38,7 @@ export default function AvailabilityTab({
             selectHour={(hour) => handleHour(hour, "INSIDE")}
           />
         ) : (
-          <span className="text-red-400 flex gap-2 mt-1">No hay horas disponibles<MessageSquareWarning className="size-4"/></span>
+          <span className="text-red-400 flex gap-2 mt-2">No hay horas disponibles<TimerOff className="size-4"/></span>
         )}
       </TabsContent>
       <TabsContent value="outside">
@@ -49,7 +49,7 @@ export default function AvailabilityTab({
             selectHour={(hour) => handleHour(hour, "OUTSIDE")}
           />
         ) : (
-          <span className="text-red-400 flex gap-2 mt-1">No hay horas disponibles<MessageSquareWarning className="size-4"/></span>
+          <span className="text-red-400 flex gap-2 mt-2">No hay horas disponibles<TimerOff  className="size-4"/></span>
         )}
       </TabsContent>
     </Tabs>

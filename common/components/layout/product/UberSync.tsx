@@ -24,7 +24,7 @@ export default function UberSync() {
           alt="logo_uber"
           width={35}
           height={32}
-          className="hover:scale-105 hover:cursor-pointer hover:brightness-110"
+          className="transition-transform duration-300 hover:cursor-pointer hover:brightness-120"
         />
       </a>
     );

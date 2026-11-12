@@ -387,3 +387,41 @@
 [data-sonner-toaster] {
   pointer-events: auto;
 }
+
+.categoria-titulo {
+  --trazo: #090B0C;
+  --texto: #ffffff;
+  --alto: 64px;
+  --ext-izq: calc(var(--alto) * 1.17);
+  --ext-der: calc(var(--alto) * 0.89);
+  --ajuste: 4px;               /* sube el texto si se ve bajo; prueba 0, 4px, 8px... */
+
+  position: relative;          /* necesario para colocar el trazo detrás */
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: var(--alto);     /* sigue midiendo lo que mide su contenido */
+  line-height: 1;
+  /* padding intercambiado por el espejo: izquierda = parte gruesa, derecha = cerdas */
+  padding: 0 calc(var(--ext-izq) * .9) var(--ajuste) calc(var(--ext-der) * .45);
+  color: var(--texto);
+  z-index: 0;
+}
+
+/* 2. El trazo (pseudo-elemento) */
+.categoria-titulo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--trazo);    /* el COLOR */
+  transform: scaleX(-1);       /* ESPEJO: parte gruesa a la izquierda, cerdas a la derecha */
+  -webkit-mask:                /* la FORMA (los SVG) */
+    url("/pincel/trazo-izq.svg")    left  / var(--ext-izq) 100% no-repeat,
+    url("/pincel/trazo-der.svg")    right / var(--ext-der) 100% no-repeat,
+    url("/pincel/trazo-centro.svg") calc(var(--ext-izq) - 1px) 0 / calc(100% - var(--ext-izq) - var(--ext-der) + 2px) 100% no-repeat;
+          mask:
+    url("/pincel/trazo-izq.svg")    left  / var(--ext-izq) 100% no-repeat,
+    url("/pincel/trazo-der.svg")    right / var(--ext-der) 100% no-repeat,
+    url("/pincel/trazo-centro.svg") calc(var(--ext-izq) - 1px) 0 / calc(100% - var(--ext-izq) - var(--ext-der) + 2px) 100% no-repeat;
+}

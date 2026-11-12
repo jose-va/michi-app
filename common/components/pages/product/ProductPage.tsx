@@ -1,5 +1,5 @@
 import { ProductService } from "@/service/ProductService";
-import { centuryGothic } from "@/app/fonts/font";
+import { centuryGothic, montserrat } from "@/app/fonts/font";
 import { FEATURED_CATEGORY, getCategoryDescription, getCategoryTitle } from "@/common/mappers/category.mapper";
 import { getMainCategoryDescription, getMainCategoryTitle, resolveCategoryFilter } from "@/common/mappers/main-category.mapper";
 import { paginateProducts } from "@/common/utils/product-pagination";
@@ -37,9 +37,9 @@ export default async function ProductPage({
 
     return (
       <>
-        <h2 className={`${centuryGothic.className} mt-8 mb-1 text-2xl text-white md:text-3xl font-medium`}>{title}</h2>
+        <h2 className={`${centuryGothic.className} categoria-titulo mt-5 text-2xl md:text-3xl font-medium`}>{title}</h2>
         {description ? (
-          <p className="mb-2 text-base text-zinc-300">{description}</p>
+          <p className="my-2 ml-2 text-base text-zinc-300">{description}</p>
         ) : null}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           {filteredPage.content.map((product, index) => (
@@ -61,9 +61,9 @@ export default async function ProductPage({
 
     return (
       <>
-        <h2 className={`${centuryGothic.className} mt-8 mb-1 text-2xl text-white md:text-3xl font-medium`}>{title}</h2>
+        <h2 className={`${centuryGothic.className} categoria-titulo mt-12 mb-1 text-2xl text-white md:text-3xl font-medium`}>{title}</h2>
         {description ? (
-          <p className="mb-2 text-base text-zinc-300">{description}</p>
+          <p className="mt-3 mb-2 text-base text-zinc-300">{description}</p>
         ) : null}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           {filteredPage.content.map((product, index) => (
