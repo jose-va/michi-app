@@ -4,12 +4,15 @@
  *
  * El backend compone el payload { title, body, url } (título
  * «Nueva reserva», cuerpo largo en español en hora local del
- * restaurante, url «/reservation/preview» relativa) y el trabajador
- * solo lo muestra tal cual, sin reconstruir el cuerpo: el formato largo
- * vive como contrato observable en `common/utils/push-format.ts`
- * (probado en `npm test`). Al pulsar se enfoca la pestaña abierta con
- * ese destino o se abre (url relativa resuelta contra el origen); el
- * aviso llega con la web cerrada en entorno compatible.
+ * restaurante, url «/reservation/preview» o ya montada con query, ej.
+ * «/reservation/preview?date=2026-11-13» como el navegador de días) y
+ * el trabajador solo lo muestra tal cual, sin reconstruir el cuerpo:
+ * el formato largo vive como contrato observable en
+ * `common/utils/push-format.ts` (probado en `npm test`). Al pulsar se
+ * enfoca la pestaña abierta con ese destino exacto (`pathname` +
+ * `search`, para no mezclar días) o se abre (`url` relativa resuelta
+ * contra el origen; solo mismo origen y `pathname` preview, resto al
+ * fallback); el aviso llega con la web cerrada en entorno compatible.
  */
 
 // Réplica de PUSH_NOTIFICATION_* de common/utils/push-format.ts: el
@@ -51,7 +54,22 @@ self.addEventListener("notificationclick", (event) => {
     event.notification && event.notification.data
       ? event.notification.data.url
       : undefined;
-  const target = new URL(String(rawUrl || PUSH_FALLBACK_URL), self.location.origin);
+  let target;
+  try {
+    target = new URL(
+      String(rawUrl || PUSH_FALLBACK_URL),
+      self.location.origin,
+    );
+  } catch {
+    target = new URL(PUSH_FALLBACK_URL, self.location.origin);
+  }
+  if (
+    target.origin !== self.location.origin ||
+    target.pathname !== "/reservation/preview"
+  ) {
+    target = new URL(PUSH_FALLBACK_URL, self.location.origin);
+  }
+  const targetKey = target.pathname + target.search;
   event.waitUntil(
     self.clients
       .matchAll({ type: "window", includeUncontrolled: true })
@@ -61,7 +79,7 @@ self.addEventListener("notificationclick", (event) => {
             const current = new URL(client.url);
             if (
               current.origin === target.origin &&
-              current.pathname === target.pathname &&
+              current.pathname + current.search === targetKey &&
               "focus" in client
             ) {
               return client.focus();

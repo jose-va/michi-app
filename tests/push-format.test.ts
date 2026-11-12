@@ -128,4 +128,37 @@ describe("aviso de nueva reserva (T8: RF-15–RF-19)", () => {
       "/reservation/preview",
     );
   });
+
+  it("url con ?date= válido se preserva tal cual (/feature push-date)", () => {
+    assert.equal(
+      resolvePushNotification({ url: "/reservation/preview?date=2026-11-13" })
+        .url,
+      "/reservation/preview?date=2026-11-13",
+    );
+  });
+
+  it("url externa, javascript: o inválida cae al fallback (/feature push-date)", () => {
+    assert.equal(
+      resolvePushNotification({
+        url: "https://ejemplo.com/reservation/preview?date=2026-11-13",
+      }).url,
+      "/reservation/preview",
+    );
+    assert.equal(
+      resolvePushNotification({ url: "javascript:alert(1)" }).url,
+      "/reservation/preview",
+    );
+    assert.equal(
+      resolvePushNotification({ url: "/otro-sitio?date=2026-11-13" }).url,
+      "/reservation/preview",
+    );
+    assert.equal(
+      resolvePushNotification({ url: "  " }).url,
+      "/reservation/preview",
+    );
+  });
+
+  it("payload vacío cae al fallback de preview (/feature push-date)", () => {
+    assert.equal(resolvePushNotification({}).url, "/reservation/preview");
+  });
 });

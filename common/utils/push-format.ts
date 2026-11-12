@@ -11,6 +11,11 @@
 
 export const PUSH_NOTIFICATION_TITLE = "Nueva reserva";
 export const PUSH_NOTIFICATION_ICON = "/icons/manifest-icon-192.png";
+// Destino base de la gestión; el backend puede mandar `url` ya montada
+// con query, ej. `/reservation/preview?date=2026-11-13` (mismo formato
+// que `ReservationDayNavigator` usa para navegar entre previews), y se
+// preserva tal cual. Si falta `date`, es inválida o pasada, la página
+// cae a `today` vía `resolveSelectedDateKey` (sin cambios aquí).
 export const PUSH_NOTIFICATION_URL = "/reservation/preview";
 
 export const RESTAURANT_TIME_ZONE = "Europe/Madrid";
@@ -117,9 +122,31 @@ export function buildPushBody(input: PushBodyInput, hoy: Date): string {
   return parts.join(" · ");
 }
 
+// Solo acepta destino relativo del mismo origen con
+// `pathname === "/reservation/preview"`; preserva el `search` (ej.
+// `?date=YYYY-MM-DD`) para enfocar/abrir ese día. Resto (externa,
+// `javascript:`/otros esquemas, otro path, inválida) → fallback.
+// Sin dependencias de UI; no valida la fecha (la página cae a `today`).
+function resolvePushUrl(url: unknown): string {
+  if (typeof url !== "string") return PUSH_NOTIFICATION_URL;
+  const trimmed = url.trim();
+  if (!trimmed.startsWith("/")) return PUSH_NOTIFICATION_URL;
+  let parsed: URL;
+  try {
+    parsed = new URL(trimmed, "https://push.local");
+  } catch {
+    return PUSH_NOTIFICATION_URL;
+  }
+  if (parsed.pathname !== "/reservation/preview") {
+    return PUSH_NOTIFICATION_URL;
+  }
+  return `${parsed.pathname}${parsed.search}`;
+}
+
 // Resuelve el payload del push con los fallbacks exactos (RF-15, RF-17):
-// título «Nueva reserva», icono 192 y url a la gestión. El trabajador de
-// servicio (`public/sw.js`) replica esta lógica porque no puede importar
+// título «Nueva reserva», icono 192 y url a la gestión (con `?date=`
+// preservado cuando el backend lo manda). El trabajador de servicio
+// (`public/sw.js`) replica esta lógica porque no puede importar
 // TypeScript: si cambia aquí, cambia allí.
 export function resolvePushNotification(
   input: PushPayloadInput,
@@ -129,9 +156,6 @@ export function resolvePushNotification(
       ? input.title
       : PUSH_NOTIFICATION_TITLE;
   const body = typeof input.body === "string" ? input.body : "";
-  const url =
-    typeof input.url === "string" && input.url.trim()
-      ? input.url
-      : PUSH_NOTIFICATION_URL;
+  const url = resolvePushUrl(input.url);
   return { title, body, icon: PUSH_NOTIFICATION_ICON, url };
 }
