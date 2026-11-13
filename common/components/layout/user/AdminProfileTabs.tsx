@@ -25,32 +25,40 @@ import { Fragment } from "react";
 function TodayReservationDetail({ reservation }: { reservation: Reservation }) {
   return (
     <div className="flex flex-col gap-1">
-      <p>
-        <span className="text-michi-aqua font-semibold">Cliente:</span>{" "}
-        {reservation.name}
-      </p>
-
-      <p>
-        <span className="text-michi-aqua font-semibold">Hora:</span>{" "}
-        {reservation.startTime}
-      </p>
-      <p>
-        <span className="text-michi-aqua font-semibold">Mesa:</span>{" "}
-        {reservation.guests} personas
-        {reservation.location ? (
-          <> • {reservation.location === "OUTSIDE" ? "Terraza" : "Interior"}</>
-        ) : null}
-      </p>
-      <p>
-        {reservation.observations?.trim() ? (
+      <SheetClose asChild>
+        <Link
+          href={`/reservation/preview?date=${reservation.date}`}
+          className="flex cursor-pointer flex-col gap-1"
+        >
           <p>
-            <span className="text-michi-aqua font-semibold">
-              Alergias:
-            </span>{" "}
-            {reservation.observations}
+            <span className="text-michi-aqua font-semibold">Cliente:</span>{" "}
+            {reservation.name}
           </p>
-        ) : null}
-      </p>
+
+          <p>
+            <span className="text-michi-aqua font-semibold">Hora:</span>{" "}
+            {reservation.startTime}
+          </p>
+          <p>
+            <span className="text-michi-aqua font-semibold">Mesa:</span>{" "}
+            {reservation.guests} personas
+            {reservation.location ? (
+              <>
+                {" "}
+                • {reservation.location === "OUTSIDE" ? "Terraza" : "Interior"}
+              </>
+            ) : null}
+          </p>
+          {reservation.observations?.trim() ? (
+            <p>
+              <span className="text-michi-aqua font-semibold">
+                Alergias:
+              </span>{" "}
+              {reservation.observations}
+            </p>
+          ) : null}
+        </Link>
+      </SheetClose>
       {reservation.id && reservation.state !== "CANCELLED" ? (
         <div className="mt-1 flex w-fit items-center gap-2">
           <ReservationCancel

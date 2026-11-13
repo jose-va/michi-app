@@ -21,6 +21,7 @@ import {
   prevOpenKey,
   shiftDateKey,
 } from "@/common/utils/reservation-day";
+import { centuryGothic } from "@/app/fonts/font";
 
 export default function ReservationDayNavigator({
   date,
@@ -52,8 +53,8 @@ export default function ReservationDayNavigator({
 
   return (
     <>
-    <h1 className="mb-2 wrap-break-word text-xl font-bold text-white">RESERVAS</h1>
-      <h1 className="mb-4 wrap-break-word text-md font-normal text-white">{label}</h1>
+    <h1 className={`${centuryGothic.className} categoria-titulo mt-5 text-2xl md:text-3xl font-medium`}>Reservas</h1>
+      <h1 className="my-3 mx-2 wrap-break-word text-md font-normal text-white">{label}</h1>
       <nav
         aria-label="Navegación por día"
         className="black-glassmorphism flex flex-row items-center justify-between gap-2 rounded-lg px-2 py-2 mb-4"
