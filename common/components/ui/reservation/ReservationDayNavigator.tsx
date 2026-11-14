@@ -53,7 +53,7 @@ export default function ReservationDayNavigator({
 
   return (
     <>
-    <h1 className={`${centuryGothic.className} categoria-titulo mt-5 text-2xl md:text-3xl font-medium`}>Reservas</h1>
+    <h1 className={`${centuryGothic.className} categoria-titulo text-2xl md:text-3xl font-medium`}>Reservas</h1>
       <h1 className="my-3 mx-2 wrap-break-word text-md font-normal text-white">{label}</h1>
       <nav
         aria-label="Navegación por día"
