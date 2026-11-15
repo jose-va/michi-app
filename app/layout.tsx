@@ -29,6 +29,11 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  verification: {
+    other: {
+      "facebook-domain-verification": "04i04zj28nxd9bnnk37h3zn4w5symu",
+    },
+  },
   openGraph: {
     title: "Michi Sushi Granada | Sushi y tapeo japonés",
     description:
