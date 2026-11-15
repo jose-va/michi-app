@@ -172,7 +172,7 @@ export default function ProducFormPage({ product }: { product?: Product }) {
   };
 
   return (
-    <div className="flex items-center justify-center py-6 md:py-8">
+    <div className="flex items-center justify-center py-2">
       <Card className="black-glassmorphism w-md">
         <CardHeader>
           <div className="flex justify-between">
