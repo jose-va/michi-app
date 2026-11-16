@@ -38,26 +38,16 @@ function UserReservationDetail({
   return (
     <div className="relative flex min-w-0 flex-col gap-1 pr-24">
       <p>
-        <span className="font-medium">Hora:</span> <span className="font-normal">{reservation.startTime}</span> 
+        <span className="text-michi-aqua font-semibold">Hora:</span>{" "}
+        {reservation.startTime}
       </p>
       <p>
-        <span className="font-medium">Comensales:</span> <span className="font-normal">{reservation.guests}</span> 
+        <span className="text-michi-aqua font-semibold">Comensales:</span>{" "}
+        {reservation.guests}
       </p>
-      <p>
-        <span className="font-medium">Nombre:</span> <span className="font-normal">{reservation.name}</span> 
-      </p>
-      <p>
-        <span className="font-medium">Teléfono:</span> <span className="font-normal">{reservation.phone}</span> 
-      </p>
-      {reservation.observations ? (
-        <p>
-          <span className="font-medium">Observaciones:</span>{" "}
-          <span className="font-normal">{reservation.observations}</span> 
-        </p>
-      ) : null}
       {reservation.location ? (
         <p>
-          <span className="font-medium">Ubicación:</span>{" "}
+          <span className="text-michi-aqua font-semibold">Ubicación:</span>{" "}
           <Badge>
             {reservation.location === "OUTSIDE" ? "Terraza" : "Interior"}
           </Badge>
@@ -92,9 +82,9 @@ export default function UserReservationsByDay({
   initialReservations: Reservation[] | null;
 }) {
   const [date, setDate] = React.useState(initialDate);
-  const [reservations, setReservations] = React.useState<
-    Reservation[] | null
-  >(initialReservations);
+  const [reservations, setReservations] = React.useState<Reservation[] | null>(
+    initialReservations
+  );
   const [isPending, setIsPending] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const triggerRef = React.useRef<HTMLButtonElement>(null);
@@ -102,8 +92,7 @@ export default function UserReservationsByDay({
   const maxDate = shiftDateKey(today, 30);
   const previous = prevOpenKey(date);
   const next = nextOpenKey(date);
-  const isPreviousBlocked =
-    previous === date || isPastKey(previous, today);
+  const isPreviousBlocked = previous === date || isPastKey(previous, today);
   const isNextBlocked =
     next === date || isPastKey(next, today) || next > maxDate;
   const controlClass =
@@ -133,7 +122,7 @@ export default function UserReservationsByDay({
 
   function handleCancelled(cancelledId: string) {
     setReservations((prev) =>
-      prev ? prev.filter((r) => r.id !== cancelledId) : prev,
+      prev ? prev.filter((r) => r.id !== cancelledId) : prev
     );
   }
 
@@ -143,8 +132,7 @@ export default function UserReservationsByDay({
       : reservations.filter((r) => r.state !== "CANCELLED");
   const ordered =
     active === null ? null : sortReservationsByTimeAndName(active);
-  const groups =
-    ordered === null ? null : groupReservationsByShift(ordered);
+  const groups = ordered === null ? null : groupReservationsByShift(ordered);
 
   return (
     <div className="flex min-w-0 flex-col gap-2">
@@ -180,7 +168,10 @@ export default function UserReservationsByDay({
             Anterior
           </button>
         )}
-        <div aria-hidden="true" className="my-2 w-px self-stretch bg-white/15" />
+        <div
+          aria-hidden="true"
+          className="my-2 w-px self-stretch bg-white/15"
+        />
         <Popover
           open={open}
           onOpenChange={(nextOpen) => {
@@ -214,7 +205,7 @@ export default function UserReservationsByDay({
                 const chosenKey = dateToDateKey(
                   day.getFullYear(),
                   day.getMonth() + 1,
-                  day.getDate(),
+                  day.getDate()
                 );
                 if (chosenKey === date) {
                   closeAndRefocus();
@@ -241,7 +232,10 @@ export default function UserReservationsByDay({
             />
           </PopoverContent>
         </Popover>
-        <div aria-hidden="true" className="my-2 w-px self-stretch bg-white/15" />
+        <div
+          aria-hidden="true"
+          className="my-2 w-px self-stretch bg-white/15"
+        />
         {isNextBlocked ? (
           <span
             aria-disabled="true"
@@ -276,17 +270,23 @@ export default function UserReservationsByDay({
         {!isPending && ordered !== null && ordered.length === 0 ? (
           <p className="text-michi-aqua">No has reservado para este día</p>
         ) : null}
-        {!isPending && groups !== null && ordered !== null && ordered.length > 0 ? (
+        {!isPending &&
+        groups !== null &&
+        ordered !== null &&
+        ordered.length > 0 ? (
           <>
             {groups.lunch.length > 0 ? (
               <section aria-label="Comida" className="flex flex-col gap-2">
-                <h3 className="text-sm font-bold text-michi-aqua">Comida</h3>
+                <h3 className="text-michi-aqua text-sm font-bold">Comida</h3>
                 <ul className="flex min-w-0 flex-col gap-3">
                   {groups.lunch.map((reservation, index) => (
                     <li
                       key={`${reservation.date}-${reservation.startTime}-${reservation.name}-${index.toString()}`}
                     >
-                      <UserReservationDetail reservation={reservation} onCancelled={handleCancelled} />
+                      <UserReservationDetail
+                        reservation={reservation}
+                        onCancelled={handleCancelled}
+                      />
                     </li>
                   ))}
                 </ul>
@@ -294,13 +294,16 @@ export default function UserReservationsByDay({
             ) : null}
             {groups.dinner.length > 0 ? (
               <section aria-label="Cena" className="flex flex-col gap-2">
-                <h3 className="text-sm font-bold text-michi-aqua">Cena</h3>
+                <h3 className="text-michi-aqua text-sm font-bold">Cena</h3>
                 <ul className="flex min-w-0 flex-col gap-3">
                   {groups.dinner.map((reservation, index) => (
                     <li
                       key={`${reservation.date}-${reservation.startTime}-${reservation.name}-${index.toString()}`}
                     >
-                      <UserReservationDetail reservation={reservation} onCancelled={handleCancelled} />
+                      <UserReservationDetail
+                        reservation={reservation}
+                        onCancelled={handleCancelled}
+                      />
                     </li>
                   ))}
                 </ul>
