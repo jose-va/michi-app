@@ -32,7 +32,7 @@ export default function DateForm({
             <div className="flex items-center gap-4">
               <FormLabel>Fecha de reserva:</FormLabel>
               <Badge
-                className="animate-fade-in-up capitalize duration-500 bg-primary"
+                className="animate-fade-in-up capitalize duration-500 bg-green-600 text-white"
               >
                 {field.value.toLocaleDateString("es-ES", { weekday: "long" })}
               </Badge>

@@ -25,7 +25,7 @@ export default function ReservationCalendar({
         disabled={[{ before: today }, { dayOfWeek: [0] }]}
         locale={es}
         weekStartsOn={1}
-        className="mt-1 rounded-lg border"
+        className="mt-1 rounded-lg border [&_button[data-selected-single=true]]:bg-green-600 [&_button[data-selected-single=true]]:text-white"
       />
 
       <div className="mt-1 flex flex-col items-start gap-4">
