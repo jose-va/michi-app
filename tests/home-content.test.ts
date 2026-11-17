@@ -1,26 +1,18 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
-  CAROUSEL_IMAGE_ALTS,
+  CAROUSEL_SLIDES,
   CONFIRMED_SCHEDULE,
-  DEFAULT_CAROUSEL_IMAGES,
   HOME_SECTIONS,
 } from "../common/utils/home-content";
 
-test("carousel configuration contains exactly the three selected WebP images with Spanish alts", () => {
-  const expectedImages = [
-    "/images/Combinado De Nigiri Especial Aburi [5_4-1024x1280-watermarked] 539_cleanup.webp",
-    "/images/Combinado dúo mixto.webp",
-    "/images/Katsumaki Combinado 8 Piezas [5_4-1024x1280-watermarked] 2be_cleanup.webp",
-  ];
-
-  assert.deepEqual([...DEFAULT_CAROUSEL_IMAGES], expectedImages);
-  assert.equal(DEFAULT_CAROUSEL_IMAGES.length, 3);
-
-  for (const image of DEFAULT_CAROUSEL_IMAGES) {
-    // HomeCarousel falls back to "Fotografía N de Michi Sushi" when the map has no entry.
-    const alt = CAROUSEL_IMAGE_ALTS[image] ?? "Fotografía de Michi Sushi";
-    assert.ok(alt && alt.length > 0, `Missing Spanish alt for ${image}`);
+test("carousel shows exactly three WebP slides with fixed dish names", () => {
+  assert.deepEqual(
+    CAROUSEL_SLIDES.map(({ name }) => name),
+    ["Ebi Assari", "Nigiri Flameado", "Combinado Dúo Mixto"],
+  );
+  for (const { src } of CAROUSEL_SLIDES) {
+    assert.ok(src.endsWith(".webp"), `${src} must be WebP`);
   }
 });
 

@@ -20,15 +20,15 @@ export const MAIN_CATEGORIES: MainCategory[] = [
 const mainCategoryInfo: Record<MainCategory, { title: string; description: string }> = {
   STARTERS: {
     title: "Entrantes",
-    description: "Para empezar: entrantes fríos, calientes y tartar.",
+    description: "Para empezar: entrantes, tartar y sogizukuri.",
   },
   HOT_KITCHEN: {
     title: "Platos calientes",
-    description: "Raciones de fideos y arroz calientes.",
+    description: "Raciones de arroz y fideos calientes.",
   },
   SUSHI_CLASSIC: {
     title: "Sushi clásico",
-    description: "Nigiri, gunkan, temaki y otros bocados clásicos.",
+    description: "Nigiri sushi, gunkan, temaki y otros bocados clásicos.",
   },
   MAKIS_ROLLS: {
     title: "Rolls y makis",
@@ -44,7 +44,7 @@ const mainCategoryInfo: Record<MainCategory, { title: string; description: strin
   },
   DESSERTS: {
     title: "Postres",
-    description: "Nuestra selección de postres.",
+    description: "Nuestra selección única de postres.",
   },
 };
 

@@ -1,14 +1,8 @@
-﻿export const DEFAULT_CAROUSEL_IMAGES = [
-  "/carousel/Combinado De Nigiri.webp",
-  "/carousel/Combinando Duo Mixto.webp",
-  "/carousel/Ebi Assari.webp",
+﻿export const CAROUSEL_SLIDES = [
+  { src: "/carousel/Ebi Assari.webp", name: "Ebi Assari" },
+  { src: "/carousel/Combinado De Nigiri.webp", name: "Nigiri Flameado" },
+  { src: "/carousel/Combinando Duo Mixto.webp", name: "Combinado Dúo Mixto" },
 ] as const;
-
-export const CAROUSEL_IMAGE_ALTS: Record<string, string> = {
-  "/carousel/Combinado De Nigiri.webp": "Combinado De Nigiri",
-  "/carousel/Combinando Duo Mixto.webp": "Combinado dúo mixto",
-  "/carousel/Ebi Assari.webp": "Ebi Assari",
-};
 
 export interface HomeSection {
   id: "motto" | "about" | "menu" | "reservations" | "location" | "delivery";

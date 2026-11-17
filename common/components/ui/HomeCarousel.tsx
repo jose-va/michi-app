@@ -9,22 +9,9 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/shadcn/components/carousel";
-import {
-  CAROUSEL_IMAGE_ALTS,
-  DEFAULT_CAROUSEL_IMAGES,
-} from "@/common/utils/home-content";
+import { CAROUSEL_SLIDES } from "@/common/utils/home-content";
 
-export interface HomeCarouselProps {
-  images?: readonly string[];
-}
-
-function getDishName(src: string, index: number) {
-  return CAROUSEL_IMAGE_ALTS[src] || `Fotografía ${index + 1} de Michi Sushi`;
-}
-
-export function HomeCarousel({
-  images = DEFAULT_CAROUSEL_IMAGES,
-}: HomeCarouselProps) {
+export function HomeCarousel() {
   const [autoplay] = useState(() =>
     Autoplay({ delay: 3000, stopOnInteraction: false })
   );
@@ -43,12 +30,8 @@ export function HomeCarousel({
     };
   }, [api]);
 
-  const currentName = images[selected]
-    ? getDishName(images[selected], selected)
-    : "";
-
   return (
-    <div className="flex w-full max-w-md flex-col items-center lg:max-w-2xl">
+    <div className="flex w-full max-w-md flex-col items-center gap-2 lg:max-w-2xl">
       <Carousel
         className="w-full"
         opts={{ loop: true }}
@@ -56,57 +39,50 @@ export function HomeCarousel({
         setApi={setApi}
       >
         <CarouselContent>
-          {images.map((src, index) => (
+          {CAROUSEL_SLIDES.map(({ src, name }) => (
             <CarouselItem key={src}>
               <div className="relative aspect-4/3 w-full">
                 <Image
                   src={src}
-                  alt={getDishName(src, index)}
+                  alt={name}
                   fill
                   sizes="(min-width: 1024px) 42rem, 28rem"
                   className="object-cover"
                 />
+                <p
+                  aria-hidden="true"
+                  className="absolute inset-x-0 bottom-0 flex items-center justify-center gap-3 bg-linear-to-t from-black/70 to-transparent pt-10 pb-4 text-xs font-medium tracking-[0.25em] whitespace-nowrap text-zinc-200 uppercase md:gap-4 md:pb-6 md:text-sm md:tracking-[0.4em]"
+                >
+                  <span className="via-michi-sake block h-px w-6 shrink-0 bg-linear-to-r from-transparent to-transparent md:w-12" />
+                  {name}
+                  <span className="via-michi-sake block h-px w-6 shrink-0 bg-linear-to-r from-transparent to-transparent md:w-12" />
+                </p>
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
       </Carousel>
 
-      {images.length > 0 && (
-        <div className="-mt-4 flex flex-col items-center gap-2 md:-mt-6">
-          <p
-            aria-hidden="true"
-            className="flex items-center gap-3 text-xs font-medium tracking-[0.25em] whitespace-nowrap text-zinc-300 uppercase md:gap-4 md:text-sm md:tracking-[0.4em]"
+      <div className="flex items-center">
+        {CAROUSEL_SLIDES.map(({ src, name }, index) => (
+          <button
+            key={src}
+            type="button"
+            onClick={() => api?.scrollTo(index)}
+            aria-label={`Ver ${name}`}
+            aria-current={index === selected ? "true" : undefined}
+            className="group rounded-full p-2 hover:cursor-pointer focus-visible:outline-2 focus-visible:outline-white"
           >
-            <span className="via-michi-sake block h-px w-6 shrink-0 bg-linear-to-r from-transparent to-transparent md:w-12" />
-            {currentName}
-            <span className="via-michi-sake block h-px w-6 shrink-0 bg-linear-to-r from-transparent to-transparent md:w-12" />
-          </p>
-
-          {images.length > 1 && (
-            <div className="flex items-center">
-              {images.map((src, index) => (
-                <button
-                  key={src}
-                  type="button"
-                  onClick={() => api?.scrollTo(index)}
-                  aria-label={`Ver ${getDishName(src, index)}`}
-                  aria-current={index === selected ? "true" : undefined}
-                  className="group rounded-full p-2 hover:cursor-pointer focus-visible:outline-2 focus-visible:outline-white"
-                >
-                  <span
-                    className={`block h-1.5 rounded-full transition-all duration-300 motion-reduce:transition-none ${
-                      index === selected
-                        ? "bg-michi-sake w-6"
-                        : "w-1.5 bg-white/30 group-hover:bg-white/60"
-                    }`}
-                  />
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
+            <span
+              className={`block h-1.5 rounded-full transition-all duration-300 motion-reduce:transition-none ${
+                index === selected
+                  ? "bg-michi-sake w-6"
+                  : "w-1.5 bg-white/30 group-hover:bg-white/60"
+              }`}
+            />
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
