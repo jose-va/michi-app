@@ -51,7 +51,7 @@ export function HomeCarousel() {
                 />
                 <p
                   aria-hidden="true"
-                  className="absolute inset-x-0 bottom-0 flex items-center justify-center gap-3 bg-linear-to-t from-black/70 to-transparent pt-10 pb-4 text-xs font-medium tracking-[0.25em] whitespace-nowrap text-zinc-200 uppercase md:gap-4 md:pb-6 md:text-sm md:tracking-[0.4em]"
+                  className="absolute inset-x-0 bottom-0 flex items-center justify-center gap-3 pb-4 text-xs font-medium tracking-[0.25em] whitespace-nowrap text-zinc-300 uppercase md:gap-4 md:pb-6 md:text-sm md:tracking-[0.4em]"
                 >
                   <span className="via-michi-sake block h-px w-6 shrink-0 bg-linear-to-r from-transparent to-transparent md:w-12" />
                   {name}
