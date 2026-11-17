@@ -103,6 +103,12 @@ export default function LocationPage({
                       services.map(({ label, time }) => (
                         <span key={label} className="text-michi-aqua font-medium text-sm">
                           <span className="font-medium text-white">
+                            {(label === "Comida" || label === "Cena") && (
+                              <span aria-hidden="true">🍣 </span>
+                            )}
+                            {label === "Desayuno" && (
+                              <span aria-hidden="true">☕ </span>
+                            )}
                             {label}{" "}
                           </span>
                           {time}

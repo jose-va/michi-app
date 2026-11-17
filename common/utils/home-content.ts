@@ -1,16 +1,13 @@
 ﻿export const DEFAULT_CAROUSEL_IMAGES = [
   "/carousel/Combinado De Nigiri.webp",
   "/carousel/Combinando Duo Mixto.webp",
-   "/carousel/Ebi Assari.webp",
+  "/carousel/Ebi Assari.webp",
 ] as const;
 
 export const CAROUSEL_IMAGE_ALTS: Record<string, string> = {
-  "/carousel/Combinado De Nigiri.webp":
-    "Combinado De Nigiri",
-  "/carousel/Combinando Duo Mixto.webp":
-    "Combinado dúo mixto",
-  "/carousel/Ebi Assari.webp":
-    "Ebi Assari",
+  "/carousel/Combinado De Nigiri.webp": "Combinado De Nigiri",
+  "/carousel/Combinando Duo Mixto.webp": "Combinado dúo mixto",
+  "/carousel/Ebi Assari.webp": "Ebi Assari",
 };
 
 export interface HomeSection {
@@ -41,8 +38,7 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
     title: "SOBRE NOSOTROS",
     description:
       "Fusionamos técnica nipona y alma atlántica en un espacio de libertad creativa donde cada plato es un lienzo.",
-    image:
-      "/images/2326ceaf-1ded-46d3-b174-c7c6cfe55ed6.webp",
+    image: "/images/2326ceaf-1ded-46d3-b174-c7c6cfe55ed6.webp",
     imageAlt: "Exterior de Michi Sushi",
     actionLabel: "Conócenos",
     actionHref: "/about",
@@ -60,8 +56,7 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
     title: "NUESTRA CARTA",
     description:
       "Entrantes, platos calientes, sushi, makis especiales y combinados. Todos los platos se preparan con ingredientes de calidad.",
-    image:
-      "/images/Ebi Pasión.webp",
+    image: "/images/Ebi Pasión.webp",
     imageAlt: "Ebi Pasión",
     actionLabel: "Ver carta",
     actionHref: "/product",
@@ -71,8 +66,7 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
     title: "Reserva mesa",
     description:
       "Disfruta de una experiencia gastronómica japonesa auténtica y cercana. Reserva ya tu mesa online.",
-    image:
-      "/images/IMG_1231.webp",
+    image: "/images/IMG_1231.webp",
     imageAlt: "Reserva tu mesa en Michi Sushi",
     actionLabel: "Reservar",
     actionHref: "/reservation",
@@ -80,7 +74,8 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
   {
     id: "delivery",
     title: "PIDE A DOMICILIO",
-    description: "Tu sushi favorito en casa con Uber Eats o Glovo. Pide desde su aplicación.",
+    description:
+      "Tu sushi favorito en casa con Uber Eats o Glovo. Pide desde su aplicación.",
     image: "/images/Dish Composition [5_4-2304x2880-watermarked] d88.webp",
     imageAlt: "Sushi de Michi para pedir a domicilio",
     actionLabel: "Pedir en Uber Eats",
@@ -91,7 +86,7 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
 export const CONFIRMED_SCHEDULE = {
   monday: {
     days: "Lunes",
-    meals: { dinner: "20:00–23:00" },
+    meals: { breakfast: "desde las 08:00", dinner: "20:00–23:00" },
   },
   tuesdayToSaturday: {
     days: "Martes a Sábado",
@@ -161,7 +156,8 @@ function compactHours(day: ScheduleDay): string {
   const { breakfast, lunch, dinner } = day.meals ?? {};
   const start = breakfast?.match(/\d{2}:\d{2}/)?.[0];
   const lunchEnd = lunch?.split("–")[1];
-  const first = start && lunchEnd ? `${start}–${lunchEnd}` : (lunch ?? breakfast);
+  const first =
+    start && lunchEnd ? `${start}–${lunchEnd}` : (lunch ?? breakfast);
   return [first, dinner].filter(Boolean).join(" y ");
 }
 
