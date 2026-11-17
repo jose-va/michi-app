@@ -1,5 +1,6 @@
 "use client";
 
+import { es } from "react-day-picker/locale";
 import { Calendar } from "@/shadcn/components/calendar";
 import OpeningHours from "./OpeningHours";
 
@@ -22,6 +23,8 @@ export default function ReservationCalendar({
         }}
         // Sin fechas pasadas y sin domingos (el local cierra)
         disabled={[{ before: today }, { dayOfWeek: [0] }]}
+        locale={es}
+        weekStartsOn={1}
         className="mt-1 rounded-lg border"
       />
 
