@@ -49,15 +49,15 @@ export function HomeCarousel() {
                   sizes="(min-width: 1024px) 42rem, 28rem"
                   className="object-cover"
                 />
-                <p
-                  aria-hidden="true"
-                  className="absolute inset-x-0 bottom-0 flex items-center justify-center gap-3 pb-4 text-xs font-medium tracking-[0.25em] whitespace-nowrap text-zinc-300 uppercase md:gap-4 md:pb-6 md:text-sm md:tracking-[0.4em]"
-                >
-                  <span className="via-michi-sake block h-px w-6 shrink-0 bg-linear-to-r from-transparent to-transparent md:w-12" />
-                  {name}
-                  <span className="via-michi-sake block h-px w-6 shrink-0 bg-linear-to-r from-transparent to-transparent md:w-12" />
-                </p>
               </div>
+              <p
+                aria-hidden="true"
+                className="relative -mt-4 flex items-center justify-center gap-3 text-xs font-medium tracking-[0.25em] whitespace-nowrap text-zinc-300 uppercase md:-mt-6 md:gap-4 md:text-sm md:tracking-[0.4em]"
+              >
+                <span className="via-michi-sake block h-px w-6 shrink-0 bg-linear-to-r from-transparent to-transparent md:w-12" />
+                {name}
+                <span className="via-michi-sake block h-px w-6 shrink-0 bg-linear-to-r from-transparent to-transparent md:w-12" />
+              </p>
             </CarouselItem>
           ))}
         </CarouselContent>
