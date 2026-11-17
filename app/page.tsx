@@ -39,49 +39,59 @@ export default function Home() {
       />
       <div className="flex flex-col gap-16 bg-transparent pb-20 md:gap-26">
         <section
-          aria-label="Bienvenida y carrusel principal"
-          className="-mt-1 grid items-center gap-10 py-13 md:-mt-2 md:grid-cols-2 md:py-8"
+          aria-label="Bienvenida"
+          className="relative -mt-6 flex min-h-[calc(100svh-10rem)] flex-col items-center justify-center px-2 text-center"
         >
-          <div className="ml-4 flex flex-col justify-center space-y-3">
-            <div>
-              <h1
-                className={`${sigokae.className} text-6xl font-normal text-white md:text-7xl lg:text-8xl`}
-              >
-                <span className="block">MICHI</span>
-                <span className="flex items-baseline gap-2">
-                  <span className="block">SUSHI</span>
-                  <Link
-                    href="/about"
-                    aria-label="Conócenos"
-                    title="Conócenos"
-                    className={`${sigokae.className} text-lg text-white/80 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:text-xl`}
-                  >
-                    道
-                  </Link>
-                </span>
-              </h1>
-              <span
-                aria-hidden="true"
-                className="from-michi-sake mt-4 block h-0.5 w-28 rounded-full bg-linear-to-r to-transparent"
-              />
-            </div>
-            <p className="max-w-md text-base text-balance text-zinc-300 drop-shadow-sm md:text-xl">
-              Gastronomía japonesa y cultura de tapeo. Tu punto de encuentro en
-              Granada.
-            </p>
+          <div
+            aria-hidden="true"
+            className="from-michi-sake/15 pointer-events-none absolute inset-0 -z-10 bg-radial from-0% via-transparent via-55% to-transparent"
+          />
 
-            <div className="pt-4">
-              <MichiCta
-                href="/reservation"
-                label="Reserva tu mesa"
-                variant="hero"
-                arrow
-              />
-            </div>
-          </div>
+          <Image
+            src="/logos/logo_michi.webp"
+            alt=""
+            aria-hidden="true"
+            width={220}
+            height={220}
+            priority
+            className="-my-8 size-44 drop-shadow-[0_0_24px_rgba(240,152,72,0.25)] md:-my-10 md:size-56"
+          />
 
-          <div className="flex justify-center md:justify-end">
-            <HomeCarousel />
+          <h1
+            className={`${sigokae.className} text-6xl leading-none font-normal text-white md:text-8xl lg:text-9xl`}
+          >
+            MICHI SUSHI
+          </h1>
+
+          <p className="mt-4 flex items-center gap-3 text-xs font-medium tracking-[0.4em] text-zinc-300 uppercase md:text-sm">
+            Café &amp; Sushi Bar
+            <Link
+              href="/about"
+              aria-label="Conócenos"
+              title="Conócenos"
+              className={`${sigokae.className} text-base tracking-normal text-white/80 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:text-lg`}
+            >
+              道
+            </Link>
+          </p>
+
+          <span
+            aria-hidden="true"
+            className="via-michi-sake mt-6 block h-px w-48 bg-linear-to-r from-transparent to-transparent md:w-64"
+          />
+
+          <p className="mt-6 max-w-md text-base text-balance text-zinc-300 drop-shadow-sm md:max-w-xl md:text-xl">
+            Gastronomía japonesa y cultura de tapeo. Tu punto de encuentro en
+            Granada.
+          </p>
+
+          <div className="pt-8">
+            <MichiCta
+              href="/reservation"
+              label="Reserva tu mesa"
+              variant="hero"
+              arrow
+            />
           </div>
         </section>
 
@@ -106,6 +116,13 @@ export default function Home() {
                 &rdquo;
               </p>
             </div>
+          </section>
+
+          <section
+            aria-label="Carrusel principal"
+            className="-mt-6 flex justify-center md:-mt-8"
+          >
+            <HomeCarousel />
           </section>
 
           <RevealOnScroll>

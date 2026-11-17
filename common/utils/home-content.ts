@@ -37,7 +37,7 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
     id: "about",
     title: "SOBRE NOSOTROS",
     description:
-      "Fusionamos técnica nipona y alma atlántica en un espacio de libertad creativa donde cada plato es un lienzo.",
+      "Fusionamos técnica nipona y alma atlántica en un espacio de libertad creativa, donde cada plato, es un lienzo.",
     image: "/images/2326ceaf-1ded-46d3-b174-c7c6cfe55ed6.webp",
     imageAlt: "Exterior de Michi Sushi",
     actionLabel: "Conócenos",
@@ -47,7 +47,7 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
     id: "location",
     title: "Dónde estamos",
     description:
-      "Visítenos en: C/ Gutierre Tibón, Santiago Lozano, 8, local 2. Consulta cómo llegar y nuestros horarios de apertura.",
+      "Visítenos en Calle Gutierre Tibón, Santiago Lozano, 8, local 2. Consulta cómo llegar y nuestros horarios de apertura.",
     actionLabel: "Cómo llegar",
     actionHref: "/location",
   },
