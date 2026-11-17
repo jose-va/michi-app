@@ -179,7 +179,7 @@ export function ReservationPage({ hours }: { hours: Hours }) {
               <p className="text-lg leading-tight font-semibold text-white">
                 Michi Sushi
               </p>
-              <p className="text-sm text-white/80">
+              <p className="text-sm text-white">
                 Gastronomía japonesa y tapeo.
               </p>
             </div>
@@ -231,7 +231,7 @@ export function ReservationPage({ hours }: { hours: Hours }) {
           </div>
 
           <footer className="flex flex-col gap-3 border-t border-white/10 px-6 py-4 md:flex-row md:items-center md:justify-between md:px-8">
-            <p className="text-muted-foreground text-sm first-letter:uppercase">
+            <p className="text-white text-sm first-letter:uppercase">
               {summary || "Elija fecha y comensales"}
             </p>
 
