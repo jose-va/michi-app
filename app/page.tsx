@@ -21,7 +21,6 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  
   const [
     mottoSection,
     aboutSection,
@@ -38,62 +37,71 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
       />
       <div className="flex flex-col gap-16 bg-transparent pb-20 md:gap-26">
-        <section
-          aria-label="Bienvenida"
-          className="relative -mt-6 flex min-h-[calc(100svh-10rem)] flex-col items-center justify-center px-2 text-center"
-        >
-          <div
-            aria-hidden="true"
-            className="from-michi-sake/15 pointer-events-none absolute inset-0 -z-10 bg-radial from-0% via-transparent via-55% to-transparent"
-          />
-
-          <Image
-            src="/logos/logo_michi.webp"
-            alt=""
-            aria-hidden="true"
-            width={220}
-            height={220}
-            priority
-            className="-my-8 size-44 drop-shadow-[0_0_24px_rgba(240,152,72,0.25)] md:-my-10 md:size-56"
-          />
-
-          <h1
-            className={`${sigokae.className} text-6xl leading-none font-normal text-white md:text-8xl lg:text-9xl`}
+        <div className="flex flex-col gap-8 md:gap-10 lg:-mt-6 lg:grid lg:min-h-[calc(100svh-10rem)] lg:grid-cols-2 lg:items-center lg:gap-20 xl:gap-28">
+          <section
+            aria-label="Bienvenida"
+            className="relative flex flex-col items-center justify-center px-2 text-center"
           >
-            MICHI SUSHI
-          </h1>
-
-          <p className="mt-4 flex items-center gap-3 text-xs font-medium tracking-[0.4em] text-zinc-300 uppercase md:text-sm">
-            Café &amp; Sushi Bar
-            <Link
-              href="/about"
-              aria-label="Conócenos"
-              title="Conócenos"
-              className={`${sigokae.className} text-base tracking-normal text-white/80 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:text-lg`}
-            >
-              道
-            </Link>
-          </p>
-
-          <span
-            aria-hidden="true"
-            className="via-michi-sake mt-6 block h-px w-48 bg-linear-to-r from-transparent to-transparent md:w-64"
-          />
-
-          <p className="mt-6 max-w-md text-base text-balance text-zinc-300 drop-shadow-sm md:max-w-xl md:text-xl">
-            Gastronomía japonesa y cultura de tapeo. Tu punto de encuentro en
-            Granada.
-          </p>
-
-          <div className="pt-8">
-            <MichiCta
-              href="/reservation"
-              label="Reserva tu mesa"
-              variant="hero"
-              arrow
+            <div
+              aria-hidden="true"
+              className="from-michi-sake/15 pointer-events-none absolute inset-0 -z-10 bg-radial from-0% via-transparent via-55% to-transparent"
             />
-          </div>
-        </section>
+
+            <Image
+              src="/logos/logo_michi.webp"
+              alt=""
+              aria-hidden="true"
+              width={220}
+              height={220}
+              priority
+              className="-my-8 size-44 drop-shadow-[0_0_24px_rgba(240,152,72,0.25)] md:-my-10 md:size-56"
+            />
+
+            <h1
+              className={`${sigokae.className} text-6xl leading-none font-normal text-white md:text-8xl lg:text-7xl xl:text-8xl`}
+            >
+              MICHI SUSHI
+            </h1>
+
+            <p className="mt-4 flex items-center gap-3 text-xs font-medium tracking-[0.4em] text-zinc-300 uppercase md:text-sm">
+              Café &amp; Sushi Bar
+              <Link
+                href="/about"
+                aria-label="Conócenos"
+                title="Conócenos"
+                className={`${sigokae.className} text-base tracking-normal text-white/80 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:text-lg`}
+              >
+                道
+              </Link>
+            </p>
+
+            <span
+              aria-hidden="true"
+              className="via-michi-sake mt-6 block h-px w-48 bg-linear-to-r from-transparent to-transparent md:w-64"
+            />
+
+            <p className="mt-6 max-w-md text-base text-balance text-zinc-300 drop-shadow-sm md:max-w-xl md:text-xl">
+              Gastronomía japonesa y cultura de tapeo. Tu punto de encuentro en
+              Granada.
+            </p>
+
+            <div className="pt-8">
+              <MichiCta
+                href="/reservation"
+                label="Reserva tu mesa"
+                variant="hero"
+                arrow
+              />
+            </div>
+          </section>
+
+          <section
+            aria-label="Carrusel principal"
+            className="flex justify-center"
+          >
+            <HomeCarousel />
+          </section>
+        </div>
 
         <div className="flex flex-col gap-14 md:gap-20">
           <section
@@ -116,13 +124,6 @@ export default function Home() {
                 &rdquo;
               </p>
             </div>
-          </section>
-
-          <section
-            aria-label="Carrusel principal"
-            className="-mt-6 flex justify-center md:-mt-8"
-          >
-            <HomeCarousel />
           </section>
 
           <RevealOnScroll>
