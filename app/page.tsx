@@ -54,7 +54,7 @@ export default function Home() {
               width={220}
               height={220}
               priority
-              className="-my-10 size-44 drop-shadow-[0_0_24px_rgba(240,152,72,0.25)] md:-my-10 md:size-56"
+              className="-my-12 size-44 drop-shadow-[0_0_24px_rgba(240,152,72,0.25)] md:size-56"
             />
 
             <h1
