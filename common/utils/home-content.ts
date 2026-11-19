@@ -80,14 +80,14 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
 export const CONFIRMED_SCHEDULE = {
   monday: {
     days: "Lunes",
-    meals: { breakfast: "desde las 08:00", dinner: "20:00–23:00" },
+    meals: { breakfast: "desde las 08:00", dinner: "20:00 –2 3:00" },
   },
   tuesdayToSaturday: {
     days: "Martes a Sábado",
     meals: {
       breakfast: "desde las 08:00",
-      lunch: "13:00–16:00",
-      dinner: "20:00–23:00",
+      lunch: "13:00 – 16:00",
+      dinner: "20:00 – 23:00",
     },
   },
   sunday: {

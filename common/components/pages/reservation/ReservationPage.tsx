@@ -38,7 +38,6 @@ const STEP_COPY = {
   },
 } as const;
 
-
 const getDefaultDate = () => {
   const today = new Date();
   return today.getDay() === 0 ? addDays(today, 1) : today;
@@ -231,7 +230,7 @@ export function ReservationPage({ hours }: { hours: Hours }) {
           </div>
 
           <footer className="flex flex-col gap-3 border-t border-white/10 px-6 py-4 md:flex-row md:items-center md:justify-between md:px-8">
-            <p className="text-white text-sm first-letter:uppercase">
+            <p className="text-sm text-white first-letter:uppercase">
               {summary || "Elija fecha y comensales"}
             </p>
 

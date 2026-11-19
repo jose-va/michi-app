@@ -2,7 +2,6 @@
 
 import { es } from "react-day-picker/locale";
 import { Calendar } from "@/shadcn/components/calendar";
-import OpeningHours from "./OpeningHours";
 
 export default function ReservationCalendar({
   selectedValue,
@@ -27,10 +26,6 @@ export default function ReservationCalendar({
         weekStartsOn={1}
         className="mt-1 rounded-lg border [&_button[data-selected-single=true]]:bg-green-600 [&_button[data-selected-single=true]]:text-white"
       />
-
-      <div className="mt-1 flex flex-col items-start gap-4">
-        <OpeningHours />
-      </div>
     </div>
   );
 }
