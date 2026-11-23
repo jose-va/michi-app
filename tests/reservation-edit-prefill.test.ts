@@ -70,7 +70,7 @@ test("día no válido deja la fecha sin preselección", () => {
 
 // RF-2: comensales nulos o no válidos → sin preselección y resto normal.
 test("comensales nulos o no válidos dejan el campo sin preselección", () => {
-  for (const guests of [null, 0, -1, 13, 2.5]) {
+  for (const guests of [null, 0, -1, 15, 2.5]) {
     const values = buildEditInitialValues(
       reservationFixture({ guests: guests as never }),
       profile,
@@ -81,7 +81,7 @@ test("comensales nulos o no válidos dejan el campo sin preselección", () => {
   }
 });
 
-// RF-2: límites válidos de comensales (1 y 12) se preseleccionan.
+// RF-2: límites válidos de comensales (1 y 14) se preseleccionan.
 test("comensales en los límites válidos se preseleccionan", () => {
   assert.equal(
     buildEditInitialValues(reservationFixture({ guests: 1 }), profile, HOY)
@@ -89,9 +89,9 @@ test("comensales en los límites válidos se preseleccionan", () => {
     "1",
   );
   assert.equal(
-    buildEditInitialValues(reservationFixture({ guests: 12 }), profile, HOY)
+    buildEditInitialValues(reservationFixture({ guests: 14 }), profile, HOY)
       .guests,
-    "12",
+    "14",
   );
 });
 

@@ -2,6 +2,7 @@ import type { Hours } from "../types/hour.types";
 import type { Reservation } from "../types/reservation.types";
 import { extractCancelConflictMessage } from "./cancel-error";
 import { normalizeUserKey } from "./profile-reservations";
+import { MAX_GUESTS } from "./reservation-guests";
 
 // Lógica pura de la ruta `/reservation/edit` (spec 002, plan §2).
 // Sin fetch ni sesión: solo validación del parámetro `id` (RF-22), avisos
@@ -120,7 +121,7 @@ function parseReservationDate(raw: unknown): Date | null {
   return date;
 }
 
-// RF-2: comensales válidos (enteros 1–12, como ofrece la creación) como
+// RF-2: comensales válidos (enteros 1–MAX_GUESTS, como ofrece la creación) como
 // cadena del desplegable; nulos o no válidos → `""` sin preselección.
 function parseReservationGuests(raw: unknown): string {
   const value =
@@ -129,7 +130,7 @@ function parseReservationGuests(raw: unknown): string {
       : typeof raw === "string" && raw.trim() !== ""
         ? Number(raw)
         : NaN;
-  if (!Number.isInteger(value) || value < 1 || value > 12) {
+  if (!Number.isInteger(value) || value < 1 || value > MAX_GUESTS) {
     return "";
   }
   return String(value);

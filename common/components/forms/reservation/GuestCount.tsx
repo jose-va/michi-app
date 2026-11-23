@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shadcn/components/select";
+import { MAX_GUESTS } from "@/common/utils/reservation-guests";
 
 export default function GuestCount({ field }: { field: any }) {
   return (
@@ -26,7 +27,7 @@ export default function GuestCount({ field }: { field: any }) {
       >
         <SelectGroup>
           <SelectLabel>Introduzca un número</SelectLabel>
-          {Array.from({ length: 12 }).map((_, index) => {
+          {Array.from({ length: MAX_GUESTS }).map((_, index) => {
             const value = (index + 1).toString();
             return (
               <SelectItem key={value} value={value}>

@@ -48,11 +48,14 @@ next-env.d.ts
 # agents
 .agents/
 .opencode/
+.claude
 specs/
 MEMORY.md
 CLAUDE.md
 
 tests/**/*.ts
+
+.mcp.json
 
 
 
