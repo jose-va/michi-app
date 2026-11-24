@@ -1,6 +1,6 @@
 ﻿import Image from "next/image";
 import Link from "next/link";
-import { montserrat, sigokae, centuryGothic } from "./fonts/font";
+import { montserrat, centuryGothic } from "./fonts/font";
 import { HomeCarousel } from "@/common/components/ui/HomeCarousel";
 import FadeInLetters from "@/common/components/FadeInLetters";
 import { RevealOnScroll } from "@/common/components/ui/RevealOnScroll";
@@ -37,7 +37,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
       />
       <div className="flex flex-col gap-16 bg-transparent pb-20 md:gap-26">
-        <div className="flex flex-col gap-8 md:gap-10 lg:-mt-6 lg:grid lg:min-h-[calc(100svh-10rem)] lg:grid-cols-2 lg:items-center lg:gap-20 xl:gap-28">
+        <div className="mt-12 flex flex-col gap-8 md:gap-10 lg:grid lg:min-h-[calc(100svh-10rem)] lg:grid-cols-2 lg:items-center lg:gap-20 xl:gap-28">
           <section
             aria-label="Bienvenida"
             className="relative flex flex-col items-center justify-center px-2 text-center"
@@ -47,33 +47,16 @@ export default function Home() {
               className="from-michi-sake/15 pointer-events-none absolute inset-0 -z-10 bg-radial from-0% via-transparent via-55% to-transparent"
             />
 
-            <Image
-              src="/logos/logo_michi.webp"
-              alt=""
-              aria-hidden="true"
-              width={220}
-              height={220}
-              priority
-              className="-my-12 size-44 drop-shadow-[0_0_24px_rgba(240,152,72,0.25)] md:size-56"
-            />
-
-            <h1
-              className={`${sigokae.className} text-6xl leading-none font-normal text-white md:text-8xl lg:text-7xl xl:text-8xl`}
-            >
-              MICHI SUSHI
+            <h1>
+              <Image
+                src="/logos/LOGO-VERT-WHITE.webp"
+                alt="Michi Sushi"
+                width={301}
+                height={293}
+                preload
+                className="h-auto w-40 drop-shadow-[0_0_24px_rgba(240,152,72,0.25)] md:w-60 lg:w-56 xl:w-64"
+              />
             </h1>
-
-            <p className="mt-4 flex items-center gap-3 text-xs font-medium tracking-[0.4em] text-zinc-300 uppercase md:text-sm">
-              Café &amp; Sushi Bar
-              <Link
-                href="/about"
-                aria-label="Conócenos"
-                title="Conócenos"
-                className={`${sigokae.className} text-base tracking-normal text-white/80 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:text-lg`}
-              >
-                道
-              </Link>
-            </p>
 
             <span
               aria-hidden="true"
