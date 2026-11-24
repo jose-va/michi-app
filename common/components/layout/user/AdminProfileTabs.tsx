@@ -96,11 +96,6 @@ function TodayReservationRow({
 
 export default async function AdminProfileTabs({ user }: { user: User }) {
   const todayKey = getTodayKey(new Date(), "Europe/Madrid");
-  const timeLabel = new Intl.DateTimeFormat("es-ES", {
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZone: "Europe/Madrid",
-  }).format(new Date());
   const reservations = await getReservationsWithAutoCancel(todayKey);
   const active = (reservations ?? []).filter((r) => r.state !== "CANCELLED");
   const ordered = sortReservationsByTimeAndName(active);
@@ -109,7 +104,7 @@ export default async function AdminProfileTabs({ user }: { user: User }) {
   return (
     <Tabs defaultValue="reservas-hoy" className="flex min-w-0 flex-col">
       <p className="mb-2 text-sm text-white/80">
-        {formatDayLabel(todayKey)} · {timeLabel}
+        {formatDayLabel(todayKey)}
       </p>
       <TabsList variant="line">
         <TabsTrigger value="reservas-hoy">Reservas</TabsTrigger>
