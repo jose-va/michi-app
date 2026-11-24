@@ -7,6 +7,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/shadcn/components/tabs";
+import { isInactiveReservation } from "@/common/utils/reservation-day";
 import ReservationCard from "./ReservationCard";
 import { ReservationEmpty } from "./ReservationEmpty";
 
@@ -17,9 +18,9 @@ export default function ReservationShiftTabs({
   lunch: Reservation[];
   dinner: Reservation[];
 }) {
-  const activeLunchCount = lunch.filter((r) => r.state !== "CANCELLED").length;
+  const activeLunchCount = lunch.filter((r) => !isInactiveReservation(r.state)).length;
   const activeDinnerCount = dinner.filter(
-    (r) => r.state !== "CANCELLED"
+    (r) => !isInactiveReservation(r.state)
   ).length;
   return (
     <Tabs defaultValue="comida" className="flex flex-col">

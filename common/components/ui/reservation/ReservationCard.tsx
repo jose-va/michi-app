@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Reservation } from "@/common/types/reservation.types";
 import { getCatAvatarUrl } from "@/common/utils/cat-avatar";
+import { isInactiveReservation } from "@/common/utils/reservation-day";
 import { Badge } from "@/shadcn/components/badge";
 import {
   Card,
@@ -43,7 +44,7 @@ export default function ReservationCard({
       <Card
         className={cn(
           "black-glassmorphism hover:shadow-4xl relative h-full rounded-lg border duration-500 hover:-translate-y-2 mt-2",
-          reservation.state === "CANCELLED" && "opacity-60 grayscale"
+          isInactiveReservation(reservation.state) && "opacity-60 grayscale"
         )}
       >
         <CardHeader>
@@ -89,7 +90,7 @@ export default function ReservationCard({
             <Phone className="size-4" /> {reservation.phone}
           </Link>
         </CardFooter>
-        {reservation.id && reservation.state !== "CANCELLED" && (
+        {reservation.id && !isInactiveReservation(reservation.state) && (
           <ReservationCancel id={reservation.id} name={reservation.name} date={reservation.date} startTime={reservation.startTime} triggerButtonClassName="absolute top-2 right-4" />
         )}
       </Card>

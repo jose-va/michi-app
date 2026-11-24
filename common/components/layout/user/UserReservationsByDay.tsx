@@ -10,6 +10,7 @@ import {
   dateToDateKey,
   formatDayLabel,
   groupReservationsByShift,
+  isInactiveReservation,
   isPastKey,
   isSundayKey,
   nextOpenKey,
@@ -53,7 +54,7 @@ function UserReservationDetail({
           </Badge>
         </p>
       ) : null}
-      {reservation.id && reservation.state !== "CANCELLED" ? (
+      {reservation.id && !isInactiveReservation(reservation.state) ? (
         <div className="absolute -top-2 right-0 flex items-start gap-0">
           <ReservationEdit id={reservation.id} name={reservation.name} />
           <ReservationCancel
@@ -129,7 +130,7 @@ export default function UserReservationsByDay({
   const active =
     reservations === null
       ? null
-      : reservations.filter((r) => r.state !== "CANCELLED");
+      : reservations.filter((r) => !isInactiveReservation(r.state));
   const ordered =
     active === null ? null : sortReservationsByTimeAndName(active);
   const groups = ordered === null ? null : groupReservationsByShift(ordered);

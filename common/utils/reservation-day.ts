@@ -146,7 +146,19 @@ export function formatDayLabel(dateKey: string): string {
 
 export const NO_SHOW_GRACE_MINUTES = 30;
 
-export const NO_SHOW_CANCEL_BATCH_SIZE = 5;
+export const AUTO_FINISH_BATCH_SIZE = 5;
+
+export const CONFIRMED_STATE = "CONFIRMED";
+
+export const CANCELLED_STATE = "CANCELLED";
+
+export const FINISHED_STATE = "FINISHED";
+
+export function isInactiveReservation(
+  state: string | null | undefined,
+): boolean {
+  return state === CANCELLED_STATE || state === FINISHED_STATE;
+}
 
 const START_TIME_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)$/;
 
@@ -220,23 +232,23 @@ export function isNoShowExpired(
   );
 }
 
-export type AutoCancelNoShowsResult = {
+export type AutoFinishExpiredResult = {
   reservations: Reservation[];
   attempted: number;
-  cancelled: number;
+  finished: number;
   failed: number;
 };
 
-export async function autoCancelNoShows(
+export async function autoFinishExpired(
   reservations: Reservation[],
-  cancel: (id: string) => Promise<unknown>,
+  finish: (id: string) => Promise<unknown>,
   now: Date = new Date(),
-  batchSize: number = NO_SHOW_CANCEL_BATCH_SIZE,
-): Promise<AutoCancelNoShowsResult> {
+  batchSize: number = AUTO_FINISH_BATCH_SIZE,
+): Promise<AutoFinishExpiredResult> {
   const candidateIndexes: number[] = [];
   reservations.forEach((reservation, index) => {
     if (
-      reservation.state !== "CANCELLED" &&
+      reservation.state === CONFIRMED_STATE &&
       typeof reservation.id === "string" &&
       reservation.id.length > 0 &&
       isNoShowExpired(reservation.date, reservation.startTime, now)
@@ -246,49 +258,49 @@ export async function autoCancelNoShows(
   });
   const attempted = candidateIndexes.length;
   if (attempted === 0) {
-    return { reservations, attempted: 0, cancelled: 0, failed: 0 };
+    return { reservations, attempted: 0, finished: 0, failed: 0 };
   }
   const size =
     Number.isInteger(batchSize) && batchSize > 0
       ? batchSize
-      : NO_SHOW_CANCEL_BATCH_SIZE;
-  const cancelledIds = new Set<string>();
+      : AUTO_FINISH_BATCH_SIZE;
+  const finishedIds = new Set<string>();
   for (let i = 0; i < candidateIndexes.length; i += size) {
     const batch = candidateIndexes.slice(i, i + size);
     const results = await Promise.allSettled(
       batch.map((index) => {
         const id = reservations[index]?.id;
-        return cancel(id as string);
+        return finish(id as string);
       }),
     );
     results.forEach((result, position) => {
       if (result.status === "fulfilled" && result.value !== false) {
         const id = reservations[batch[position] as number]?.id;
         if (typeof id === "string") {
-          cancelledIds.add(id);
+          finishedIds.add(id);
         }
       }
     });
   }
-  const cancelled = cancelledIds.size;
-  const failed = attempted - cancelled;
-  if (cancelled === 0) {
-    return { reservations, attempted, cancelled: 0, failed };
+  const finished = finishedIds.size;
+  const failed = attempted - finished;
+  if (finished === 0) {
+    return { reservations, attempted, finished: 0, failed };
   }
   const updated = reservations.map((reservation) =>
-    typeof reservation.id === "string" && cancelledIds.has(reservation.id)
-      ? { ...reservation, state: "CANCELLED" }
+    typeof reservation.id === "string" && finishedIds.has(reservation.id)
+      ? { ...reservation, state: FINISHED_STATE }
       : reservation,
   );
-  return { reservations: updated, attempted, cancelled, failed };
+  return { reservations: updated, attempted, finished, failed };
 }
 
 export function sortReservationsByTimeAndName(items: Reservation[]): Reservation[] {
   return [...items].sort((a, b) => {
-    const aCancelled = a.state === "CANCELLED" ? 1 : 0;
-    const bCancelled = b.state === "CANCELLED" ? 1 : 0;
-    if (aCancelled !== bCancelled) {
-      return aCancelled - bCancelled;
+    const aInactive = isInactiveReservation(a.state) ? 1 : 0;
+    const bInactive = isInactiveReservation(b.state) ? 1 : 0;
+    if (aInactive !== bInactive) {
+      return aInactive - bInactive;
     }
     if (a.startTime !== b.startTime) {
       return a.startTime < b.startTime ? -1 : 1;

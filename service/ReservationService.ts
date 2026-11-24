@@ -9,6 +9,17 @@ export type CancelReservationResult =
   | { ok: true }
   | { ok: false; status: 403 | 404 | 409 | 500; message?: string };
 
+export type FinishReservationResult =
+  | { ok: true }
+  | { ok: false; status: 403 | 404 | 409 | 500 };
+
+export type FinishReservationOverrides = {
+  token?: string;
+  userRole?: string | null;
+  fetcher?: typeof fetch;
+  baseUrl?: string;
+};
+
 export type CreateReservationResult =
   | { ok: true; reservation: Reservation }
   | {
@@ -185,6 +196,57 @@ export class ReservationService {
       return { ok: false, status: 500 };
     } catch {
       console.error("No se ha podido cancelar la reserva");
+      return { ok: false, status: 500 };
+    }
+  }
+
+  static async finishReservation(
+    id: string,
+    overrides?: FinishReservationOverrides
+  ): Promise<FinishReservationResult> {
+    if (!id) {
+      return { ok: false, status: 404 };
+    }
+    const baseUrl =
+      overrides?.baseUrl ?? process.env.BACKEND_URL ?? this.baseUrl;
+    const fetcher = overrides?.fetcher ?? fetch;
+    try {
+      let sessionToken: string | undefined;
+      let isAdmin: boolean;
+      if (overrides && ("token" in overrides || "userRole" in overrides)) {
+        sessionToken = overrides.token || undefined;
+        isAdmin = overrides.userRole === ADMIN_ROLE;
+      } else {
+        sessionToken = (await cookies()).get("token")?.value;
+        const profile = sessionToken ? await UserService.getProfile() : null;
+        isAdmin = profile?.role === ADMIN_ROLE;
+      }
+
+      const response = await fetcher(
+        `${baseUrl}/reservations/${encodeURIComponent(id)}/finish`,
+        {
+          method: "PATCH",
+          headers: {
+            ...(sessionToken ? { Cookie: `token=${sessionToken}` } : {}),
+            ...(isAdmin ? { "User-Role": ADMIN_ROLE } : {}),
+          },
+          cache: "no-store",
+        }
+      );
+
+      if (response.ok) {
+        return { ok: true };
+      }
+      if (
+        response.status === 403 ||
+        response.status === 404 ||
+        response.status === 409
+      ) {
+        return { ok: false, status: response.status };
+      }
+      return { ok: false, status: 500 };
+    } catch {
+      console.error("No se ha podido finalizar la reserva");
       return { ok: false, status: 500 };
     }
   }

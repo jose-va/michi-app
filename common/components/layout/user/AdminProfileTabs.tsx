@@ -6,6 +6,7 @@ import { buildTelHref } from "@/common/utils/phone-tel";
 import { getTodayKey } from "@/common/utils/profile-day";
 import {
   formatDayLabel,
+  isInactiveReservation,
   sortReservationsByTimeAndName,
 } from "@/common/utils/reservation-day";
 import { Separator } from "@/shadcn/components/separator";
@@ -59,7 +60,7 @@ function TodayReservationDetail({ reservation }: { reservation: Reservation }) {
           ) : null}
         </Link>
       </SheetClose>
-      {reservation.id && reservation.state !== "CANCELLED" ? (
+      {reservation.id && !isInactiveReservation(reservation.state) ? (
         <div className="mt-1 flex w-fit items-center gap-2">
           <ReservationCancel
             id={reservation.id}
@@ -97,17 +98,17 @@ function TodayReservationRow({
 export default async function AdminProfileTabs({ user }: { user: User }) {
   const todayKey = getTodayKey(new Date(), "Europe/Madrid");
   const reservations = await getReservationsWithAutoCancel(todayKey);
-  const active = (reservations ?? []).filter((r) => r.state !== "CANCELLED");
+  const active = (reservations ?? []).filter((r) => !isInactiveReservation(r.state));
   const ordered = sortReservationsByTimeAndName(active);
   const visible = ordered.slice(0, 3);
 
   return (
     <Tabs defaultValue="reservas-hoy" className="flex min-w-0 flex-col">
-      <p className="mb-2 text-sm text-white/80">
+      <p className="mb-2 text-sm text-white">
         {formatDayLabel(todayKey)}
       </p>
       <TabsList variant="line">
-        <TabsTrigger value="reservas-hoy">Reservas</TabsTrigger>
+        <TabsTrigger value="reservas-hoy">Reservas del día</TabsTrigger>
         <TabsTrigger value="opciones">Opciones</TabsTrigger>
       </TabsList>
       <TabsContent value="reservas-hoy">

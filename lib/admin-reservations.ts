@@ -2,7 +2,7 @@ import "server-only";
 
 import { cache } from "react";
 import type { Reservation } from "@/common/types/reservation.types";
-import { autoCancelNoShows } from "@/common/utils/reservation-day";
+import { autoFinishExpired } from "@/common/utils/reservation-day";
 import { ReservationService } from "@/service/ReservationService";
 
 export const getReservationsWithAutoCancel = cache(
@@ -11,13 +11,13 @@ export const getReservationsWithAutoCancel = cache(
     if (reservations === null) {
       return null;
     }
-    const result = await autoCancelNoShows(reservations, async (id) => {
-      const cancelResult = await ReservationService.cancelReservation(id);
-      return cancelResult.ok;
+    const result = await autoFinishExpired(reservations, async (id) => {
+      const finishResult = await ReservationService.finishReservation(id);
+      return finishResult.ok;
     });
     if (result.failed > 0) {
       console.error(
-        `auto-cancel no-show: ${result.cancelled}/${result.attempted} ok, ${result.failed} fallo`
+        `auto-finish: ${result.finished}/${result.attempted} ok, ${result.failed} fallo`
       );
     }
     return result.reservations;
