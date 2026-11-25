@@ -2,8 +2,8 @@
 
 import { Reservation } from "@/common/types/reservation.types";
 import { ReservationFormValues } from "@/common/types/reservation-form.types";
-import { format } from "date-fns";
 import { normalizeUserKey } from "@/common/utils/profile-reservations";
+import { isReservationDateKey } from "@/common/utils/reservation-day";
 import { ProductFormValues } from "@/common/types/product-form.types";
 import { Product } from "@/common/types/product.types";
 import { ProductService } from "@/service/ProductService";
@@ -49,8 +49,13 @@ function hasSessionOverride(overrides?: ReservationEditOverrides): boolean {
 }
 
 export async function createReservation(
-  data: Omit<ReservationFormValues, "user">
+  data: Omit<ReservationFormValues, "user" | "date"> & { date: string }
 ): Promise<CreateReservationResult> {
+  // La fecha llega ya formateada en cliente (`toReservationDateKey`).
+  if (!isReservationDateKey(data.date)) {
+    return { ok: false, error: "UNKNOWN" };
+  }
+
   const profile = await UserService.getProfile();
 
   const guests = Number(data.guests);
@@ -62,7 +67,7 @@ export async function createReservation(
     const result = await ReservationService.createReservation({
       ...data,
       user: normalizeUserKey(profile?.id), // "" para invitados
-      date: format(data.date, "yyyy-MM-dd"),
+      date: data.date,
       guests,
     });
     if (result.ok) revalidatePath("/reservation");

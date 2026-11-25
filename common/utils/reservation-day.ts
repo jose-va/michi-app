@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import type { Reservation } from "@/common/types/reservation.types";
 
 export { getTodayKey } from "@/common/utils/profile-day";
@@ -46,6 +47,16 @@ export function isValidDateKey(value: unknown): boolean {
     return false;
   }
   return true;
+}
+
+// Fecha de reserva para las server actions: se formatea en cliente con los
+// componentes locales del Date (el servidor corre en UTC y desplazaría el día).
+export function toReservationDateKey(date: Date): string {
+  return format(date, "yyyy-MM-dd");
+}
+
+export function isReservationDateKey(value: unknown): value is string {
+  return typeof value === "string" && DATE_KEY_PATTERN.test(value);
 }
 
 export function resolveSelectedDateKey(raw: unknown, todayKey: string): string {

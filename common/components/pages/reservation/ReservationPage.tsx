@@ -20,6 +20,7 @@ import DateForm from "@/common/components/forms/reservation/DateForm";
 import AvailabilityForm from "@/common/components/forms/reservation/AvailabilityForm";
 import { createReservation } from "@/lib/server-actions";
 import { buildReservationWhatsappUrl } from "@/common/utils/whatsapp-contact";
+import { toReservationDateKey } from "@/common/utils/reservation-day";
 import { normalizeUserKey } from "@/common/utils/profile-reservations";
 import { useUser } from "../../provider/UserProvider";
 import { Hours } from "@/common/types/hour.types";
@@ -80,7 +81,10 @@ export function ReservationPage({ hours }: { hours: Hours }) {
     try {
       // Quitamos `user`: la identidad la resuelve el servidor con la sesión.
       const { user: _ignored, ...values } = data;
-      const result = await createReservation(values);
+      const result = await createReservation({
+        ...values,
+        date: toReservationDateKey(data.date),
+      });
 
       toast.dismiss(loadingId);
 
