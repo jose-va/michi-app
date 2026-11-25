@@ -44,6 +44,7 @@ Las pruebas TypeScript usan el runner integrado de Node mediante `tsx`: ejecuta 
 - Los servicios leen `process.env.BACKEND_URL`. Las peticiones autenticadas obtienen la cookie `token` y la reenvían al backend.
 - `app/auth/route.ts` toma `token` de la query y lo guarda como cookie; logout está en `lib/server-actions.ts`. Comprueba ambos puntos antes de cambiar el flujo de autenticación.
 - Estados de reserva: `CONFIRMED`, `CANCELLED` (cancelación manual, `DELETE /reservations/{id}`) y `FINISHED` (automático a los 30 min del inicio en Europe/Madrid, vía `PATCH /reservations/{id}/finish`, solo admin). El marcado lo dispara el frontend al cargar las vistas de admin (`lib/admin-reservations.ts`); no hay tarea programada. Usa `isInactiveReservation` (`common/utils/reservation-day.ts`) para filtrar.
+- Las fechas de reserva viajan a las server actions como `yyyy-MM-dd` formateadas en cliente (`toReservationDateKey` en `common/utils/reservation-day.ts`); nunca pases un `Date` (el servidor corre en UTC y desplaza el día).
 - La implementación del backend no está aquí. No inventes endpoints ni payloads; verifica los cambios de contrato contra el código y el comportamiento esperado del backend.
 - Dominio canónico SEO: `https://michisushigranada.es` (apex sin `www`, también en `metadataBase`); `robots.txt` y `sitemap.xml` se generan en `app/robots.ts` y `app/sitemap.ts`, nunca en `public/`. En Vercel: `www` → apex 301 en `vercel.json` (`http` → `https` lo fuerza la plataforma); previews/local exentos.
 
